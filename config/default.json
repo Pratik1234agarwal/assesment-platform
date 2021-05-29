@@ -1,0 +1,12 @@
+{
+    "mongoURI": "mongodb://localhost/ikigai",
+    "JSONTokenSecret":"IkigaiLab",
+    "googleClientId":"521318738342-i70cjou2f2p82ejhmai4a6qj4508qi63.apps.googleusercontent.com",
+    "googleSecretId":"d0pprzB_rvzOiovNA2c0UXvL",
+    "googleCallbackSuccess":"http://localhost:5000/api/v1/auth/google/success",
+    "facebookCallbackSuccess":"http://localhost:5000/api/v1/auth/facebook/success",
+    "facebookAppId":"198177068515749",
+    "facebookSecretId":"8c1d384f215f341d1e8d256f9ef157f2",
+    "hostUrl":"http://localhost:5000",
+    "DsatTimeinMinutes":200
+}
