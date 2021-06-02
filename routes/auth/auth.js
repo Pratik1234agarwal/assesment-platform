@@ -13,6 +13,7 @@ const {
   failErrorResponse,
 } = require("../../helpers/responseHandles");
 const resetPassword = require("./resetPassword");
+const sendMailAfterRegistration = require("../../Nodemailer/mailTemplates/mailSendOnRegistration");
 
 // Routes for reset password
 router.use("/reset", resetPassword);
@@ -72,6 +73,9 @@ router.post(
           id: user._id,
         },
       };
+
+      // Send Registration mail
+      sendMailAfterRegistration(req.body.email);
 
       // Return JWT Token
       jwt.sign(

@@ -1,5 +1,6 @@
 const Questions = require("./models/Questions");
 require("./config/db")();
+require("./Nodemailer/mailTemplates/mailSendingWithTimeslot");
 
 const addQuestion = async () => {
   try {
@@ -21,7 +22,7 @@ const addQuestion = async () => {
   }
 };
 
-setTimeout(() => addQuestion(), 1000);
+//setTimeout(() => addQuestion(), 1000);
 
 const questionList = [
   {
@@ -247,10 +248,8 @@ const questionList = [
       "The future of women in India is quite bright and let us hope that they will justify their abilities by rising to the occasion. Napoleon was right when he declared that by educating the women we can educate the whole nation. Because a country can never rise without the contribution of 50% of their population. The passage best supports the statement that:",
     A: "India is striving hard for the emancipation of women.",
     B: "all women should be well educated.",
-    C:
-      "a nation can progress only when women are given equal rights and opportunities as men.",
-    D:
-      " women ought to be imparted full freedom to prove their worth and contribute to the progress of the nation.",
+    C: "a nation can progress only when women are given equal rights and opportunities as men.",
+    D: " women ought to be imparted full freedom to prove their worth and contribute to the progress of the nation.",
     "Answer 1": "D",
   },
   {
