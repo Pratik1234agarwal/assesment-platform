@@ -29,7 +29,7 @@ const Sidepanel = () => {
 
   function profile() {
     axios
-      .get("http://localhost:5000/api/v1/auth", {
+      .get("/auth", {
         headers: {
           Authorization: `Token ${localStorage.getItem("token")}`,
         },
@@ -172,23 +172,23 @@ const Sidepanel = () => {
     }
   };
 
-  const StatusCheck = async () => {
-    if (localStorage.getItem("token")) {
-      const config = {
-        headers: {
-          Authorization: `Token ${localStorage.getItem("token")}`,
-        },
-      };
-      try {
-        const res = await axios.get("dsat/questionPaper", config);
-        console.log(res.data);
-      } catch (err) {
-        console.log(err);
-        console.log(err.response.data.msg);
-        if (err.response && err.response.data) alert(err.response.data.message);
-      }
-    }
-  };
+  // const StatusCheck = async () => {
+  //   if (localStorage.getItem("token")) {
+  //     const config = {
+  //       headers: {
+  //         Authorization: `Token ${localStorage.getItem("token")}`,
+  //       },
+  //     };
+  //     try {
+  //       const res = await axios.get("dsat/questionPaper", config);
+  //       console.log(res.data);
+  //     } catch (err) {
+  //       console.log(err);
+  //       console.log(err.response.data.msg);
+  //       if (err.response && err.response.data) alert(err.response.data.message);
+  //     }
+  //   }
+  // };
 
   return (
     <>

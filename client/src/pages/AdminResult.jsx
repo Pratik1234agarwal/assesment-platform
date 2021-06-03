@@ -27,7 +27,7 @@ const AdminResult = () => {
       };
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/v1/admin/result/dsat/generateResult",
+          "/admin/result/dsat/generateResult",
           config
         );
         console.log(res);
@@ -58,7 +58,7 @@ const AdminResult = () => {
         },
       };
       axios
-        .get("http://localhost:5000/api/v1/admin/result/sendMail", config)
+        .get("/admin/result/sendMail", config)
         .then(function (res) {
           console.log(res);
           alert("Reault Mail have been sent to the students");
