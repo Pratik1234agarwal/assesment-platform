@@ -31,7 +31,7 @@ const Question = ({ question, onAnswer }) => {
   const onChange = async (e) => {
     try {
       const res = await axios.post(
-        "dsat/answer",
+        "api/v1/dsat/answer",
         {
           questionId: question.questionId,
           answer: e.target.value,

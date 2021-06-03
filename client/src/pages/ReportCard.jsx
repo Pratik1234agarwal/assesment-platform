@@ -43,7 +43,7 @@ const ReportCard = () => {
       try {
         axios
           .all([
-            axios.get("/result/generate", config),
+            axios.get("/api/v1/admin/result/dsat/generateResult", config),
             axios.get("/auth", config),
           ])
           .then(

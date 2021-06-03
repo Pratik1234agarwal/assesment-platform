@@ -46,7 +46,7 @@ const SidePaneQuestions = ({
         },
       };
       axios
-        .get("dsat/questionPaper", config)
+        .get("api/v1/dsat/questionPaper", config)
         .then(function (res) {
           setstatusans(res.data.data.paper.questions);
         })

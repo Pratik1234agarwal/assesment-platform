@@ -17,7 +17,7 @@ app.use(passport.initialize());
 
 connectDB();
 
-const PORT = process.env.PORT || 80;
+const PORT = process.env.PORT || 5000;
 
 // app.get("/", (req, res) => {
 //   res.send("Hello");

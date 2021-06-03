@@ -44,7 +44,7 @@ const AdminTestSet = () => {
       },
     };
     axios
-      .post("/admin/test/create", item, config)
+      .post("/api/v1/admin/test/create", item, config)
       .then((res) => {
         console.log(res);
         <QuestionAdd

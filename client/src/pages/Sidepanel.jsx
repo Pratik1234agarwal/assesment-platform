@@ -29,7 +29,7 @@ const Sidepanel = () => {
 
   function profile() {
     axios
-      .get("/auth", {
+      .get("/api/v1/auth", {
         headers: {
           Authorization: `Token ${localStorage.getItem("token")}`,
         },
@@ -112,7 +112,7 @@ const Sidepanel = () => {
           Authorization: `Token ${localStorage.getItem("token")}`,
         },
       };
-      await axios.get("/dsat/submit/test", config);
+      await axios.get("/api/v1/dsat/submit/test", config);
       alert("Test has been submitted");
 
       history.push("/finish");
@@ -134,7 +134,7 @@ const Sidepanel = () => {
         },
       };
       axios
-        .get("dsat/questionPaper", config)
+        .get("/api/v1/dsat/questionPaper", config)
         .then(function (res) {
           // console.log(res.data);
           // setQuestionsop(res.data.data.paper.questions);
@@ -159,7 +159,7 @@ const Sidepanel = () => {
         },
       };
       axios
-        .get("dsat/questionPaper", config)
+        .get("/api/v1/dsat/questionPaper", config)
         .then(function (res) {
           // console.log(res.data);
           // setQuestionsop(res.data.data.paper.questions);
@@ -205,7 +205,7 @@ const Sidepanel = () => {
           </div>
           <div className="col-4 text-center">
             <h4 className="pt-3">DSAT - Online</h4>
-            <Cameraweb />
+            {/* <Cameraweb /> */}
           </div>
           <div className="col float-right">
             <div className="row pt-2">

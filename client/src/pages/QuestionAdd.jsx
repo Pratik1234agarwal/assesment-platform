@@ -28,7 +28,7 @@ const QuestionAdd = ({ testname, questno, marksques, negmarks }) => {
       },
     };
     axios
-      .post("/admin/questions/add", item, config)
+      .post("/api/v1/admin/questions/add", item, config)
       .then((res) => {
         console.log(res);
         alert("Question added");

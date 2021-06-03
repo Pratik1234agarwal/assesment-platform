@@ -28,7 +28,7 @@ const Loginout = () => {
     let item = { name, email, phone, category, university, password };
     console.warn(item);
     axios
-      .post("/auth/signup", item)
+      .post("/api/v1/auth/signup", item)
       .then((res) => {
         console.log(res);
         localStorage.setItem("token", res.data.data.token);
@@ -49,7 +49,7 @@ const Loginout = () => {
     let items = { email, password };
     console.warn(items);
     axios
-      .post("/auth/login", items)
+      .post("/api/v1/auth/login", items)
       .then((res) => {
         console.log(res);
         // console.log(res.data.data.token);

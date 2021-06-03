@@ -26,7 +26,7 @@ const Admin1 = () => {
       };
       try {
         const res = await axios.get(
-          "/admin/result/dsat/generateResult",
+          "/api/v1/admin/result/dsat/generateResult",
           config
         );
         console.log(res);
