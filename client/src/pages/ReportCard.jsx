@@ -16,13 +16,13 @@ const ReportCard = () => {
   const [useremail, setuseremail] = useState("");
   const [phone, setphone] = useState("");
   const [university, setuniversity] = useState("");
-  const [result,setResult] = useState({
-    correct:0,
-    incorrect:0,
-    notAttempted:0,
-    total:0,
-  })
-  const {correct,incorrect,notAttempted } = result;
+  const [result, setResult] = useState({
+    correct: 0,
+    incorrect: 0,
+    notAttempted: 0,
+    total: 0,
+  });
+  const { correct, incorrect, notAttempted } = result;
   const logout = () => {
     localStorage.removeItem("token");
     history.push("/");
@@ -43,8 +43,8 @@ const ReportCard = () => {
       try {
         axios
           .all([
-            axios.get("http://localhost:5000/api/v1/result/generate", config),
-            axios.get("http://localhost:5000/api/v1/auth", config),
+            axios.get("/result/generate", config),
+            axios.get("/auth", config),
           ])
           .then(
             axios.spread((obj1, obj2) => {
@@ -59,7 +59,7 @@ const ReportCard = () => {
               setusername(obj2.data.data.user.name);
               setuseremail(obj2.data.data.user.email);
               setphone(obj2.data.data.user.phone);
-              setResult(obj1.data.data.report)
+              setResult(obj1.data.data.report);
             })
           );
         // console.log(res.data);
