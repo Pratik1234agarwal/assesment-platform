@@ -65,7 +65,7 @@ const Sidepanel = () => {
         },
       };
       try {
-        const res = await axios.get("dsat/questionPaper", config);
+        const res = await axios.get("/api/v1/dsat/questionPaper", config);
         console.log(res.data);
         const startedAt = new Date(res.data.data.paper.startedAt).getTime();
         console.log(startedAt);
@@ -112,7 +112,7 @@ const Sidepanel = () => {
           Authorization: `Token ${localStorage.getItem("token")}`,
         },
       };
-      await axios.get("dsat/submit/test", config);
+      await axios.get("/dsat/submit/test", config);
       alert("Test has been submitted");
 
       history.push("/finish");

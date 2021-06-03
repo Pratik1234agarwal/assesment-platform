@@ -19,9 +19,9 @@ connectDB();
 
 const PORT = process.env.PORT || 5000;
 
-app.get("/", (req, res) => {
-  res.send("Hello");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello");
+// });
 
 app.use("/api/v1/auth", require("./routes/auth/auth"));
 app.use("/api/v1/dsat", require("./routes/DSAT/exam"));
