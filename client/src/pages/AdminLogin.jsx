@@ -21,7 +21,7 @@ const AdminLogin = () => {
     let item = { username, password };
     console.warn(item);
     axios
-      .post("http://localhost:5000/api/v1/admin/login", item)
+      .post("/admin/login", item)
       .then((res) => {
         console.log(res);
         localStorage.setItem("Admin", res.data.data.token);

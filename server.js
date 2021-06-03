@@ -11,7 +11,7 @@ app.use(logger("dev"));
 app.use(express.json({ extended: true }));
 app.use(express.urlencoded());
 app.use(cors());
-app.use(express.static(path.join(__dirname, "template")));
+app.use(express.static(path.join(__dirname, "client", "build")));
 
 app.use(passport.initialize());
 
@@ -30,4 +30,8 @@ app.use("/api/v1/admin", require("./routes/admin/adminAuth"));
 
 app.listen(PORT, () => {
   console.log("Server running on PORT : ", PORT);
+});
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
