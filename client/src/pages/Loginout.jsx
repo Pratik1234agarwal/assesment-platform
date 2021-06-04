@@ -195,10 +195,10 @@ const Loginout = () => {
               </div>
               <div class="overlay-panel overlay-right">
                 <h2>Hello, Students!</h2>
-                <p>Please login with your personal info</p>
-                <button class="ghost but" id="signUp">
+                <p>Welcome to A-DSAT! Wish you best of luck</p>
+                {/* <button class="ghost but" id="signUp">
                   Sign In
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

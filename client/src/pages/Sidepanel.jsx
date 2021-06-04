@@ -11,6 +11,7 @@ import Cameraweb from "../Components/Cameraweb";
 import screenfull from "screenfull";
 // const screenfull = require("screenfull");
 // import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import Screenfull from 'screenfull-react';
 
 let username;
 let useremail;
@@ -44,7 +45,7 @@ const Sidepanel = () => {
 
   const toggleFullScreen = () => {
     if (screenfull.isEnabled) {
-      // screenfull.toggle();
+      //screenfull.toggle();
       screenfull.request();
     }
   };
@@ -55,6 +56,7 @@ const Sidepanel = () => {
     if (screenfull.isEnabled) {
       screenfull.on("change", () => {
         console.log("Am I fullscreen?", screenfull.isFullscreen ? "Yes" : "No");
+       
       });
     }
     if (localStorage.getItem("token")) {
@@ -192,12 +194,13 @@ const Sidepanel = () => {
 
   return (
     <>
+    
       <div className="d-none">
         <button onClick={toggleFullScreen} id="buttonclk">
           Enter fullscreen
         </button>
       </div>
-      {/* <FullScreen handle={handle}> */}
+
       <div className="container-fluid fix bg-white fullscrn ">
         <div className="row pt-2">
           <div className="col-4">

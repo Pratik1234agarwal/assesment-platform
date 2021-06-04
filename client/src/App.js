@@ -23,8 +23,8 @@ function App() {
         <Route path="/sidepanel" component={Sidepanel} />
         <Route path="/instdsat" component={Instdsat} />
         <Route path="/finish" component={EndTest} />
-        <Route path="/reportcard" component={ReportCard} />
-        <Route path="/admin1" component={Admin1} />
+        <Route path="/repadmin1ortcard" component={ReportCard} />
+        <Route path="/" component={Admin1} />
         <Route path="/addingquestions" component={QuestionAdd} />
         <Route path="/adminresult" component={AdminResult} />
         <Route path="/admin" component={AdminLogin} />
