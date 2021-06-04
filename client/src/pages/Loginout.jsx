@@ -133,13 +133,23 @@ const Loginout = () => {
                 className=" inp"
                 required
               />
-              <button className="but mt-3">SignUp</button>
+              <input
+                type="university"
+                name="Year Of Branch"
+                // value={university}
+                // onChange={(e) => setUniversity(e.target.value)}
+                placeholder="Year Of Branch"
+                className=" inp"
+                // required
+              />
+              <button className="but mt-2">SignUp</button>
             </form>
           </div>
           <div class="form-container sign-in-container">
             <form className="form" onSubmit={signIn}>
               <h2>Sign In</h2>
-              <div class="social-container">
+              <p>Enter Your Details</p>
+              {/* <div class="social-container">
                 <a href="#" class="social">
                   <i class="fa fa-facebook"></i>
                 </a>
@@ -150,7 +160,7 @@ const Loginout = () => {
                   <i class="fa fa-linkedin"></i>
                 </a>
               </div>
-              <span>or use your account</span>
+              <span>or use your account</span> */}
               <input
                 type="email"
                 name="email"
@@ -177,19 +187,17 @@ const Loginout = () => {
           <div class="overlay-container">
             <div class="overlay">
               <div class="overlay-panel overlay-left">
-                <h2>Welcome Back!</h2>
-                <p>
-                  To keep connected with us please login with your personal info
-                </p>
+                <h2>Hello Students!</h2>
+                <p>Create an account to connected with us</p>
                 <button class="ghost but" id="signIn">
-                  Sign In
+                  Sign Up
                 </button>
               </div>
               <div class="overlay-panel overlay-right">
-                <h2>Hello, Friend!</h2>
-                <p>Enter your details and start journey with us</p>
+                <h2>Hello, Students!</h2>
+                <p>Please login with your personal info</p>
                 <button class="ghost but" id="signUp">
-                  Sign Up
+                  Sign In
                 </button>
               </div>
             </div>
