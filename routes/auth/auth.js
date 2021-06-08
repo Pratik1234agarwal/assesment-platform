@@ -43,6 +43,7 @@ router.post(
     check("university", "Please provide Designation/University details")
       .not()
       .isEmpty(),
+    check("branch", "Please provide user category").not().isEmpty(),
   ],
 
   async (req, res) => {
@@ -65,6 +66,7 @@ router.post(
         category: req.body.category,
         university: req.body.university,
         phone: req.body.phone,
+        branch: req.body.branch,
       });
       await user.save();
 

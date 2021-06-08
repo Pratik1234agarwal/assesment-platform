@@ -20,12 +20,13 @@ const Loginout = () => {
 
   const [emails, setEmails] = useState("");
   const [passwords, setPasswords] = useState("");
+  const [branch,setBranch] = useState("");
 
   function signUp(event) {
     if (event) {
       event.preventDefault();
     }
-    let item = { name, email, phone, category, university, password };
+    let item = { name, email, phone, category, university, password,branch };
     console.warn(item);
     axios
       .post("/api/v1/auth/signup", item)
@@ -135,9 +136,9 @@ const Loginout = () => {
               />
               <input
                 type="university"
-                name="Year Of Branch"
-                // value={university}
-                // onChange={(e) => setUniversity(e.target.value)}
+                name="branch"
+                onChange={(e)=>setBranch(e.target.value)}
+                value={branch}
                 placeholder="Year Of Branch"
                 className=" inp"
                 // required
