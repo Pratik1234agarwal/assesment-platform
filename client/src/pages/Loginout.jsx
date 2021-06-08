@@ -2,14 +2,16 @@ import React, { useState, useEffect } from "react";
 import "./Loginout.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { useAlert } from "react-alert";
 
 const Loginout = () => {
+  const alerts = useAlert();
   let history = useHistory();
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      history.push("/Instdsat");
-    }
-  });
+  // useEffect(() => {
+  //   if (localStorage.getItem("token")) {
+  //     history.push("/Instdsat");
+  //   }
+  // }, []);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,24 +22,30 @@ const Loginout = () => {
 
   const [emails, setEmails] = useState("");
   const [passwords, setPasswords] = useState("");
-  const [branch,setBranch] = useState("");
+  const [branch, setBranch] = useState("");
 
   function signUp(event) {
     if (event) {
       event.preventDefault();
     }
-    let item = { name, email, phone, category, university, password,branch };
+    let item = { name, email, phone, category, university, password, branch };
     console.warn(item);
     axios
       .post("/api/v1/auth/signup", item)
       .then((res) => {
         console.log(res);
-        localStorage.setItem("token", res.data.data.token);
-        window.location.reload();
+        // localStorage.setItem("token", res.data.data.token);
+        // window.location.reload();
+        // alert("Signup Complete");
+        setTimeout(function () {
+          window.location.replace("https://www.iitrpr.ac.in/aiupskilling");
+        }, 3000);
+        // window.location.href = "https://www.iitrpr.ac.in/aiupskilling";
       })
       .catch((err) => console.error(err));
-    alert("Signup Complete");
-    // history.push('/instdsat');
+    // alert("Signup Complete");
+    alerts.show("Successfully register!");
+    // alerts.show("Signup Complete!");
     // window.location.reload();
   }
 
@@ -137,7 +145,7 @@ const Loginout = () => {
               <input
                 type="university"
                 name="branch"
-                onChange={(e)=>setBranch(e.target.value)}
+                onChange={(e) => setBranch(e.target.value)}
                 value={branch}
                 placeholder="Year Of Branch"
                 className=" inp"
