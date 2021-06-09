@@ -14,10 +14,23 @@ import AdminTestSet from "./pages/AdminTestSet";
 import video from "./pages/Video";
 import Tables from "./pages/Tables";
 import Cameraweb from "./Components/Cameraweb";
+import PSDM_log from "./images/PSDM_logo.jpg";
+import logonew from "./images/logonew.png";
 
+import logos from "./images/logos.png";
 function App() {
   return (
     <>
+      {/* <a
+        href=""
+        class="whatsapp_float"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <i class="whatsapp-icon">
+          <img src={logos} />
+        </i>
+      </a> */}
       <Switch>
         <Route exact path="/" component={Loginout} />
         <Route path="/sidepanel" component={Sidepanel} />

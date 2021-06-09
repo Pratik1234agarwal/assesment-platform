@@ -3,6 +3,8 @@ import "./Loginout.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
+// import PSDM_log from "../images/PSDM_logo.jpg";
+import logos from "../images/logos.png";
 
 const Loginout = () => {
   const alerts = useAlert();
@@ -70,9 +72,93 @@ const Loginout = () => {
 
   return (
     <>
+      <img src={logos} />
+      <h3 className="mt-4 d-block d-sm-none ">A-DSAT Registration</h3>
+      <div>
+        <form className="form d-block d-sm-none" onSubmit={signUp}>
+          <h2>Create Account</h2>
+          {/* <div class="social-container">
+                <a href="#" class="social">
+                  <i class="fa fa-facebook"></i>
+                </a>
+                <a href="#" class="social">
+                  <i class="fa fa-google"></i>
+                </a>
+                <a href="#" class="social">
+                  <i class="fa fa-linkedin"></i>
+                </a>
+              </div>
+              <span>or use your email for registration</span> */}
+          {/* <input type="text" name="name" placeholder="Name" /> */}
+          <input
+            type="name"
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Name"
+            className="mt-3 inp"
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            className=" inp"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            className=" inp"
+            required
+          />
+          <input
+            type="phone"
+            name="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="Phone No."
+            className=" inp"
+            required
+          />
+          <input
+            type="category"
+            name="category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            placeholder="Category:(Student/Professional)"
+            className=" inp"
+            required
+          />
+          <input
+            type="university"
+            name="university"
+            value={university}
+            onChange={(e) => setUniversity(e.target.value)}
+            placeholder="University Name"
+            className=" inp"
+            required
+          />
+          <input
+            type="university"
+            name="branch"
+            onChange={(e) => setBranch(e.target.value)}
+            value={branch}
+            placeholder="Year Of Branch"
+            className=" inp"
+            // required
+          />
+          <button className="but mt-2">SignUp</button>
+        </form>
+      </div>
       <div className="body1">
-        <h3>A-DSAT Registration</h3>
-        <div class="containers" id="containers">
+        <h3 className="mt-4 d-none d-sm-block">A-DSAT Registration</h3>
+        <div class="containers mt-2 d-none d-sm-block" id="containers">
           <div class="form-container sign-up-container">
             <form className="form" onSubmit={signUp}>
               <h2>Create Account</h2>
@@ -194,9 +280,9 @@ const Loginout = () => {
               <button className="but">Sign In</button>
             </form>
           </div>
-          <div class="overlay-container">
-            <div class="overlay">
-              <div class="overlay-panel overlay-left">
+          <div class="overlay-container d-none d-sm-block">
+            <div class="overlay ">
+              <div class="overlay-panel overlay-left ">
                 <h2>Hello Students!</h2>
                 <p>Create an account to connected with us</p>
                 <button class="ghost but" id="signIn">
