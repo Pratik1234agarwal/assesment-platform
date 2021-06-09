@@ -71,6 +71,7 @@ const Loginout = () => {
   return (
     <>
       <div className="body1">
+        <h3>A-DSAT Registration</h3>
         <div class="containers" id="containers">
           <div class="form-container sign-up-container">
             <form className="form" onSubmit={signUp}>
