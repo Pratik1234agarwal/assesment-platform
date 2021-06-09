@@ -11,6 +11,7 @@ const config = require("config");
 router.use("/questions", require("./addQuestion"));
 router.use("/result", require("./results"));
 router.use("/test", require("./createNewTest"));
+router.use("/registrationStats", require("./registrationStats"));
 
 router.post(
   "/login",
