@@ -152,7 +152,7 @@ const Loginout = () => {
                 className=" inp"
                 // required
               />
-              <button className="but mt-2">SignUp</button>
+              <button className="but mt-2">Register for A-DSAT</button>
             </form>
           </div>
           <div class="form-container sign-in-container">
