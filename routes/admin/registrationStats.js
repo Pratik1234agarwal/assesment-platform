@@ -22,4 +22,22 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+// Option to delete the user from the database
+router.delete("/:id", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(400).json(failErrorResponse("No such user found"));
+    }
+    await user.remove();
+    return res.json({
+      status: "success",
+      message: "User Record Removed succesfully",
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(serverErrorResponse());
+  }
+});
+
 module.exports = router;
