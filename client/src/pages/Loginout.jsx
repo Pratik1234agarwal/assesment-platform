@@ -33,23 +33,17 @@ const Loginout = () => {
     let item = { name, email, phone, category, university, password, branch };
     console.warn(item);
     console.log(item);
-    // axios
-    //   .post("/api/v1/auth/signup", item)
-    //   .then((res) => {
-    //     console.log(res);
-    //     // localStorage.setItem("token", res.data.data.token);
-    //     // window.location.reload();
-    //     // alert("Signup Complete");
-    //     setTimeout(function () {
-    //       window.location.replace("https://www.iitrpr.ac.in/aiupskilling");
-    //     }, 3000);
-    //     // window.location.href = "https://www.iitrpr.ac.in/aiupskilling";
-    //   })
-    //   .catch((err) => console.error(err));
-    // // alert("Signup Complete");
-    // alerts.show("Successfully register!");
-    // alerts.show("Signup Complete!");
-    // window.location.reload();
+    axios
+      .post("/api/v1/auth/signup", item)
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem("token", res.data.data.token);
+        setTimeout(function () {
+          window.location.replace("https://www.iitrpr.ac.in/aiupskilling");
+        }, 3000);
+      })
+      .catch((err) => console.error(err));
+    alerts.show("Signup Complete!");
   }
 
   function signIn(event) {
@@ -73,7 +67,9 @@ const Loginout = () => {
 
   return (
     <>
-      <img src={logos} />
+      <div className="text-center">
+        <img src={logos} />
+      </div>
       <h3 className="mt-4 d-block d-sm-none ">A-DSAT Registration</h3>
       <div>
         <form className="form d-block d-sm-none" onSubmit={signUp}>

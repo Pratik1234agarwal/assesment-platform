@@ -5,7 +5,7 @@
   align-items: center;
   flex-direction: column;
   font-family: "Montserrat", sans-serif;
-  height: 80vh;
+  height: 85vh;
   margin: -20px 0 0px;
 }
 
@@ -91,7 +91,7 @@ a {
   overflow: hidden;
   width: 768px;
   max-width: 100%;
-  min-height: 500px;
+  min-height: 485px;
 }
 
 .form-container {
