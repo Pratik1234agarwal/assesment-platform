@@ -42,7 +42,7 @@ const AdminLogin = () => {
         </div>
       </div>
       <div class="main">
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-6 col-sm-12 mb-5">
           <div class="login-form">
             <img src={logo1} className="mb-3" />
             <div class="form-group">

@@ -14,8 +14,11 @@ const AdminRoutes = () => {
   function result() {
     history.push("/admin1");
   }
-  function setquestionpaper() {
-    history.push("/settest");
+  // function setquestionpaper() {
+  //   history.push("/settest");
+  // }
+  function registrations() {
+    history.push("/A-DSAT_Registration");
   }
 
   useEffect(() => {
@@ -51,7 +54,7 @@ const AdminRoutes = () => {
 
       <div className="container text-center mt-5">
         <div className="row">
-          <div className="col">
+          <div className="col-12 col-lg-6">
             <div class="card text-center">
               <div class="card-header">Students Outcome</div>
               <div class="card-body">
@@ -67,7 +70,7 @@ const AdminRoutes = () => {
               <div class="card-footer text-muted">Admin</div>
             </div>
           </div>
-          <div className="col">
+          {/* <div className="col">
             <div class="card text-center">
               <div class="card-header">Make your own Strategy</div>
               <div class="card-body">
@@ -78,6 +81,24 @@ const AdminRoutes = () => {
                 </p>
                 <button className="btn btn-danger " onClick={setquestionpaper}>
                   Add New Test
+                </button>
+              </div>
+              <div class="card-footer text-muted">Admin</div>
+            </div>
+          </div> */}
+          <div className="col-12 col-lg-6 mt-4 mt-lg-0 mb-5 mb-lg-0">
+            <div class="card text-center">
+              <div class="card-header">Registrations</div>
+              <div class="card-body">
+                <h5 class="card-title">Total Registration for A-DSAT</h5>
+                <p class="card-text" style={{ fontSize: "17px" }}>
+                  Registered students information....
+                  <br />
+                  how many students register for A-DSAT
+                  <br />
+                </p>
+                <button className="btn btn-danger " onClick={registrations}>
+                  Check Registration
                 </button>
               </div>
               <div class="card-footer text-muted">Admin</div>

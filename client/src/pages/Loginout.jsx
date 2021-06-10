@@ -32,21 +32,22 @@ const Loginout = () => {
     }
     let item = { name, email, phone, category, university, password, branch };
     console.warn(item);
-    axios
-      .post("/api/v1/auth/signup", item)
-      .then((res) => {
-        console.log(res);
-        // localStorage.setItem("token", res.data.data.token);
-        // window.location.reload();
-        // alert("Signup Complete");
-        setTimeout(function () {
-          window.location.replace("https://www.iitrpr.ac.in/aiupskilling");
-        }, 3000);
-        // window.location.href = "https://www.iitrpr.ac.in/aiupskilling";
-      })
-      .catch((err) => console.error(err));
-    // alert("Signup Complete");
-    alerts.show("Successfully register!");
+    console.log(item);
+    // axios
+    //   .post("/api/v1/auth/signup", item)
+    //   .then((res) => {
+    //     console.log(res);
+    //     // localStorage.setItem("token", res.data.data.token);
+    //     // window.location.reload();
+    //     // alert("Signup Complete");
+    //     setTimeout(function () {
+    //       window.location.replace("https://www.iitrpr.ac.in/aiupskilling");
+    //     }, 3000);
+    //     // window.location.href = "https://www.iitrpr.ac.in/aiupskilling";
+    //   })
+    //   .catch((err) => console.error(err));
+    // // alert("Signup Complete");
+    // alerts.show("Successfully register!");
     // alerts.show("Signup Complete!");
     // window.location.reload();
   }
@@ -145,7 +146,7 @@ const Loginout = () => {
             required
           />
           <input
-            type="university"
+            type="branch"
             name="branch"
             onChange={(e) => setBranch(e.target.value)}
             value={branch}
@@ -236,7 +237,7 @@ const Loginout = () => {
                 value={branch}
                 placeholder="Year Of Branch"
                 className=" inp"
-                // required
+                required
               />
               <button className="but mt-2">Register for A-DSAT</button>
             </form>

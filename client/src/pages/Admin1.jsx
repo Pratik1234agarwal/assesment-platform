@@ -7,7 +7,7 @@ import university from "../images/icons/university.png";
 import check from "../images/icons/check.png";
 import AdminData from "../Components/AdminData";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Admin1 = () => {
   let history = useHistory();
@@ -52,14 +52,16 @@ const Admin1 = () => {
   return (
     <>
       <div className="container-fluid admn">
-        <div className="row  pt-2 ml-3 pb-2">
-          <img src={logo1} />
+        <div className="row ml-3 ">
+          <Link to="/adminroutes">
+            <img src={logo1} />
+          </Link>
         </div>
       </div>
 
       <div className="container-fluid mt-4">
         <div className="row ">
-          <div className="col ">
+          <div className="col-12 col-lg-3">
             <div className="adbox1 pt-2 pb-2">
               <div className="row">
                 <div className="col">
@@ -74,7 +76,7 @@ const Admin1 = () => {
               </div>
             </div>
           </div>
-          <div className="col ">
+          <div className="col-12 col-lg-3">
             <div className="adbox2  pt-2 pb-2">
               <div className="row">
                 <div className="col">
@@ -89,7 +91,7 @@ const Admin1 = () => {
               </div>
             </div>
           </div>
-          <div className="col ">
+          <div className="col-12 col-lg-3 ">
             <div className="adbox3  pt-2 pb-2">
               <div className="row">
                 <div className="col">
@@ -104,7 +106,7 @@ const Admin1 = () => {
               </div>
             </div>
           </div>
-          <div className="col ">
+          <div className="col-12 col-lg-3">
             <div className="adbox4  pt-2 pb-2">
               <div className="row">
                 <div className="col">
@@ -120,7 +122,7 @@ const Admin1 = () => {
       </div>
 
       <div className="container mt-5 pt-4">
-        <div className="row mt-5 pt-5">
+        <div className="row  pt-2">
           <table class="table">
             <thead>
               <tr>

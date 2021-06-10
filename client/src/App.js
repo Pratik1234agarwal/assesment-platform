@@ -18,6 +18,7 @@ import PSDM_log from "./images/PSDM_logo.jpg";
 import logonew from "./images/logonew.png";
 
 import logos from "./images/logos.png";
+import ADSATreg from "./pages/ADSATreg";
 function App() {
   return (
     <>
@@ -37,7 +38,7 @@ function App() {
         <Route path="/instdsat" component={Instdsat} />
         <Route path="/finish" component={EndTest} />
         <Route path="/repadmin1ortcard" component={ReportCard} />
-        <Route path="/" component={Admin1} />
+        <Route path="/admin1" component={Admin1} />
         <Route path="/addingquestions" component={QuestionAdd} />
         <Route path="/adminresult" component={AdminResult} />
         <Route path="/admin" component={AdminLogin} />
@@ -46,6 +47,7 @@ function App() {
         <Route path="/video" component={video} />
         <Route path="/tables" component={Tables} />
         <Route path="/camera" component={Cameraweb} />
+        <Route path="/A-DSAT_Registration" component={ADSATreg} />
       </Switch>
     </>
   );

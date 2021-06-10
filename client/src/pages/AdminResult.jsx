@@ -7,7 +7,7 @@ import university from "../images/icons/university.png";
 import check from "../images/icons/check.png";
 import AdminResultData from "../Components/AdminResultData";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Tables from "./Tables";
 
 const AdminResult = () => {
@@ -74,14 +74,16 @@ const AdminResult = () => {
   return (
     <>
       <div className="container-fluid admn">
-        <div className="row  pt-2 ml-3 pb-2">
-          <img src={logo1} />
+        <div className="row ml-3 ">
+          <Link to="/adminroutes">
+            <img src={logo1} />
+          </Link>
         </div>
       </div>
 
       <div className="container-fluid mt-4">
         <div className="row">
-          <div className="col ">
+          <div className="col-12 col-lg-3 ">
             <div className="adbox1 pt-2 pb-2">
               <div className="row">
                 <div className="col-4">
@@ -96,7 +98,7 @@ const AdminResult = () => {
               </div>
             </div>
           </div>
-          <div className="col ">
+          <div className="col-12 col-lg-3 ">
             <div className="adbox2  pt-2 pb-2">
               <div className="row">
                 <div className="col-4">
@@ -111,7 +113,7 @@ const AdminResult = () => {
               </div>
             </div>
           </div>
-          <div className="col ">
+          <div className="col-12 col-lg-3 ">
             <div className="adbox3  pt-2 pb-2">
               <div className="row">
                 <div className="col-4">
@@ -126,7 +128,7 @@ const AdminResult = () => {
               </div>
             </div>
           </div>
-          <div className="col ">
+          <div className="col-12 col-lg-3">
             <div className="adbox4  pt-2 pb-2">
               <div className="row">
                 <div className="col-4">
@@ -145,7 +147,7 @@ const AdminResult = () => {
         <h3 className="pt-2">Students Result</h3>
         <div className="text-center mt-3 mb-4">
           <button className="btn btn-danger" onClick={Sendmail}>
-            Send Mail
+            Send Mail To All
           </button>
         </div>
         {/* <div className="row mt-4 ">
