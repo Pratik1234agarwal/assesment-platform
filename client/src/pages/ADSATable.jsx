@@ -45,6 +45,10 @@ const ADSATable = () => {
         Header: "Branch",
         accessor: "branch",
       },
+      {
+        Header: "Delete Data",
+        Cell: <button className="btn btn-info">Delete</button>,
+      },
     ],
     []
   );
