@@ -23,6 +23,27 @@ const ADSATable = () => {
     }
   }, []);
 
+  async function onDelete(id) {
+    const config = {
+      headers: {
+        Authorization: `Admin ${localStorage.getItem("Admin")}`,
+      },
+    };
+
+    try {
+      const res = await axios.delete(
+        `/api/v1/admin/registrationStats/${id}`,
+        config
+      );
+      alert(res.data.message);
+    } catch (err) {
+      console.log(err.response.data);
+      if (err.response.data && err.response.data.message) {
+        alert(err.response.data.message);
+      }
+    }
+  }
+
   const columns = React.useMemo(
     () => [
       {
@@ -47,7 +68,15 @@ const ADSATable = () => {
       },
       {
         Header: "Delete Data",
-        Cell: <button className="btn btn-info">Delete</button>,
+        accessor: "delete",
+        Cell: ({ cell }) => (
+          <button
+            onClick={() => onDelete(cell.row.original._id)}
+            className="btn btn-info"
+          >
+            Delete
+          </button>
+        ),
       },
     ],
     []
@@ -108,6 +137,9 @@ const ADSATable = () => {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
+                  {console.log("Row", row)}
+                  {console.log("Rows", rows)}
+                  {console.log(row.getRowProps())}
                   {row.cells.map((cell) => {
                     return (
                       <td
