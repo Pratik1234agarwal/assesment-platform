@@ -5,8 +5,11 @@ import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
 // import PSDM_log from "../images/PSDM_logo.jpg";
 import logos from "../images/logos.png";
+import SweetAlert from "sweetalert-react";
+import "sweetalert/dist/sweetalert.css";
 
 const Loginout = () => {
+  const [popup, setpopup] = useState({ show: false });
   const alerts = useAlert();
   let history = useHistory();
   // useEffect(() => {
@@ -37,13 +40,11 @@ const Loginout = () => {
       .post("/api/v1/auth/signup", item)
       .then((res) => {
         console.log(res);
+        // alerts.show("Signup Complete!");
         localStorage.setItem("token", res.data.data.token);
-        setTimeout(function () {
-          window.location.replace("https://www.iitrpr.ac.in/aiupskilling");
-        }, 3000);
+        setpopup({ show: true });
       })
       .catch((err) => console.error(err));
-    alerts.show("Signup Complete!");
   }
 
   function signIn(event) {
@@ -67,6 +68,55 @@ const Loginout = () => {
 
   return (
     <>
+      <SweetAlert
+        show={popup.show}
+        title="&#9989;"
+        text="Successfully Registered"
+        onConfirm={() =>
+          window.location.replace("https://www.iitrpr.ac.in/aiupskilling")
+        }
+      />
+
+      <div
+        class="modal fade"
+        id="exampleModalCenter"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">
+                Modal title
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">...</div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">
+                Save changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="text-center">
         <img src={logos} />
       </div>
@@ -137,7 +187,7 @@ const Loginout = () => {
             name="university"
             value={university}
             onChange={(e) => setUniversity(e.target.value)}
-            placeholder="University Name"
+            placeholder="College/University Name"
             className=" inp"
             required
           />
@@ -146,15 +196,15 @@ const Loginout = () => {
             name="branch"
             onChange={(e) => setBranch(e.target.value)}
             value={branch}
-            placeholder="Year Of Branch"
+            placeholder="Branch"
             className=" inp"
             // required
           />
-          <button className="but mt-2">SignUp</button>
+          <button className="but mt-2">Register</button>
         </form>
       </div>
       <div className="body1">
-        <h3 className="mt-4 d-none d-sm-block">A-DSAT Registration</h3>
+        <h3 className="mt-5 d-none d-sm-block">A-DSAT Registration</h3>
         <div class="containers mt-2 d-none d-sm-block" id="containers">
           <div class="form-container sign-up-container">
             <form className="form" onSubmit={signUp}>
@@ -222,7 +272,7 @@ const Loginout = () => {
                 name="university"
                 value={university}
                 onChange={(e) => setUniversity(e.target.value)}
-                placeholder="University Name"
+                placeholder="College/University Name"
                 className=" inp"
                 required
               />
@@ -231,11 +281,17 @@ const Loginout = () => {
                 name="branch"
                 onChange={(e) => setBranch(e.target.value)}
                 value={branch}
-                placeholder="Year Of Branch"
+                placeholder="Branch"
                 className=" inp"
                 required
               />
-              <button className="but mt-2">Register for A-DSAT</button>
+              <button
+                className="but mt-2"
+                // data-toggle="modal"
+                // data-target="#exampleModalCenter"
+              >
+                Register for A-DSAT
+              </button>
             </form>
           </div>
           <div class="form-container sign-in-container">
