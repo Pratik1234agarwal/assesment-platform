@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-var transport = nodemailer.createTransport({
+let transport = nodemailer.createTransport({
   host: "smtp.mailtrap.io",
   port: 2525,
   auth: {
@@ -8,9 +8,19 @@ var transport = nodemailer.createTransport({
     pass: "e35ef0ee7ca7ec",
   },
 });
+// Testing Amazon SES
+// let transport = nodemailer.createTransport({
+//   host: "email-smtp.us-east-2.amazonaws.com",
+//   port: 465,
+//   auth: {
+//     user: "AKIAUZNK2DJGN6H546EJ",
+//     pass: "BCrbR+KyWU8nKU7StmNk9SwcRfvjBh0DBD2HpJMbbI3D",
+//   },
+// });
+//
 
 const message = {
-  from: "no-reply@ikigailab.com", // Sender address
+  from: "ikigailab@adsatiitropar.com", // Sender address
   to: "pratik1234agarwal@gmail.com,pratik12aga@gmail.com", // List of recipients
   subject: "Welcome to Ikigai Lab", // Subject line
   text: "Hello There Welcome to Ikigai Lab", // Plain text body

@@ -33,6 +33,10 @@ const QuestionSchema = mongoose.Schema({
     type: String,
     required: false,
   },
+  difficulty: {
+    type: String,
+    required: false,
+  },
 });
 
 module.exports = mongoose.model("questions", QuestionSchema);

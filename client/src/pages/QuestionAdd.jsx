@@ -14,13 +14,20 @@ const QuestionAdd = ({ testname, questno, marksques, negmarks }) => {
   const [option4, setoption4] = useState("");
   const [answer, setanswer] = useState("");
   const [category, setcategory] = useState("");
+  const [difficultyLevel, setDifficultyLevel] = useState("");
 
   function Onsubmit(event) {
     if (event) {
       event.preventDefault();
     }
     let options = [option1, option2, option3, option3];
-    let item = { questionText, options, answer, category };
+    let item = {
+      questionText,
+      options,
+      answer,
+      category,
+      difficulty: difficultyLevel,
+    };
     console.log(item);
     const config = {
       headers: {
@@ -41,7 +48,10 @@ const QuestionAdd = ({ testname, questno, marksques, negmarks }) => {
         setanswer("");
         setcategory("");
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.log(err.response.data);
+        console.error(err);
+      });
 
     // alert("Signin Complete");
     // history.push("/addingquestions");
@@ -237,7 +247,12 @@ const QuestionAdd = ({ testname, questno, marksques, negmarks }) => {
                   <label for="difflvl">
                     <h6>Taxonomy :</h6>
                   </label>
-                  <select class="form-control" id="difflvl">
+                  <select
+                    value={difficultyLevel}
+                    onChange={(e) => setDifficultyLevel(e.target.value)}
+                    class="form-control"
+                    id="difflvl"
+                  >
                     <option selected>Choose...</option>
                     <option>Evaluation</option>
                     <option>Synthesis</option>

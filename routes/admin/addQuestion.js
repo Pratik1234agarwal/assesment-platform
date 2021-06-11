@@ -24,16 +24,21 @@ router.post(
       check("category", "Please provide the category of the question")
         .not()
         .isEmpty(),
+      check("difficulty", "Please provide the diffivulty level of the question")
+        .not()
+        .isEmpty(),
     ],
   ],
   async (req, res) => {
     try {
       const user = await Admin.findById(req.user.id);
       if (!user) {
+        console.log("Admin User not found");
         return res.status(401).json(failErrorResponse("UnAuthorised"));
       }
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
+        console.log("Some field missing");
         return res.status(400).json(failErrorResponse(errors.errors[0].msg));
       }
       let question = await Question.findOne({ text: req.body.questionText });
@@ -50,6 +55,7 @@ router.post(
         D: req.body.options[3],
         category: req.body.category,
         answer: req.body.answer,
+        difficulty: req.body.difficulty,
       });
       if (req.body.questionImage) {
         question.questionImage = req.body.questionImage;
