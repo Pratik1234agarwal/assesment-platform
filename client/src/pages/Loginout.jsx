@@ -41,9 +41,7 @@ const Loginout = () => {
       .post("/api/v1/auth/signup", item)
       .then((res) => {
         console.log(res);
-        // alerts.show("Signup Complete!");
-        localStorage.setItem("token", res.data.data.token);
-        // setpopup({ show: true });
+        // localStorage.setItem("token", res.data.data.token);
         swal({   
           title: "Successfully Registered",   
             text: "Best Of Luck!",   

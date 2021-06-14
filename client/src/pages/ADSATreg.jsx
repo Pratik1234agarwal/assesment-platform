@@ -70,7 +70,7 @@ const ADSATreg = () => {
           <header className="App-header" style={{ textAlign: "center" }}>
             <button
               type="button"
-              class="btn btn-danger"
+              class="btn btn-info"
               onClick={ExportToExcel}
             >
               Export To Excel

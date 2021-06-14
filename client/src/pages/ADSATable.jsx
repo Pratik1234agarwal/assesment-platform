@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useTable, useSortBy } from "react-table";
+import { useTable, usePagination } from "react-table";
 import axios from "axios";
 
 const ADSATable = () => {
-  const [data, setData] = useState([]);
+   const [data, setData] = useState([]);
   useEffect(async () => {
     if (localStorage.getItem("Admin")) {
       const config = {
@@ -70,41 +70,49 @@ const ADSATable = () => {
         Header: "Delete Data",
         // accessor: "delete",
         Cell: ({ cell }) => (
-          <button
-            onClick={() => onDelete(cell.row.original._id)}
-            className="btn btn-info"
-          >
-            Delete
-          </button>
+        <div style={{cursor: "pointer"}} onClick={() => onDelete(cell.row.original._id)}>
+        <i style={{ color: "#C82333" }} class="fas fa-trash"></i>
+        </div>
         ),
       },
     ],
     []
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable(
-      {
-        columns,
-        data,
-      },
-      useSortBy
-    );
+  const { getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    page, // Instead of using 'rows', we'll use page,
+    // which has only the rows for the active page
 
-  return (
-    <>
-      <div class="table-responsive">
-        <table
-          {...getTableProps()}
-          className="table  table-hover mx-auto w-auto"
-        >
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                    style={{
+    // The rest of these things are super handy, too ;)
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize }, } = useTable(
+    {
+      columns,
+      data,
+      initialState: { pageIndex: 0 },
+    },
+    usePagination
+  )
+
+    return (
+        <>
+            <div class="table-responsive">
+      <table {...getTableProps()} className="table  table-hover mx-auto w-auto">
+        <thead>
+          {headerGroups.map(headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+                <th {...column.getHeaderProps()} style={{
                       // padding: "10px",
                       paddingTop: "10px",
                       paddingBottom: "10px",
@@ -112,55 +120,85 @@ const ADSATable = () => {
                       paddingLeft: "30px",
                       border: "solid 1px gray",
                       cursor: "pointer",
-                    }}
-                  >
-                    {column.render("Header")}
-                    {/* Add a sort direction indicator */}
-                    <span>
-                      {column.isSorted ? (
-                        column.isSortedDesc ? (
-                          " 🔽"
-                        ) : (
-                          " 🔼"
-                        )
-                      ) : (
-                        <i class="fa fa-fw fa-sort"></i>
-                      )}
-                    </span>
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  {console.log("Row", row)}
-                  {console.log("Rows", rows)}
-                  {console.log(row.getRowProps())}
-                  {row.cells.map((cell) => {
-                    return (
-                      <td
-                        {...cell.getCellProps()}
-                        style={{
+                    }}>
+                    {column.render('Header')}</th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {page.map((row, i) => {
+            prepareRow(row)
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map(cell => {
+                  return <td {...cell.getCellProps()} style={{
                           padding: "10px",
                           border: "solid 1px gray",
-                        }}
-                      >
-                        {cell.render("Cell")}
-                      </td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                        }}>{cell.render('Cell')}</td>
+                })}
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+
+      <div className="pagination ">
+      <div className="container text-center mb-5">
+        
+        <span className="">
+          Page{' '}
+          <strong >
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>{' '}
+        </span>
+        <div className="mt-3">
+        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage} className="btn btn-primary">
+          {'<<'}
+        </button>{' '}
+        <button onClick={() => previousPage()} disabled={!canPreviousPage} className="btn btn-primary">
+          {'<'}
+        </button>{' '}
+        <button onClick={() => nextPage()} disabled={!canNextPage} className="btn btn-primary">
+          {'>'}
+        </button>{' '}
+        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage} className="btn btn-primary">
+          {'>>'}
+        </button>{' '}</div>
+        <br/>
+        <span className="">
+           Go to page:{' '}
+          <input
+            type="number"
+            defaultValue={pageIndex + 1}
+            onChange={e => {
+              const page = e.target.value ? Number(e.target.value) - 1 : 0
+              gotoPage(page)
+            }}
+            style={{ width: '30px' }}
+          />
+        </span>{' '}
+        <span className="ml-3">
+        Rows Per Page:{' '}
+        <select
+          value={pageSize}
+          className=""
+          onChange={e => {
+            setPageSize(Number(e.target.value))
+          }}
+        >
+          {[10, 20, 30, 40, 50].map(pageSize => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
+        </span>
+        </div>
       </div>
-    </>
-  );
+      </div>
+        </>
+    )
 };
 
 export default ADSATable;
