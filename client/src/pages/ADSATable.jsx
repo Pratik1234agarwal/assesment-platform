@@ -68,7 +68,7 @@ const ADSATable = () => {
       },
       {
         Header: "Delete Data",
-        accessor: "delete",
+        // accessor: "delete",
         Cell: ({ cell }) => (
           <button
             onClick={() => onDelete(cell.row.original._id)}

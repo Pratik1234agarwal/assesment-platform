@@ -51,7 +51,17 @@ const ADSATreg = () => {
         </div>
       </div>
 
-      <div className="container text-center pt-4">
+      <div className="container mt-3 text-white">
+        <button
+          className="btn float-right"
+          style={{ backgroundColor: "#0E3B7D", color: "white" }}
+         onClick={adminHome}
+        >
+          Go Back
+        </button>
+      </div>
+
+      <div className="container text-center pt-5">
         <h3 className="pt-2 mb-4">A-DSAT Registrations</h3>
         <div className="mb-4">
           <h6>Total No. of Registrations :{" " + no}</h6>
@@ -70,11 +80,7 @@ const ADSATreg = () => {
         <ADSATable />
       </div>
 
-      <div className="container text-center mt-5 mb-5">
-        <button className="btn btn-danger" onClick={adminHome}>
-          Go Back
-        </button>
-      </div>
+     
     </>
   );
 };
