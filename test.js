@@ -1,6 +1,7 @@
 const Questions = require("./models/Questions");
 require("./config/db")();
 require("./Nodemailer/mailTemplates/mailSendingWithTimeslot");
+const uploadFile = require("./Aws/s3");
 
 const addQuestion = async () => {
   try {
@@ -23,6 +24,8 @@ const addQuestion = async () => {
 };
 
 //setTimeout(() => addQuestion(), 1000);
+
+uploadFile(require("path").join(__dirname, "Aws", "cat.jpg"));
 
 const questionList = [
   {

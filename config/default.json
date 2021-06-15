@@ -8,5 +8,8 @@
     "facebookAppId":"198177068515749",
     "facebookSecretId":"8c1d384f215f341d1e8d256f9ef157f2",
     "hostUrl":"http://localhost:5000",
-    "DsatTimeinMinutes":200
+    "DsatTimeinMinutes":200,
+    "amazonKeyId":"AKIAUZNK2DJGEMOWPFIL",
+    "amazonSecretKey":"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",
+    "AwsS3BucketName":"adsat"
 }
