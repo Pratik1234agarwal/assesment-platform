@@ -7,6 +7,7 @@ import { useAlert } from "react-alert";
 import logos from "../images/logos.png";
 import SweetAlert from "sweetalert-react";
 import "sweetalert/dist/sweetalert.css";
+import swal from 'sweetalert';
 
 const Loginout = () => {
   const [popup, setpopup] = useState({ show: false });
@@ -40,11 +41,26 @@ const Loginout = () => {
       .post("/api/v1/auth/signup", item)
       .then((res) => {
         console.log(res);
-        // alerts.show("Signup Complete!");
-        localStorage.setItem("token", res.data.data.token);
-        setpopup({ show: true });
+        // localStorage.setItem("token", res.data.data.token);
+        swal({   
+          title: "Successfully Registered",   
+            text: "Best Of Luck!",   
+            type: "success",     
+            confirmButtonColor: "#0E3B7D",   
+            confirmButtonText: "Ok",     
+            closeOnConfirm: false,  
+            customClass: "Custom_Cancel"
+          }, 
+          function(isConfirm){   
+            if (isConfirm) {     
+                window.location.replace("https://www.iitrpr.ac.in/aiupskilling");  
+            } else {     
+                window.location.replace("https://www.iitrpr.ac.in/aiupskilling")  
+            } 
+          }); 
       })
       .catch((err) => console.error(err));
+      
   }
 
   function signIn(event) {
@@ -68,15 +84,6 @@ const Loginout = () => {
 
   return (
     <>
-      <SweetAlert
-        show={popup.show}
-        title="&#9989;"
-        text="Successfully Registered"
-        onConfirm={() =>
-          window.location.replace("https://www.iitrpr.ac.in/aiupskilling")
-        }
-      />
-
       <div
         class="modal fade"
         id="exampleModalCenter"
