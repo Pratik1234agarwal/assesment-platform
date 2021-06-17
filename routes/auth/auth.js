@@ -68,6 +68,8 @@ router.post(
         phone: req.body.phone,
         branch: req.body.branch,
       });
+      user.registrationMailSent = true;
+
       await user.save();
 
       const payload = {
@@ -77,7 +79,7 @@ router.post(
       };
 
       // Send Registration mail
-      sendMailAfterRegistration(req.body.email);
+      sendMailAfterRegistration(req.body.email, req.body.name);
 
       // Return JWT Token
       jwt.sign(
