@@ -7,6 +7,11 @@ const {
   serverErrorResponse,
   failErrorResponse,
 } = require("../../helpers/responseHandles");
+const uploadFile = require("../../Aws/s3");
+const multer = require("multer");
+
+var storage = multer.memoryStorage();
+var upload = multer({ storage: storage });
 
 // Route to add the question, required admin user sign In
 router.post(
@@ -49,10 +54,12 @@ router.post(
       }
       question = new Question({
         text: req.body.questionText,
-        A: req.body.options[0],
-        B: req.body.options[1],
-        C: req.body.options[2],
-        D: req.body.options[3],
+        A: {
+          ...req.body.options[0],
+        },
+        B: { ...req.body.options[1] },
+        C: { ...req.body.options[2] },
+        D: { ...req.body.options[3] },
         category: req.body.category,
         answer: req.body.answer,
         difficulty: req.body.difficulty,
@@ -73,5 +80,26 @@ router.post(
     }
   }
 );
+
+router.post("/image/add", [auth, upload.single("file")], async (req, res) => {
+  try {
+    console.log("file", req.file);
+    if (!req.file) {
+      res.status(404).json(failErrorResponse("No File Specified"));
+    }
+
+    // Uploading file to aws
+    const url = await uploadFile(req.file);
+    res.json({
+      status: "success",
+      data: {
+        imageUrl: url,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(serverErrorResponse());
+  }
+});
 
 module.exports = router;

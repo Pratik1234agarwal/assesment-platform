@@ -6,9 +6,16 @@ const connectDB = require("./config/db");
 const app = express();
 const passport = require("passport");
 const path = require("path");
+const upload = require("multer")();
+const formidable = require("express-formidable");
 
 app.use(logger("dev"));
 app.use(express.json({ extended: true }));
+
+// For form Data
+//app.use(formidable());
+// For Form Data
+//app.use(upload.array());
 app.use(express.urlencoded());
 app.use(cors());
 app.use(express.static(path.join(__dirname, "client", "build")));
