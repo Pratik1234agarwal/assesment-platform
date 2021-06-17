@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer");
 var handlebars = require("handlebars");
 var fs = require("fs");
+const path = require("path");
 
 var readHTMLFile = function (path, callback) {
   fs.readFile(path, { encoding: "utf-8" }, function (err, html) {
@@ -54,42 +55,45 @@ const sendMail = (message) => {
 };
 
 //sendMail(message);
+const location = path.join(
+  __dirname,
+  "..",
+  "template/Registration/registration.html"
+);
+console.log(location);
 
 const mailSendForRegistration = (email, name) => {
   return new Promise((resolve, reject) => {
-    readHTMLFile(
-      __dirname + "\\../template/Registration/registration.html",
-      function (err, html) {
-        var template = handlebars.compile(html);
-        var replacements = {
-          name,
-        };
-        var htmlToSend = template(replacements);
-        var mailOptions = {
-          from: "ai-course-datascience@iitrpr.ac.in",
-          to: email,
-          subject:
-            "Registration Successful- Advance Data Science Aptitude Test (PSDM- IIT Ropar)",
-          html: htmlToSend,
-          attachments: [
-            {
-              filename: "enrolment.png",
-              path: __dirname + "\\../template/Registration/enrolment.png",
-              cid: "banner",
-            },
-          ],
-        };
-        transport.sendMail(mailOptions, function (error, response) {
-          if (error) {
-            console.log(error);
-            reject(error);
-          } else {
-            console.log(response);
-            resolve();
-          }
-        });
-      }
-    );
+    readHTMLFile(location, function (err, html) {
+      var template = handlebars.compile(html);
+      var replacements = {
+        name,
+      };
+      var htmlToSend = template(replacements);
+      var mailOptions = {
+        from: "ai-course-datascience@iitrpr.ac.in",
+        to: email,
+        subject:
+          "Registration Successful- Advance Data Science Aptitude Test (PSDM- IIT Ropar)",
+        html: htmlToSend,
+        attachments: [
+          {
+            filename: "enrolment.png",
+            path: __dirname + "\\../template/Registration/enrolment.png",
+            cid: "banner",
+          },
+        ],
+      };
+      transport.sendMail(mailOptions, function (error, response) {
+        if (error) {
+          console.log(error);
+          reject(error);
+        } else {
+          console.log(response);
+          resolve();
+        }
+      });
+    });
   });
 };
 
