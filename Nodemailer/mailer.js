@@ -64,7 +64,7 @@ const location = path.join(
 const locationAttachment = path.join(
   __dirname,
   "..",
-  "template/Registration/enrolment.html"
+  "template/Registration/enrolment.png"
 );
 console.log(location);
 
