@@ -60,6 +60,12 @@ const location = path.join(
   "..",
   "template/Registration/registration.html"
 );
+
+const locationAttachment = path.join(
+  __dirname,
+  "..",
+  "template/Registration/enrolment.html"
+);
 console.log(location);
 
 const mailSendForRegistration = (email, name) => {
@@ -79,7 +85,7 @@ const mailSendForRegistration = (email, name) => {
         attachments: [
           {
             filename: "enrolment.png",
-            path: __dirname + "\\../template/Registration/enrolment.png",
+            path: locationAttachment,
             cid: "banner",
           },
         ],
