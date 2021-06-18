@@ -53,6 +53,14 @@ const UserSchema = new mongoose.Schema({
     default: Date.now(),
     required: true,
   },
+  registrationMailSent: {
+    type: Boolean,
+    default: false,
+  },
+  timeSlotMailSent: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 UserSchema.pre("save", async function (next) {
