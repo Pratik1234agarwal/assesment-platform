@@ -57,7 +57,9 @@ router.post(
         email: req.body.email,
       });
       if (user) {
-        return res.status(400).json(serverErrorResponse);
+        return res
+          .status(400)
+          .json(failErrorResponse("A user Already Exists with this email"));
       }
       user = new User({
         name: req.body.name,
