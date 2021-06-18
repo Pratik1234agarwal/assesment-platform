@@ -9,18 +9,29 @@ const QuestionAdd = ({ testname, questno, marksques, negmarks }) => {
   const [count, setcount] = useState(0);
   const [questionText, setquestionText] = useState("");
   const [option1, setoption1] = useState("");
+  const [option1Img, setoption1Img] = useState("");
   const [option2, setoption2] = useState("");
+  const [option2Img, setoption2Img] = useState("");
   const [option3, setoption3] = useState("");
+  const [option3Img, setoption3Img] = useState("");
   const [option4, setoption4] = useState("");
+  const [option4Img, setoption4Img] = useState("");
   const [answer, setanswer] = useState("");
   const [category, setcategory] = useState("");
   const [difficultyLevel, setDifficultyLevel] = useState("");
 
   function Onsubmit(event) {
+    // var imagefile = document.querySelector("#imag");
+    // console.log(imagefile);
     if (event) {
       event.preventDefault();
     }
-    let options = [option1, option2, option3, option3];
+    let options = [
+      { text: option1, imageUrl: option1Img },
+      { text: option2, imageUrl: option2Img },
+      { text: option3, imageUrl: option3Img },
+      { text: option4, imageUrl: option4Img },
+    ];
     let item = {
       questionText,
       options,
@@ -42,9 +53,13 @@ const QuestionAdd = ({ testname, questno, marksques, negmarks }) => {
         setcount(count + 1);
         setquestionText("");
         setoption1("");
+        setoption1Img("");
         setoption2("");
+        setoption2Img("");
         setoption3("");
+        setoption3Img("");
         setoption4("");
+        setoption4Img("");
         setanswer("");
         setcategory("");
       })
@@ -76,13 +91,13 @@ const QuestionAdd = ({ testname, questno, marksques, negmarks }) => {
         </div>
       </div>
 
-      {/* <div className="container-fluid pt-2 text-center">
+      <div className="container-fluid pt-3 text-center">
         <h4>You have added : {count} Questions</h4>
-      </div> */}
+      </div>
 
       <div className="container-fluid mt-4">
         <div className="row">
-          <div className="col-8 border border-dark rounded ml-2 pt-3 mb-3">
+          <div className="col border border-dark rounded ml-2 mr-2 pt-3 mb-3">
             <form>
               <div class="form-group">
                 <label for="exampleFormControlTextarea1">
@@ -125,13 +140,41 @@ const QuestionAdd = ({ testname, questno, marksques, negmarks }) => {
                   />
                 </div>
                 <div class="col">
-                  <label for="exampleFormControlFile1">
+                  <label for="imag">
                     If Option have Image then put here........
                   </label>
                   <input
                     type="file"
                     class="form-control-file"
-                    id="exampleFormControlFile1"
+                    id="imag"
+                    name="file"
+                    // onChange={(e) => console.log(e.target.files[0])}
+                    onChange={(e) => {
+                      console.log(e.target.files[0]);
+                      const formData = new FormData();
+                      formData.append("file", e.target.files[0]);
+                      console.log(formData);
+                      axios
+                        .post("/api/v1/admin/questions/image/add", formData, {
+                          headers: {
+                            Authorization: `Admin ${localStorage.getItem(
+                              "Admin"
+                            )}`,
+                            "Content-Type": "multipart/form-data",
+                          },
+                        })
+                        .then((res) => {
+                          console.log(res);
+                          console.log(res.data.data.imageUrl);
+                          setoption1Img(res.data.data.imageUrl);
+                        })
+                        .catch((err) => {
+                          console.log(err);
+
+                          if (err.response && err.response.data)
+                            alert(err.response.data.message);
+                        });
+                    }}
                   />
                 </div>
               </div>
@@ -150,13 +193,34 @@ const QuestionAdd = ({ testname, questno, marksques, negmarks }) => {
                   />
                 </div>
                 <div class="col">
-                  <label for="exampleFormControlFile1">
+                  <label for="File2">
                     If Option have Image then put here........
                   </label>
                   <input
                     type="file"
                     class="form-control-file"
-                    id="exampleFormControlFile1"
+                    id="File2"
+                    onChange={(e) => {
+                      console.log(e.target.files[0]);
+                      const formData = new FormData();
+                      formData.append("file", e.target.files[0]);
+                      console.log(formData);
+                      axios
+                        .post("/api/v1/admin/questions/image/add", formData, {
+                          headers: {
+                            Authorization: `Admin ${localStorage.getItem(
+                              "Admin"
+                            )}`,
+                            "Content-Type": "multipart/form-data",
+                          },
+                        })
+                        .then((res) => {
+                          console.log(res);
+                          console.log(res.data.data.imageUrl);
+                          setoption2Img(res.data.data.imageUrl);
+                        })
+                        .catch((err) => console.error(err));
+                    }}
                   />
                 </div>
               </div>
@@ -175,13 +239,34 @@ const QuestionAdd = ({ testname, questno, marksques, negmarks }) => {
                   />
                 </div>
                 <div class="col">
-                  <label for="exampleFormControlFile1">
+                  <label for="File3">
                     If Option have Image then put here........
                   </label>
                   <input
                     type="file"
                     class="form-control-file"
-                    id="exampleFormControlFile1"
+                    id="File3"
+                    onChange={(e) => {
+                      console.log(e.target.files[0]);
+                      const formData = new FormData();
+                      formData.append("file", e.target.files[0]);
+                      console.log(formData);
+                      axios
+                        .post("/api/v1/admin/questions/image/add", formData, {
+                          headers: {
+                            Authorization: `Admin ${localStorage.getItem(
+                              "Admin"
+                            )}`,
+                            "Content-Type": "multipart/form-data",
+                          },
+                        })
+                        .then((res) => {
+                          console.log(res);
+                          console.log(res.data.data.imageUrl);
+                          setoption3Img(res.data.data.imageUrl);
+                        })
+                        .catch((err) => console.error(err));
+                    }}
                   />
                 </div>
               </div>
@@ -200,13 +285,34 @@ const QuestionAdd = ({ testname, questno, marksques, negmarks }) => {
                   />
                 </div>
                 <div class="col">
-                  <label for="exampleFormControlFile1">
+                  <label for="File4">
                     If Option have Image then put here........
                   </label>
                   <input
                     type="file"
                     class="form-control-file"
-                    id="exampleFormControlFile1"
+                    id="File4"
+                    onChange={(e) => {
+                      console.log(e.target.files[0]);
+                      const formData = new FormData();
+                      formData.append("file", e.target.files[0]);
+                      console.log(formData);
+                      axios
+                        .post("/api/v1/admin/questions/image/add", formData, {
+                          headers: {
+                            Authorization: `Admin ${localStorage.getItem(
+                              "Admin"
+                            )}`,
+                            "Content-Type": "multipart/form-data",
+                          },
+                        })
+                        .then((res) => {
+                          console.log(res);
+                          console.log(res.data.data.imageUrl);
+                          setoption4Img(res.data.data.imageUrl);
+                        })
+                        .catch((err) => console.error(err));
+                    }}
                   />
                 </div>
               </div>
@@ -231,14 +337,14 @@ const QuestionAdd = ({ testname, questno, marksques, negmarks }) => {
                   </select>
                 </div>
                 <div class="col">
-                  <label for="exampleFormControlFile1">
+                  {/* <label for="exampleFormControlFile1">
                     If Answer have Image then put here........
                   </label>
                   <input
                     type="file"
                     class="form-control-file"
                     id="exampleFormControlFile1"
-                  />
+                  /> */}
                 </div>
               </div>
 
@@ -305,9 +411,9 @@ const QuestionAdd = ({ testname, questno, marksques, negmarks }) => {
               </div>
             </form>
           </div>
-          <div className="col">
+          {/* <div className="col">
             <AdminSidePanel cnt={count} />
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="container text-center mt-5 mb-5">
