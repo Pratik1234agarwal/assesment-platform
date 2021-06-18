@@ -14,9 +14,9 @@ const AdminRoutes = () => {
   function result() {
     history.push("/admin1");
   }
-  // function setquestionpaper() {
-  //   history.push("/settest");
-  // }
+  function setquestionpaper() {
+    history.push("/addingquestions");
+  }
   function registrations() {
     history.push("/A-DSAT_Registration");
   }
@@ -54,14 +54,13 @@ const AdminRoutes = () => {
 
       <div className="container text-center mt-5">
         <div className="row">
-          <div className="col-12 col-lg-6">
+          <div className="col-12 col-lg-4">
             <div class="card text-center">
               <div class="card-header">Students Outcome</div>
               <div class="card-body">
-                <h5 class="card-title">Result Of All Tests</h5>
+                <h5 class="card-title">Result</h5>
                 <p class="card-text" style={{ fontSize: "17px" }}>
-                  Check the results of all the student and also see the
-                  reportcard of a person and mail them.
+                  Check the results of all the student and also mail them.
                 </p>
                 <button className="btn btn-danger " onClick={result}>
                   See Result
@@ -70,27 +69,29 @@ const AdminRoutes = () => {
               <div class="card-footer text-muted">Admin</div>
             </div>
           </div>
-          {/* <div className="col">
+          {/* /////////////////////////////// */}
+          <div className="col-12 col-lg-4 mt-4 mt-lg-0 ">
             <div class="card text-center">
               <div class="card-header">Make your own Strategy</div>
               <div class="card-body">
                 <h5 class="card-title">Create Test</h5>
                 <p class="card-text" style={{ fontSize: "17px" }}>
-                  Create your own test and add questions etc... <br />
-                  fill the required details
+                  Create your own test and add questions etc... fill the
+                  required details
                 </p>
                 <button className="btn btn-danger " onClick={setquestionpaper}>
-                  Add New Test
+                  Add Questions
                 </button>
               </div>
               <div class="card-footer text-muted">Admin</div>
             </div>
-          </div> */}
-          <div className="col-12 col-lg-6 mt-4 mt-lg-0 mb-5 mb-lg-0">
+          </div>
+          {/* /////////////////////////////// */}
+          <div className="col-12 col-lg-4 mt-4 mt-lg-0 mb-5 mb-lg-0">
             <div class="card text-center">
               <div class="card-header">Registrations</div>
               <div class="card-body">
-                <h5 class="card-title">Total Registration for A-DSAT</h5>
+                <h5 class="card-title">Total Registrations for A-DSAT</h5>
                 <p class="card-text" style={{ fontSize: "17px" }}>
                   Registered students information....
                   <br />
