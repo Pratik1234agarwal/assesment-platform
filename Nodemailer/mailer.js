@@ -14,23 +14,28 @@ var readHTMLFile = function (path, callback) {
   });
 };
 
-// let transport = nodemailer.createTransport({
-//   host: "smtp.mailtrap.io",
-//   port: 2525,
-//   auth: {
-//     user: "9263d1380e3424",
-//     pass: "9963175b71b6f3",
-//   },
-// });
-//Testing Amazon SES
-let transport = nodemailer.createTransport({
-  host: "email-smtp.us-east-2.amazonaws.com",
-  port: 465,
-  auth: {
-    user: "AKIAUZNK2DJGN6H546EJ",
-    pass: "BCrbR+KyWU8nKU7StmNk9SwcRfvjBh0DBD2HpJMbbI3D",
-  },
-});
+let transport;
+
+if (process.env.NODE_ENV === "production") {
+  //Testing Amazon SES
+  transport = nodemailer.createTransport({
+    host: "email-smtp.us-east-2.amazonaws.com",
+    port: 465,
+    auth: {
+      user: "AKIAUZNK2DJGN6H546EJ",
+      pass: "BCrbR+KyWU8nKU7StmNk9SwcRfvjBh0DBD2HpJMbbI3D",
+    },
+  });
+} else {
+  transport = nodemailer.createTransport({
+    host: "smtp.mailtrap.io",
+    port: 2525,
+    auth: {
+      user: "9263d1380e3424",
+      pass: "9963175b71b6f3",
+    },
+  });
+}
 
 const message = {
   from: "ai-course-datascience@iitrpr.ac.in", // Sender address

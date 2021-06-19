@@ -81,6 +81,34 @@ router.post(
   }
 );
 
+router.get("/list", auth, async (req, res) => {
+  try {
+    const questions = await Question.find();
+    res.json({
+      status: "success",
+      data: {
+        questions,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(serverErrorResponse());
+  }
+});
+
+router.delete("/:id", auth, async (req, res) => {
+  try {
+    await Question.findByIdAndDelete({ _id: req.params.id });
+    return res.json({
+      status: "success",
+      message: "Question Succesfully deleted",
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(serverErrorResponse());
+  }
+});
+
 router.post("/image/add", [auth, upload.single("file")], async (req, res) => {
   try {
     console.log("file", req.file);
