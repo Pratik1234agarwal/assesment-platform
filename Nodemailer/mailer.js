@@ -2,6 +2,7 @@ const nodemailer = require("nodemailer");
 var handlebars = require("handlebars");
 var fs = require("fs");
 const path = require("path");
+const config = require("config");
 
 var readHTMLFile = function (path, callback) {
   fs.readFile(path, { encoding: "utf-8" }, function (err, html) {
@@ -16,7 +17,7 @@ var readHTMLFile = function (path, callback) {
 
 let transport;
 
-if (process.env.NODE_ENV === "production") {
+if (config.get("mode") === "production") {
   //Testing Amazon SES
   transport = nodemailer.createTransport({
     host: "email-smtp.us-east-2.amazonaws.com",
