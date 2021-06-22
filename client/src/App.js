@@ -6,7 +6,6 @@ import Instdsat from "./pages/Instdsat";
 import EndTest from "./pages/Endtest";
 import ReportCard from "./pages/ReportCard";
 import Admin1 from "./pages/Admin1";
-import QuestionAdd from "./pages/QuestionAdd";
 import AdminResult from "./pages/AdminResult";
 import AdminLogin from "./pages/AdminLogin";
 import AdminRoutes from "./pages/AdminRoutes";
@@ -19,6 +18,9 @@ import logonew from "./images/logonew.png";
 
 import logos from "./images/logos.png";
 import ADSATreg from "./pages/ADSATreg";
+import QuestionAddDemo from "./pages/QuestionAddDemo";
+import QuestionAddLogin from "./pages/QuestionAddLogin";
+import QuestionsList from "./pages/QuestionsList";
 function App() {
   return (
     <>
@@ -39,7 +41,6 @@ function App() {
         <Route path="/finish" component={EndTest} />
         <Route path="/repadmin1ortcard" component={ReportCard} />
         <Route path="/admin1" component={Admin1} />
-        <Route path="/addingquestions" component={QuestionAdd} />
         <Route path="/adminresult" component={AdminResult} />
         <Route path="/admin" component={AdminLogin} />
         <Route path="/adminroutes" component={AdminRoutes} />
@@ -48,6 +49,11 @@ function App() {
         <Route path="/tables" component={Tables} />
         <Route path="/camera" component={Cameraweb} />
         <Route path="/A-DSAT_Registration" component={ADSATreg} />
+
+        <Route path="/addingquestions" component={QuestionAddDemo} />
+        <Route path="/QuestionAddLogin" component={QuestionAddLogin} />
+
+        <Route path="/questionlist" component={QuestionsList} />
       </Switch>
     </>
   );
