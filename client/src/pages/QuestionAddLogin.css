@@ -3,7 +3,7 @@
   background: #fff;
 }
 
-.sidenav {
+.sidenavs {
   height: 100%;
   background-color: rgb(47, 228, 235) !important;
   overflow-x: hidden;
@@ -15,7 +15,7 @@
 }
 
 @media screen and (max-height: 450px) {
-  .sidenav {
+  .sidenavs {
     padding-top: 15px;
   }
 }
@@ -31,7 +31,7 @@
     margin-left: 40%;
   }
 
-  .sidenav {
+  .sidenavs {
     width: 40%;
     position: fixed;
     z-index: 1;
@@ -54,7 +54,7 @@
   font-weight: 300;
 }
 
-.btn-black {
+.btn-grey {
   background-color: rgb(47, 228, 235) !important;
   color: #fff;
 }

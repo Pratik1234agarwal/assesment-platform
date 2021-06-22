@@ -32,7 +32,7 @@ const QuestionAddLogin = () => {
   }
   return (
     <>
-      <div class="sidenav">
+      <div class="sidenavs">
         <div class="login-main-text">
           <h1>
             Adding
@@ -70,7 +70,7 @@ const QuestionAddLogin = () => {
             </div>
             <button
               type="submit"
-              class="btn btn-black text-white"
+              class="btn btn-grey text-white"
               onClick={Login}
             >
               <b>Login</b>
