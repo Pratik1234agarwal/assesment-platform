@@ -3,6 +3,7 @@ import logo1 from "../images/logo.png";
 import { useHistory } from "react-router-dom";
 import "./QuestionAddDemo.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Loader = () => <div className="loader"></div>;
 
@@ -16,10 +17,9 @@ const QuestionAddDemo = () => {
     }
   });
 
-  const logout = () => {
-    localStorage.removeItem("questionAdd");
-    history.push("/questionaddlogin");
-  };
+  function questionHome() {
+    history.push("/questionroutes");
+  }
 
   const hideLoader = () => {
     setloading(false);
@@ -204,8 +204,10 @@ const QuestionAddDemo = () => {
   return (
     <>
       <div className="container-fluid admn">
-        <div className="row  pt-2 ml-3 pb-2">
-          <img src={logo1} />
+        <div className="row ml-3 ">
+          <Link to="/questionroutes">
+            <img src={logo1} />
+          </Link>
         </div>
       </div>
 
@@ -213,9 +215,9 @@ const QuestionAddDemo = () => {
         <button
           className="btn float-right"
           style={{ backgroundColor: "#0E3B7D", color: "white" }}
-          onClick={logout}
+          onClick={questionHome}
         >
-          Log Out
+          Go Back
         </button>
       </div>
 
@@ -223,7 +225,7 @@ const QuestionAddDemo = () => {
         <h4>You have added : {count} Questions</h4>
       </div>
 
-      <div className="container-fluid mt-4">
+      <div className="container-fluid mt-4 mb-4">
         <div className="row">
           <div className="col border border-dark rounded ml-2 mr-2 pt-3 mb-3">
             <form onSubmit={Onsubmit}>

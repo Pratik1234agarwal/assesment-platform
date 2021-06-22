@@ -26,7 +26,7 @@ const QuestionAddLogin = () => {
         console.log(res);
         localStorage.setItem("questionAdd", res.data.data.token);
         alert("Signin Complete");
-        history.push("/addingquestions");
+        history.push("/questionroutes");
       })
       .catch((err) => console.error(err));
   }

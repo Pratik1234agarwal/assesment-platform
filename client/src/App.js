@@ -20,7 +20,8 @@ import logos from "./images/logos.png";
 import ADSATreg from "./pages/ADSATreg";
 import QuestionAddDemo from "./pages/QuestionAddDemo";
 import QuestionAddLogin from "./pages/QuestionAddLogin";
-import QuestionsList from "./pages/QuestionsList";
+import QuestionListTable from "./pages/QuestionListTable";
+import AddingQuestionRoute from "./pages/AddingQuestionRoute";
 function App() {
   return (
     <>
@@ -53,7 +54,8 @@ function App() {
         <Route path="/addingquestions" component={QuestionAddDemo} />
         <Route path="/questionaddlogin" component={QuestionAddLogin} />
 
-        <Route path="/questionlist" component={QuestionsList} />
+        <Route path="/questiontable" component={QuestionListTable} />
+        <Route path="/questionroutes" component={AddingQuestionRoute} />
       </Switch>
     </>
   );
