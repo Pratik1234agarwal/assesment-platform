@@ -73,7 +73,7 @@ const QuestionAddLogin = () => {
               class="btn btn-black text-white"
               onClick={Login}
             >
-              Login
+              <b>Login</b>
             </button>
           </div>
         </div>

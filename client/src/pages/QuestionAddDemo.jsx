@@ -12,13 +12,13 @@ const QuestionAddDemo = () => {
   useEffect(() => {
     if (localStorage.getItem("questionAdd")) {
     } else {
-      history.push("/QuestionAddLogin");
+      history.push("/questionaddlogin");
     }
   });
 
   const logout = () => {
     localStorage.removeItem("questionAdd");
-    history.push("/QuestionAddLogin");
+    history.push("/questionaddlogin");
   };
 
   const hideLoader = () => {

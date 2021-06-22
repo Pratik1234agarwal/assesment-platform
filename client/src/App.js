@@ -51,7 +51,7 @@ function App() {
         <Route path="/A-DSAT_Registration" component={ADSATreg} />
 
         <Route path="/addingquestions" component={QuestionAddDemo} />
-        <Route path="/QuestionAddLogin" component={QuestionAddLogin} />
+        <Route path="/questionaddlogin" component={QuestionAddLogin} />
 
         <Route path="/questionlist" component={QuestionsList} />
       </Switch>
