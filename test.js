@@ -1,4 +1,5 @@
 const Questions = require("./models/Questions");
+const User = require("./models/User");
 require("./config/db")();
 require("./Nodemailer/mailTemplates/mailSendingWithTimeslot");
 const uploadFile = require("./Aws/s3");
@@ -23,9 +24,25 @@ const addQuestion = async () => {
   }
 };
 
-//setTimeout(() => addQuestion(), 1000);
+//uploadFile(require("path").join(__dirname, "Aws", "cat.jpg"));
 
-uploadFile(require("path").join(__dirname, "Aws", "cat.jpg"));
+const filterUser = async () => {
+  try {
+    let count = 0;
+    const users = await User.find();
+    for (let i = 0; i < users.length; i++) {
+      if (users[i].registeredAt && users[i].registeredAt.getDate() > 22) {
+        console.log(users[i]);
+      }
+    }
+
+    console.log("The total number of users registered are : ", count);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+setTimeout(() => filterUser(), 1000);
 
 const questionList = [
   {
