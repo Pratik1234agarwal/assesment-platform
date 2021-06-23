@@ -69,6 +69,7 @@ router.post(
         university: req.body.university,
         phone: req.body.phone,
         branch: req.body.branch,
+        registeredAt: Date.now(),
       });
       user.registrationMailSent = true;
 
