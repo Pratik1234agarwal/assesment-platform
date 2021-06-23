@@ -31,8 +31,12 @@ const filterUser = async () => {
     let count = 0;
     const users = await User.find();
     for (let i = 0; i < users.length; i++) {
+      //console.log(users);
+      console.log(users[i].registeredAt);
+      console.log(users[i].registeredAt.getDate());
       if (users[i].registeredAt && users[i].registeredAt.getDate() > 22) {
         console.log(users[i]);
+        count++;
       }
     }
 
