@@ -12,5 +12,5 @@
     "amazonKeyId":"AKIAUZNK2DJGEMOWPFIL",
     "amazonSecretKey":"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",
     "AwsS3BucketName":"adsat",
-    "mode":"development"
+    "mode":"dev"
 }
