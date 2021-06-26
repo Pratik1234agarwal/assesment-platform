@@ -7,6 +7,7 @@ const Questions = require("../../models/Questions");
 const Paper = require("../../models/Paper");
 const auth = require("../../middleware/auth");
 const config = require("config");
+const { check, validationResult } = require("express-validator");
 
 //TODO: Add checks for test finish
 
@@ -34,8 +35,11 @@ router.get("/questionPaper", auth, async (req, res) => {
       });
     }
     const questions = await fetchQuestionAndPopulate([
-      "ir",
-      "buisness_understanding",
+      "Integrated Reasoning",
+      "Statistics and Probability",
+      "Quantitative Aptitude",
+      "Data Interpretation",
+      "Business Understanding",
     ]);
 
     console.log(questions);
@@ -69,17 +73,17 @@ router.get("/questionPaper", auth, async (req, res) => {
 router.post("/answer", auth, async (req, res) => {
   try {
     const questionPaper = await Paper.findOne({ user: req.user.id });
+    if (!questionPaper) {
+      return res
+        .status(401)
+        .json(failErrorResponse("The user has not yet started a attempt"));
+    }
     const testStartedAt = new Date(questionPaper.startedAt).getTime();
     const timeElapsed = Date.now() - testStartedAt;
     if (timeElapsed > config.get("DsatTimeinMinutes") * 60 * 1000) {
       return res
         .status(401)
         .json(failErrorResponse("Time Limit for the test has elapsed"));
-    }
-    if (!questionPaper) {
-      return res
-        .status(401)
-        .json(failErrorResponse("The user has not yet started a attempt"));
     }
 
     await Paper.updateOne(

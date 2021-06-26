@@ -27,6 +27,7 @@ if (config.get("mode") === "production") {
       pass: "BCrbR+KyWU8nKU7StmNk9SwcRfvjBh0DBD2HpJMbbI3D",
     },
   });
+  console.log("Mongo Running in production mode");
 } else {
   transport = nodemailer.createTransport({
     host: "smtp.mailtrap.io",
