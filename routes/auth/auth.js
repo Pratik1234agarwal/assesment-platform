@@ -36,7 +36,7 @@ router.get("/", auth, async (req, res) => {
 router.post(
   "/signup",
   [
-    check("email", "Please Provide a valid email address"),
+    check("email", "Please Provide a valid email address").not().isEmpty(),
     check("name", "Please provide user name").not().isEmpty(),
     check("phone", "Please provide a valid Phone number").not().isEmpty(),
     check("category", "Please provide user category").not().isEmpty(),
