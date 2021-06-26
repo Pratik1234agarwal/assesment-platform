@@ -22,20 +22,20 @@ const PaperSchema = mongoose.Schema({
         default: "not answered",
       },
       A: {
-        type: String,
-        required: true,
+        text: String,
+        imageUrl: String,
       },
       B: {
-        type: String,
-        required: true,
+        text: String,
+        imageUrl: String,
       },
       C: {
-        type: String,
-        required: true,
+        text: String,
+        imageUrl: String,
       },
       D: {
-        type: String,
-        required: true,
+        text: String,
+        imageUrl: String,
       },
       answer: {
         type: String,
