@@ -14,12 +14,12 @@ const { check, validationResult } = require("express-validator");
 const fetchQuestionAndPopulate = async (category) => {
   let totalQuestions = [];
   for (let i = 0; i < category.length; i++) {
-    console.log(category[i]);
+    //console.log(category[i]);
     const questions = await Questions.aggregate([
       { $match: { category: category[i] } },
       { $sample: { size: 5 } },
     ]);
-    console.log("questions", questions);
+    //console.log("questions", questions);
     totalQuestions.push(...questions);
   }
   return totalQuestions;
@@ -42,7 +42,7 @@ router.get("/questionPaper", auth, async (req, res) => {
       "Business Understanding",
     ]);
 
-    console.log(questions);
+    //console.log(questions);
     paper = new Paper({
       questions: questions.map((que) => ({
         questionId: que._id,

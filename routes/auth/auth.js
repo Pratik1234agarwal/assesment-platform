@@ -83,7 +83,7 @@ router.post(
       };
 
       // Send Registration mail
-      sendMailAfterRegistration(req.body.email, req.body.name);
+      //sendMailAfterRegistration(req.body.email, req.body.name);
 
       // Return JWT Token
       jwt.sign(
