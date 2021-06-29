@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 
 const Question = ({ question, onAnswer }) => {
+  let height = "140px",
+    width = "180px";
   const a = useRef(null);
   const b = useRef(null);
   const c = useRef(null);
@@ -53,59 +55,129 @@ const Question = ({ question, onAnswer }) => {
 
   return (
     <div className="question-wrapper">
-      <div className="question-text">{question && question.questionText}</div>
+      <div className="row">
+        <div className="col">
+          <div className="question-text">
+            {question && question.questionText}
+          </div>
+        </div>
+        <div className="col">
+          {question && (
+            <div>
+              {question.questionImage && (
+                <img
+                  src={question.questionImage}
+                  height={height}
+                  width={width}
+                  className="ml-3"
+                />
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
       {question && (
         <div className="question-options">
-          <br />
-          <input
-            onChange={onChange}
-            type="radio"
-            id="A"
-            ref={a}
-            name="option"
-            value="A"
-          />
-          <label for="A" className="ml-3">
-            {question.A}
-          </label>
-          <br />
-          <input
-            onChange={onChange}
-            type="radio"
-            id="B"
-            ref={b}
-            name="option"
-            value="B"
-          />
-          <label for="B" className="ml-3">
-            {question.B}
-          </label>
-          <br />
+          <div className="row">
+            <div className="col">
+              <br />
+              <input
+                onChange={onChange}
+                type="radio"
+                id="A"
+                ref={a}
+                name="option"
+                value="A"
+              />
+              <label for="A" className="ml-3">
+                {question.A.text}
+              </label>
+              <br />
+              {question.A.imageUrl != "" && (
+                <img
+                  src={question.A.imageUrl}
+                  height={height}
+                  width={width}
+                  className="ml-3"
+                />
+              )}
+            </div>
+            <div className="col">
+              <br />
+              <input
+                onChange={onChange}
+                type="radio"
+                id="B"
+                ref={b}
+                name="option"
+                value="B"
+              />
+              <label for="B" className="ml-3">
+                {question.B.text}
+              </label>
+              <br />
+              {question.B.imageUrl != "" && (
+                <img
+                  src={question.B.imageUrl}
+                  height={height}
+                  width={width}
+                  className="ml-3"
+                />
+              )}
+            </div>
+          </div>
 
-          <input
-            onChange={onChange}
-            type="radio"
-            id="C"
-            ref={c}
-            name="option"
-            value="C"
-          />
-          <label for="C" className="ml-3">
-            {question.C}
-          </label>
-          <br />
+          <div className="row">
+            <div className="col">
+              <br />
 
-          <input
-            onChange={onChange}
-            type="radio"
-            id="D"
-            ref={d}
-            name="option"
-            value="D"
-          />
-          <label for="D" className="ml-3">
-            {question.D}
-          </label>
+              <input
+                onChange={onChange}
+                type="radio"
+                id="C"
+                ref={c}
+                name="option"
+                value="C"
+              />
+              <label for="C" className="ml-3">
+                {question.C.text}
+              </label>
+              <br />
+              {question.C.imageUrl != "" && (
+                <img
+                  src={question.C.imageUrl}
+                  height={height}
+                  width={width}
+                  className="ml-3"
+                />
+              )}
+            </div>
+            <div className="col">
+              <br />
+
+              <input
+                onChange={onChange}
+                type="radio"
+                id="D"
+                ref={d}
+                name="option"
+                value="D"
+              />
+              <label for="D" className="ml-3">
+                {question.D.text}
+              </label>
+              <br />
+              {question.D.imageUrl != "" && (
+                <img
+                  src={question.D.imageUrl}
+                  height={height}
+                  width={width}
+                  className="ml-3"
+                />
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -11,7 +11,7 @@ import Cameraweb from "../Components/Cameraweb";
 import screenfull from "screenfull";
 // const screenfull = require("screenfull");
 // import { FullScreen, useFullScreenHandle } from "react-full-screen";
-import Screenfull from 'screenfull-react';
+import Screenfull from "screenfull-react";
 
 let username;
 let useremail;
@@ -45,7 +45,6 @@ const Sidepanel = () => {
 
   const toggleFullScreen = () => {
     if (screenfull.isEnabled) {
-      //screenfull.toggle();
       screenfull.request();
     }
   };
@@ -56,7 +55,6 @@ const Sidepanel = () => {
     if (screenfull.isEnabled) {
       screenfull.on("change", () => {
         console.log("Am I fullscreen?", screenfull.isFullscreen ? "Yes" : "No");
-       
       });
     }
     if (localStorage.getItem("token")) {
@@ -194,7 +192,6 @@ const Sidepanel = () => {
 
   return (
     <>
-    
       <div className="d-none">
         <button onClick={toggleFullScreen} id="buttonclk">
           Enter fullscreen
@@ -207,7 +204,7 @@ const Sidepanel = () => {
             <img src={logo1} />
           </div>
           <div className="col-4 text-center">
-            <h4 className="pt-3">DSAT - Online</h4>
+            <h4 className="pt-3">A-DSAT - Online</h4>
             {/* <Cameraweb /> */}
           </div>
           <div className="col float-right">
@@ -222,18 +219,18 @@ const Sidepanel = () => {
             </div>
           </div>
         </div>
-        <div className="row ">
+        <div className="row mt-3">
           <div className="col-8 ">
             <div class="row ">
               <div className="container-fluid ">
                 <div className="container  sem" id="ques">
-                  Q {currentQuestion}:
+                  <b>Q {currentQuestion}:</b>
                   <Question
                     onAnswer={onAnswer}
                     question={questions[currentQuestion - 1]}
                   />
                 </div>
-                <div className="jem d-flex justify-content-center fixed-bottom mb-5 ml-3 mr-3">
+                <div className="jem d-flex justify-content-center fixed-bottom mb-3 ml-3 mr-3">
                   {/* <button type="button" class="btn rev  text-white">
                     Mark as Review
                   </button> */}

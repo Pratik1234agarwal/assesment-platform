@@ -22,6 +22,7 @@ import QuestionAddDemo from "./pages/QuestionAddDemo";
 import QuestionAddLogin from "./pages/QuestionAddLogin";
 import QuestionListTable from "./pages/QuestionListTable";
 import AddingQuestionRoute from "./pages/AddingQuestionRoute";
+import SignIn from "./pages/SignIn";
 function App() {
   return (
     <>
@@ -56,6 +57,9 @@ function App() {
 
         <Route path="/questiontable" component={QuestionListTable} />
         <Route path="/questionroutes" component={AddingQuestionRoute} />
+
+        {/* /////////////////// */}
+        <Route path="/signin" component={SignIn} />
       </Switch>
     </>
   );
