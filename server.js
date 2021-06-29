@@ -48,7 +48,7 @@ if (clusterWorkerSize > 1) {
       console.log("Worker", worker.id, " has exitted.");
     });
   } else {
-    const app = express();
+    //const app = express();
 
     app.listen(PORT, function () {
       console.log(
@@ -57,7 +57,7 @@ if (clusterWorkerSize > 1) {
     });
   }
 } else {
-  const app = express();
+  // const app = express();
 
   app.listen(PORT, function () {
     console.log(
