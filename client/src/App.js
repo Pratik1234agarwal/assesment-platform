@@ -59,7 +59,7 @@ function App() {
         <Route path="/questionroutes" component={AddingQuestionRoute} />
 
         {/* /////////////////// */}
-        {/* <Route path="/signin" component={SignIn} /> */}
+        <Route path="/signin" component={SignIn} />
       </Switch>
     </>
   );

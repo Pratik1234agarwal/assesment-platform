@@ -125,12 +125,9 @@ const Loginout = () => {
         </div>
       </div>
 
-      <div className="text-center mb-lg-4 mb-md-4 mb-0">
+      <div className="text-center">
         <img src={logos} />
       </div>
-      <h4 className="text-danger text-center d-block d-sm-none">
-        Under Maintenance from 9:00pm to 6:00am
-      </h4>
       <h3 className="mt-4 d-block d-sm-none ">A-DSAT Registration</h3>
       <div>
         <form className="form d-block d-sm-none" onSubmit={signUp}>
@@ -211,19 +208,12 @@ const Loginout = () => {
             className=" inp"
             // required
           />
-          <button className="btn but mt-2 disabled text-white" disabled>
-            Register
-          </button>
+          <button className="but mt-2">Register</button>
         </form>
       </div>
-      <div className="body1 ">
-        <h3 className="mt-5 d-none d-sm-block">
-          <span className="text-danger text-center">
-            <h4 className="mt-3">Under Maintenance from 9:00pm to 6:00am</h4>
-          </span>
-          A-DSAT Registration
-        </h3>
-        <div class="containers mt-2 d-none d-sm-block " id="containers">
+      <div className="body1">
+        <h3 className="mt-5 d-none d-sm-block">A-DSAT Registration</h3>
+        <div class="containers mt-2 d-none d-sm-block" id="containers">
           <div class="form-container sign-up-container">
             <form className="form" onSubmit={signUp}>
               <h2>Create Account</h2>
@@ -304,10 +294,9 @@ const Loginout = () => {
                 required
               />
               <button
-                className="btn but mt-2 disabled text-white"
+                className="but mt-2"
                 // data-toggle="modal"
                 // data-target="#exampleModalCenter"
-                disabled
               >
                 Register for A-DSAT
               </button>
@@ -371,9 +360,6 @@ const Loginout = () => {
             </div>
           </div>
         </div>
-        <h3 className="mt-3 d-none d-sm-block text-danger text-center">
-          Under Maintenance from 9:00pm to 6:00am
-        </h3>
       </div>
     </>
   );
