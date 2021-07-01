@@ -33,7 +33,7 @@ async function Mails() {
       console.log(slot);
       await timeSlotMail(
         user.name,
-        "pratik048@gmail.com",
+        user.email,
         `${slot.startTime.getDate()}th of July`,
         formatSlot(slot.startTime, slot.endTime)
       );

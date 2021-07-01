@@ -157,12 +157,12 @@ const timeSlotMail = (name, email, date, timeSlot) => {
       };
       transport.sendMail(mailOptions, function (error, response) {
         if (error) {
-          console.log(error);
-          log(`[Error : Mail ${email} bounced] `, "timeSlotMail.log");
+          //console.log(error);
+          log(`[Error : Mail ${email} , ${name} bounced] `, "timeSlotMail.log");
           reject(error);
         } else {
-          console.log(response);
-          log(`[Error : Mail ${email} delivered] `, "timeSlotMail.log");
+          //console.log(response);
+          log(`[Success : Mail ${email} delivered] `, "timeSlotMail.log");
           resolve();
         }
       });
