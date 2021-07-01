@@ -55,9 +55,9 @@ const Instdsat = () => {
       <div className="container-fluid"></div>
 
       <div className="container-fluid jass text-white text-center">
-        <h2 className="pt-5">Online Test - DSAT</h2>
+        <h2 className="pt-5">Online Test - A-DSAT</h2>
         <h5 className="pt-3">
-          The DSAT online test assesses candidates knowledge
+          The A-DSAT online test assesses candidates knowledge
         </h5>
         <button
           type="button"
@@ -82,17 +82,17 @@ const Instdsat = () => {
             fontSize: "35px",
           }}
         >
-          ABOUT DSAT ONLINE TEST
+          ABOUT A-DSAT ONLINE TEST
         </h3>
         <div className="container">
           {/* <h6 style={{ fontSize: "18px" }}> */}
           <h6 className="text-center pt-3" style={{ fontSize: "18px" }}>
-            Data Science Aptitude Test (DSAT) is the standard evaluation process
-            to select the right candidate for learning Data Science. The D-SAT
-            is based on Sternberg Theory of intelligence and aims to evaluate
-            "Analytical Intelligence of the candidate". Analytical Intelligence
-            is the kind of intelligence which helps one to decipher complex
-            scenarios and draw patterns out of it.
+            Data Science Aptitude Test (A-DSAT) is the standard evaluation
+            process to select the right candidate for learning Data Science. The
+            A-DSAT is based on Sternberg Theory of intelligence and aims to
+            evaluate "Analytical Intelligence of the candidate". Analytical
+            Intelligence is the kind of intelligence which helps one to decipher
+            complex scenarios and draw patterns out of it.
           </h6>
         </div>
       </div>
@@ -106,7 +106,7 @@ const Instdsat = () => {
             fontSize: "35px",
           }}
         >
-          DSAT ONLINE TEST INCLUDES
+          A-DSAT ONLINE TEST INCLUDES
         </h3>
         <p className="pt-3" style={{ fontSize: "18px" }}>
           <b>Data Interpretation</b>
@@ -138,7 +138,7 @@ const Instdsat = () => {
             fontSize: "40px",
           }}
         >
-          GENERAL INSTRUCTION FOR DSAT
+          GENERAL INSTRUCTION FOR A-DSAT
         </h3>
         <p className="pt-3" style={{ fontSize: "18px" }}>
           <b>Negative Marking :</b> For Incorrect Answer : -1 Mark

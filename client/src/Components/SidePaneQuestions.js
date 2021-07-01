@@ -101,6 +101,7 @@ const SidePaneQuestions = ({
       <h5 className="text-center pt-4">Questions</h5>
       <hr />
       <div className="row pl-2 pr-2">{quest()}</div>
+      <h5 className="text-center pt-4"></h5>
     </div>
   );
 };

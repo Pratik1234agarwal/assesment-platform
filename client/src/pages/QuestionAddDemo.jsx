@@ -188,6 +188,7 @@ const QuestionAddDemo = () => {
     }
     hideLoader();
     setquestionText("");
+    setquesImage("");
     setoption1("");
     setoption1Img("");
     setoption2("");
