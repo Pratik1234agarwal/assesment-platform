@@ -13,6 +13,9 @@ import screenfull from "screenfull";
 // import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import Screenfull from "screenfull-react";
 
+import "sweetalert/dist/sweetalert.css";
+import swal from "sweetalert";
+
 let username;
 let useremail;
 
@@ -51,10 +54,52 @@ const Sidepanel = () => {
 
   useEffect(async () => {
     profile();
-    document.getElementById("buttonclk").click();
+    // document.getElementById("buttonclk").click();
+
+    swal(
+      {
+        title: "Enter Fullscreen",
+        text: "Don't try to exit fullscreen during test",
+        type: "warning",
+        confirmButtonColor: "#0E3B7D",
+        confirmButtonText: "Ok",
+        closeOnConfirm: true,
+        customClass: "Custom_Cancel",
+      },
+      function (isConfirm) {
+        if (isConfirm) {
+          toggleFullScreen();
+        } else {
+          toggleFullScreen();
+        }
+      }
+    );
+
     if (screenfull.isEnabled) {
       screenfull.on("change", () => {
-        console.log("Am I fullscreen?", screenfull.isFullscreen ? "Yes" : "No");
+        console.log(
+          "Am I fullscreen?",
+          screenfull.isFullscreen
+            ? "Yes"
+            : swal(
+                {
+                  title: "Do not exit fullscreen",
+                  text: "Next time if you try to exit fullscreeen your test is automatically submitted!",
+                  type: "warning",
+                  confirmButtonColor: "#0E3B7D",
+                  confirmButtonText: "Ok",
+                  closeOnConfirm: true,
+                  customClass: "Custom_Cancel",
+                },
+                function (isConfirm) {
+                  if (isConfirm) {
+                    toggleFullScreen();
+                  } else {
+                    toggleFullScreen();
+                  }
+                }
+              )
+        );
       });
     }
     if (localStorage.getItem("token")) {
@@ -198,89 +243,24 @@ const Sidepanel = () => {
         </button>
       </div>
 
-      <div className="container-fluid fix bg-white fullscrn ">
-        <div className="row pt-2">
-          <div className="col-4">
-            <img src={logo1} />
+      <div className="d-block d-sm-none">
+        <div className="container-fluid   fix bg-white">
+          <div className="row pt-2">
+            <div className="col">
+              <img src={logo1} />
+            </div>
+            <div className="col text-right">
+              <div className=" pt-2">
+                <i class="text-right fas fa-user-circle fa-3x"></i>
+                <div className=" text-right pt-2"> {username}</div>
+              </div>
+            </div>
           </div>
-          <div className="col-4 text-center">
+          <div className="container text-center">
             <h4 className="pt-3">A-DSAT - Online</h4>
-            {/* <Cameraweb /> */}
           </div>
-          <div className="col float-right">
-            <div className="row pt-2">
-              <div className="col text-right pt-2">
-                {" "}
-                {username}({useremail})
-              </div>
-              <div className="col-2 text-right">
-                <i class="fas fa-user-circle fa-3x"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row mt-3">
-          <div className="col-8 ">
-            <div class="row ">
-              <div className="container-fluid ">
-                <div className="container  sem" id="ques">
-                  <b>Q {currentQuestion}:</b>
-                  <Question
-                    onAnswer={onAnswer}
-                    question={questions[currentQuestion - 1]}
-                  />
-                </div>
-                <div className="jem d-flex justify-content-center fixed-bottom mb-3 ml-3 mr-3">
-                  {/* <button type="button" class="btn rev  text-white">
-                    Mark as Review
-                  </button> */}
-                  <button
-                    type="button"
-                    class="btn pre ml-5 text-white"
-                    onClick={previousButton}
-                  >
-                    Previous
-                  </button>
-                  <button
-                    type="button"
-                    class="btn pre  text-white ml-3 pl-4 pr-4"
-                    onClick={nextButton}
-                  >
-                    Next
-                  </button>
 
-                  <button
-                    type="button"
-                    class="btn sub  text-white ml-5"
-                    onClick={onSubmit}
-                  >
-                    Submit Test
-                  </button>
-
-                  <hr />
-                  <br />
-                  <div className="row text-center ">
-                    {/* <div className="col ">
-                      <i class="fas fa-circle circle1"></i> Current
-                    </div>
-                    <div className="col">
-                      <i class="fas fa-circle circle2"></i> Not Attempted
-                    </div> */}
-                    <div className="col">
-                      <i class="fas fa-circle circle3"></i> Answered
-                    </div>
-                    <div className="col">
-                      <i class="fas fa-circle circle4"></i> Not Answered
-                    </div>
-                    {/* <div className="col">
-                      <i class="fas fa-circle circle5"></i> Review
-                    </div> */}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-4 ">
+          <div className="mt-3">
             <SidePane
               setCurrentQuestion={setCurrentQuestion}
               startedAt={paper.startedAt}
@@ -288,9 +268,151 @@ const Sidepanel = () => {
               setstatusans={setstatusans}
             />
           </div>
+          <div className="container-fluid mt-4">
+            <div className="container  sem" id="ques1">
+              <b>Q {currentQuestion}:</b>
+              <Question
+                onAnswer={onAnswer}
+                question={questions[currentQuestion - 1]}
+              />
+            </div>
+          </div>
+
+          <div className=" mb-3 mt-4">
+            <div className="text-center">
+              <button
+                type="button"
+                class="btn pre  text-white"
+                onClick={previousButton}
+              >
+                Previous
+              </button>
+              <button
+                type="button"
+                class="btn pre  text-white ml-3 pl-4 pr-4"
+                onClick={nextButton}
+              >
+                Next
+              </button>
+            </div>
+            <div className="text-center mt-4">
+              <button
+                type="button"
+                class="btn sub  text-white "
+                onClick={onSubmit}
+              >
+                Submit Test
+              </button>
+            </div>
+            <hr />
+            <br />
+            <div className="row text-center ">
+              <div className="col">
+                <i class="fas fa-circle circle3"></i> Answered
+              </div>
+              <div className="col">
+                <i class="fas fa-circle circle4"></i> Not Answered
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      {/* </FullScreen> */}
+
+      <div className="d-none d-sm-block">
+        <div className="container-fluid fix bg-white fullscrn ">
+          <div className="row pt-2">
+            <div className="col-4">
+              <img src={logo1} />
+            </div>
+            <div className="col-4 text-center">
+              <h4 className="pt-3">A-DSAT - Online</h4>
+              {/* <Cameraweb /> */}
+            </div>
+            <div className="col float-right">
+              <div className="row pt-2">
+                <div className="col text-right pt-2">
+                  {" "}
+                  {username}({useremail})
+                </div>
+                <div className="col-2 text-right">
+                  <i class="fas fa-user-circle fa-3x"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row mt-3">
+            <div className="col-8 ">
+              <div class="row ">
+                <div className="container-fluid ">
+                  <div className="container  sem" id="ques">
+                    <b>Q {currentQuestion}:</b>
+                    <Question
+                      onAnswer={onAnswer}
+                      question={questions[currentQuestion - 1]}
+                    />
+                  </div>
+                  <div className="jem d-flex justify-content-center fixed-bottom mb-3 ml-3 mr-3">
+                    {/* <button type="button" class="btn rev  text-white">
+                    Mark as Review
+                  </button> */}
+                    <button
+                      type="button"
+                      class="btn pre ml-5 text-white"
+                      onClick={previousButton}
+                    >
+                      Previous
+                    </button>
+                    <button
+                      type="button"
+                      class="btn pre  text-white ml-3 pl-4 pr-4"
+                      onClick={nextButton}
+                    >
+                      Next
+                    </button>
+
+                    <button
+                      type="button"
+                      class="btn sub  text-white ml-5"
+                      onClick={onSubmit}
+                    >
+                      Submit Test
+                    </button>
+
+                    <hr />
+                    <br />
+                    <div className="row text-center ">
+                      {/* <div className="col ">
+                      <i class="fas fa-circle circle1"></i> Current
+                    </div>
+                    <div className="col">
+                      <i class="fas fa-circle circle2"></i> Not Attempted
+                    </div> */}
+                      <div className="col">
+                        <i class="fas fa-circle circle3"></i> Answered
+                      </div>
+                      <div className="col">
+                        <i class="fas fa-circle circle4"></i> Not Answered
+                      </div>
+                      {/* <div className="col">
+                      <i class="fas fa-circle circle5"></i> Review
+                    </div> */}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-4 ">
+              <SidePane
+                setCurrentQuestion={setCurrentQuestion}
+                startedAt={paper.startedAt}
+                statusans={statusans}
+                setstatusans={setstatusans}
+              />
+            </div>
+          </div>
+        </div>
+        {/* </FullScreen> */}
+      </div>
     </>
   );
 };

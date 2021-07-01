@@ -353,9 +353,15 @@ const Loginout = () => {
               <div class="overlay-panel overlay-right">
                 <h2>Hello, Students!</h2>
                 <p>Welcome to A-DSAT! Wish you best of luck</p>
-                {/* <button class="ghost but" id="signUp">
+                <button
+                  class="ghost but"
+                  id="signUp"
+                  onClick={() => {
+                    history.push("/signin");
+                  }}
+                >
                   Sign In
-                </button> */}
+                </button>
               </div>
             </div>
           </div>

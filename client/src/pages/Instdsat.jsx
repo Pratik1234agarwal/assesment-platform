@@ -10,7 +10,7 @@ const Instdsat = () => {
     if (localStorage.getItem("token")) {
       // history.push("/Instdsat");
     } else {
-      history.push("/");
+      history.push("/signin");
     }
   });
   function check() {
