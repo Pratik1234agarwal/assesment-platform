@@ -15,6 +15,7 @@ import Tables from "./pages/Tables";
 import Cameraweb from "./Components/Cameraweb";
 import PSDM_log from "./images/PSDM_logo.jpg";
 import logonew from "./images/logonew.png";
+import axios from "axios";
 
 import logos from "./images/logos.png";
 import ADSATreg from "./pages/ADSATreg";
@@ -23,6 +24,9 @@ import QuestionAddLogin from "./pages/QuestionAddLogin";
 import QuestionListTable from "./pages/QuestionListTable";
 import AddingQuestionRoute from "./pages/AddingQuestionRoute";
 import SignIn from "./pages/SignIn";
+
+axios.defaults.baseURL = "https://adsatiitropar.com";
+
 function App() {
   return (
     <>
