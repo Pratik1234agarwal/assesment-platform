@@ -137,7 +137,7 @@ const timeSlotMail = (name, email, date, timeSlot) => {
         from: "ai-course-datascience@iitrpr.ac.in",
         to: email,
         subject:
-          "Advanced Data Science Aptitude Test (A-DSAT) Time Slot ( PSDM - IIT Ropar)",
+          "Advanced Data Science Aptitude Test (A-DSAT) - Exam Date and Time Slot (6th July 2021 and 7th July 2021)",
         html: htmlToSend,
         attachments: [
           {
