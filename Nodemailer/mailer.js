@@ -3,6 +3,7 @@ var handlebars = require("handlebars");
 var fs = require("fs");
 const path = require("path");
 const config = require("config");
+const log = require("log-to-file");
 
 var readHTMLFile = function (path, callback) {
   fs.readFile(path, { encoding: "utf-8" }, function (err, html) {
@@ -99,10 +100,12 @@ const mailSendForRegistration = (email, name) => {
       };
       transport.sendMail(mailOptions, function (error, response) {
         if (error) {
-          console.log(error);
+          //console.log(error);
+          log(`[Error : Mail ${email} bounced] `, "timeSlotMail.log");
           reject(error);
         } else {
-          console.log(response);
+          //console.log(response);
+          log(`[Error : Mail ${email} delivered] `, "timeSlotMail.log");
           resolve();
         }
       });
