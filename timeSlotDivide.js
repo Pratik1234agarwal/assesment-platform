@@ -40,8 +40,8 @@ async function slotDivider() {
   }
 }
 
-const NUMBER_OF_STUDENTS_TO_BE_ALLOTED = 2496;
-const NUMBER_PER_SLOT = 52;
+const NUMBER_OF_STUDENTS_TO_BE_ALLOTED = 2500;
+let NUMBER_PER_SLOT = 52;
 
 async function divideStudent() {
   try {
@@ -51,6 +51,9 @@ async function divideStudent() {
     let count = 0;
     for (let i = 0; i < slots.length; i++) {
       const slot = slots[i];
+      if (i == slots.length - 1) {
+        NUMBER_PER_SLOT = 56;
+      }
       for (let j = 0; j < NUMBER_PER_SLOT; j++) {
         // users[count].timeSlot = slot._id;
         // users[count].slotAlloted = true;
@@ -80,8 +83,8 @@ async function generateExcel() {
     // Writing the heading column
     const headingColumnNames = [
       "Name",
-      "Email",
       "Mobile",
+      "Email",
       "Slot Date",
       "Slot Time",
     ];
@@ -107,7 +110,7 @@ async function generateExcel() {
       });
     }
 
-    console.log(data);
+    // console.log(data);
 
     // Writing data in Excel.
     let rowIndex = 2;
@@ -120,7 +123,7 @@ async function generateExcel() {
     });
     wb.write("SlotDivision.xlsx");
 
-    console.log(users[0]);
+    console.log("Excel Generated");
   } catch (err) {
     console.log(err);
   }
