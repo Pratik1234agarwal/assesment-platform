@@ -3,6 +3,7 @@ import axios from "axios";
 
 const Question = ({ question, onAnswer }) => {
   let height = "140px",
+    qwidth = "250px",
     width = "180px";
   const a = useRef(null);
   const b = useRef(null);
@@ -56,19 +57,19 @@ const Question = ({ question, onAnswer }) => {
   return (
     <div className="question-wrapper">
       <div className="row">
-        <div className="col">
+        <div className="col-12 col-lg-6 col-md-6">
           <div className="question-text">
             {question && question.questionText}
           </div>
         </div>
-        <div className="col">
+        <div className="col-12 col-lg-6 col-md-6">
           {question && (
             <div>
               {question.questionImage && (
                 <img
                   src={question.questionImage}
                   height={height}
-                  width={width}
+                  width={qwidth}
                   className="ml-3"
                 />
               )}
@@ -79,105 +80,107 @@ const Question = ({ question, onAnswer }) => {
 
       {question && (
         <div className="question-options">
-          <div className="row">
-            <div className="col">
-              <br />
-              <input
-                onChange={onChange}
-                type="radio"
-                id="A"
-                ref={a}
-                name="option"
-                value="A"
-              />
-              <label for="A" className="ml-3">
-                {question.A.text}
-              </label>
-              <br />
-              {question.A.imageUrl != "" && (
-                <img
-                  src={question.A.imageUrl}
-                  height={height}
-                  width={width}
-                  className="ml-3"
+          <form>
+            <div className="row">
+              <div className="col">
+                <br />
+                <input
+                  onChange={onChange}
+                  type="radio"
+                  id="A"
+                  ref={a}
+                  name="option"
+                  value="A"
                 />
-              )}
-            </div>
-            <div className="col">
-              <br />
-              <input
-                onChange={onChange}
-                type="radio"
-                id="B"
-                ref={b}
-                name="option"
-                value="B"
-              />
-              <label for="B" className="ml-3">
-                {question.B.text}
-              </label>
-              <br />
-              {question.B.imageUrl != "" && (
-                <img
-                  src={question.B.imageUrl}
-                  height={height}
-                  width={width}
-                  className="ml-3"
+                <label for="A" className="ml-3">
+                  {question.A.text}
+                </label>
+                <br />
+                {question.A.imageUrl != "" && (
+                  <img
+                    src={question.A.imageUrl}
+                    height={height}
+                    width={width}
+                    className="ml-3"
+                  />
+                )}
+              </div>
+              <div className="col">
+                <br />
+                <input
+                  onChange={onChange}
+                  type="radio"
+                  id="B"
+                  ref={b}
+                  name="option"
+                  value="B"
                 />
-              )}
+                <label for="B" className="ml-3">
+                  {question.B.text}
+                </label>
+                <br />
+                {question.B.imageUrl != "" && (
+                  <img
+                    src={question.B.imageUrl}
+                    height={height}
+                    width={width}
+                    className="ml-3"
+                  />
+                )}
+              </div>
             </div>
-          </div>
 
-          <div className="row">
-            <div className="col">
-              <br />
+            <div className="row">
+              <div className="col">
+                <br />
 
-              <input
-                onChange={onChange}
-                type="radio"
-                id="C"
-                ref={c}
-                name="option"
-                value="C"
-              />
-              <label for="C" className="ml-3">
-                {question.C.text}
-              </label>
-              <br />
-              {question.C.imageUrl != "" && (
-                <img
-                  src={question.C.imageUrl}
-                  height={height}
-                  width={width}
-                  className="ml-3"
+                <input
+                  onChange={onChange}
+                  type="radio"
+                  id="C"
+                  ref={c}
+                  name="option"
+                  value="C"
                 />
-              )}
-            </div>
-            <div className="col">
-              <br />
+                <label for="C" className="ml-3">
+                  {question.C.text}
+                </label>
+                <br />
+                {question.C.imageUrl != "" && (
+                  <img
+                    src={question.C.imageUrl}
+                    height={height}
+                    width={width}
+                    className="ml-3"
+                  />
+                )}
+              </div>
+              <div className="col">
+                <br />
 
-              <input
-                onChange={onChange}
-                type="radio"
-                id="D"
-                ref={d}
-                name="option"
-                value="D"
-              />
-              <label for="D" className="ml-3">
-                {question.D.text}
-              </label>
-              <br />
-              {question.D.imageUrl != "" && (
-                <img
-                  src={question.D.imageUrl}
-                  height={height}
-                  width={width}
-                  className="ml-3"
+                <input
+                  onChange={onChange}
+                  type="radio"
+                  id="D"
+                  ref={d}
+                  name="option"
+                  value="D"
                 />
-              )}
+                <label for="D" className="ml-3">
+                  {question.D.text}
+                </label>
+                <br />
+                {question.D.imageUrl != "" && (
+                  <img
+                    src={question.D.imageUrl}
+                    height={height}
+                    width={width}
+                    className="ml-3"
+                  />
+                )}
+              </div>
             </div>
-          </div>
+          </form>
         </div>
       )}
     </div>

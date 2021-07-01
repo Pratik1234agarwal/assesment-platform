@@ -27,7 +27,7 @@ const Endtest = ({ history }) => {
 
       <div className="container-fluid">
         <div class="jumbotron text-center bg-white mt-2">
-          <h1 class="display-4 ">Congratulations ! </h1>
+          <h1 class="">Congratulations ! </h1>
           <i class="fas fa-check-circle fa-7x icon-cog mt-4"></i>
           <h5 className="mt-5">Your test is Submitted</h5>
           <p class="lead">
