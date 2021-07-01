@@ -37,8 +37,9 @@ async function Mails() {
         `${slot.startTime.getDate()}th of July`,
         formatSlot(slot.startTime, slot.endTime)
       );
-      break;
+      //break;
     }
+    console.log("Mail Sent to All");
   } catch (err) {
     console.log(err);
   }
