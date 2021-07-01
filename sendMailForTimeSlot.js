@@ -28,7 +28,9 @@ async function Mails() {
     const users = await User.find({ slotAlloted: true });
     for (let i = 0; i < users.length; i++) {
       const user = users[i];
+      console.log(user);
       const slot = await TimeSlot.findById(user._id);
+      console.log(slot);
       await timeSlotMail(
         user.name,
         "pratik048@gmail.com",
