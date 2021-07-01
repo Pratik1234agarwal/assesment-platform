@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const User = require("../../models/User");
 const auth = require("../../middleware/auth");
+const Paper = require("../../models/Paper");
+const config = require("config");
 const {
   serverErrorResponse,
   failErrorResponse,
@@ -14,6 +16,27 @@ router.get("/", auth, async (req, res) => {
       data: {
         users: users,
         numberOfUserRegistered: users.length,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(serverErrorResponse());
+  }
+});
+
+router.get("/active", auth, async (req, res) => {
+  try {
+    let papers = await Paper.find({ finished: false }).select("startedAt");
+    papers = papers.filter(
+      (paper) =>
+        new Date(paper.startedAt).getTime() < Date.now() &&
+        new Date(paper.startedAt).getTime() >
+          Date.now() - config.get("DsatTimeinMinutes") * 60 * 1000
+    );
+    res.json({
+      status: "success",
+      data: {
+        activeUser: papers.length,
       },
     });
   } catch (err) {

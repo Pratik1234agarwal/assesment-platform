@@ -9,7 +9,7 @@ const sendMailForPasswordReset = require("../../Nodemailer/mailTemplates/resetPa
 const path = require("path");
 const User = require("../../models/User");
 
-router.get(
+router.post(
   "/resetPassword",
   [check("email", "Please specify an email")],
   async (req, res) => {
@@ -70,7 +70,7 @@ router.post("/resetPassword/:token", async (req, res) => {
     }
     user.password = password;
     await user.save();
-    res.send("Password Sucessfully changed");
+    res.json({ status: "success", message: "Password Sucessfully changed" });
   } catch (err) {
     console.log(err);
     res.status.json(serverErrorResponse());

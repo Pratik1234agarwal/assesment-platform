@@ -48,7 +48,7 @@ const ResultSchema = mongoose.Schema({
   testName: {
     type: String,
     required: true,
-    default: "dsat",
+    default: "adsat",
   },
   timeTaken: {
     type: Number,
