@@ -57,9 +57,17 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  slotAlloted: {
+    type: Boolean,
+    default: false,
+  },
   timeSlotMailSent: {
     type: Boolean,
     default: false,
+  },
+  timeSlot: {
+    type: mongoose.Types.ObjectId,
+    ref: "timeslots",
   },
 });
 

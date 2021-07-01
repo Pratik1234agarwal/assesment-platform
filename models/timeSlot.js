@@ -9,24 +9,6 @@ const timeSlotSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  students: [
-    {
-      user: {
-        type: mongoose.Types.ObjectId,
-        ref: "users",
-      },
-      attempted: {
-        type: Boolean,
-        default: false,
-        required: true,
-      },
-      requestedTimeChange: {
-        type: Boolean,
-        default: false,
-        required: true,
-      },
-    },
-  ],
   slotNumber: {
     type: Number,
     required: true,
