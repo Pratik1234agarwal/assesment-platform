@@ -102,7 +102,7 @@ async function generateExcel() {
         name: user.name,
         mobile: user.phone,
         email: user.email,
-        slotDate: `${slot.startTime.getDate()}`,
+        slotDate: `${slot.startTime.getDate()}th July, 2021`,
         slotTime: formatTime(slot),
       });
     }
@@ -148,4 +148,10 @@ async function reset() {
   console.log("Reset done");
 }
 
-setTimeout(generateExcel, 1000);
+async function everything() {
+  await slotDivider();
+  await divideStudent();
+  await generateExcel();
+}
+
+setTimeout(everything, 1000);
