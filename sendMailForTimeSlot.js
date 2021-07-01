@@ -29,7 +29,7 @@ async function Mails() {
     for (let i = 0; i < users.length; i++) {
       const user = users[i];
       console.log(user);
-      const slot = await TimeSlot.findById(user._id);
+      const slot = await TimeSlot.findById(user.timeSlot);
       console.log(slot);
       await timeSlotMail(
         user.name,
