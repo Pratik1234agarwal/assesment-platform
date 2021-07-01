@@ -74,7 +74,6 @@ const locationAttachment = path.join(
   "..",
   "template/Registration/enrolment.png"
 );
-console.log(location);
 
 const mailSendForRegistration = (email, name) => {
   return new Promise((resolve, reject) => {
@@ -170,4 +169,4 @@ const timeSlotMail = (name, email, date, timeSlot) => {
   });
 };
 
-module.exports = { mailSendForRegistration, timeSlotMail };
+module.exports = { mailSendForRegistration, timeSlotMail, sendMail };
