@@ -71,7 +71,7 @@ const Question = ({ question, onAnswer }) => {
                   src={question.questionImage}
                   height={qheight}
                   width={"auto"}
-                  className="ml-3"
+                  className=" img-fluid zoom"
                 />
               )}
             </div>
@@ -102,7 +102,7 @@ const Question = ({ question, onAnswer }) => {
                     src={question.A.imageUrl}
                     height={height}
                     width={"auto"}
-                    className="ml-3"
+                    className="ml-3 img-fluid"
                   />
                 )}
               </div>
@@ -125,7 +125,7 @@ const Question = ({ question, onAnswer }) => {
                     src={question.B.imageUrl}
                     height={height}
                     width={"auto"}
-                    className="ml-3"
+                    className="ml-3 img-fluid"
                   />
                 )}
               </div>
@@ -152,7 +152,7 @@ const Question = ({ question, onAnswer }) => {
                     src={question.C.imageUrl}
                     height={height}
                     width={"auto"}
-                    className="ml-3"
+                    className="ml-3 img-fluid"
                   />
                 )}
               </div>
@@ -176,7 +176,7 @@ const Question = ({ question, onAnswer }) => {
                     src={question.D.imageUrl}
                     height={height}
                     width={"auto"}
-                    className="ml-3"
+                    className="ml-3 img-fluid"
                   />
                 )}
               </div>

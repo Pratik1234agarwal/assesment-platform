@@ -1,5 +1,5 @@
 const messageFormatter = require("../configureMessage");
-const sendMail = require("../mailer");
+const { sendMail } = require("../mailer");
 const config = require("config");
 
 const sendMailForPasswordReset = (email, token) => {

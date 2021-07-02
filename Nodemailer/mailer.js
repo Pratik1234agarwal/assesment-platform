@@ -3,6 +3,7 @@ var handlebars = require("handlebars");
 var fs = require("fs");
 const path = require("path");
 const config = require("config");
+const log = require("log-to-file");
 
 var readHTMLFile = function (path, callback) {
   fs.readFile(path, { encoding: "utf-8" }, function (err, html) {
@@ -73,7 +74,6 @@ const locationAttachment = path.join(
   "..",
   "template/Registration/enrolment.png"
 );
-console.log(location);
 
 const mailSendForRegistration = (email, name) => {
   return new Promise((resolve, reject) => {
@@ -110,4 +110,63 @@ const mailSendForRegistration = (email, name) => {
   });
 };
 
-module.exports = mailSendForRegistration;
+const timeSlotMail = (name, email, date, timeSlot) => {
+  const locationAttachmentTimeSlot = path.join(
+    __dirname,
+    "..",
+    "template/Timeslot"
+  );
+  const locationimeSlot = path.join(
+    __dirname,
+    "..",
+    "template/Timeslot/timeslot.html"
+  );
+  return new Promise((resolve, reject) => {
+    readHTMLFile(locationimeSlot, function (err, html) {
+      var template = handlebars.compile(html);
+      var replacements = {
+        name,
+        date,
+        timeSlot,
+      };
+      var htmlToSend = template(replacements);
+      var mailOptions = {
+        from: "ai-course-datascience@iitrpr.ac.in",
+        to: email,
+        subject:
+          "Advanced Data Science Aptitude Test (A-DSAT) - Exam Date and Time Slot (6th July 2021 and 7th July 2021)",
+        html: htmlToSend,
+        attachments: [
+          {
+            filename: "t2.png",
+            path: path.join(locationAttachmentTimeSlot, "t2.png"),
+            cid: "t2",
+          },
+          {
+            filename: "t3.png",
+            path: path.join(locationAttachmentTimeSlot, "t3.png"),
+            cid: "t3",
+          },
+          {
+            filename: "t4.png",
+            path: path.join(locationAttachmentTimeSlot, "t4.png"),
+            cid: "t4",
+          },
+        ],
+      };
+      transport.sendMail(mailOptions, function (error, response) {
+        if (error) {
+          //console.log(error);
+          log(`[Error : Mail ${email} , ${name} bounced] `, "timeSlotMail.log");
+          reject(error);
+        } else {
+          //console.log(response);
+          log(`[Success : Mail ${email} delivered] `, "timeSlotMail.log");
+          resolve();
+        }
+      });
+    });
+  });
+};
+
+module.exports = { mailSendForRegistration, timeSlotMail, sendMail };

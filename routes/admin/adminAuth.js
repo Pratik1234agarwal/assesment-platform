@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 
 router.use("/questions", require("./addQuestion"));
+router.use("/timeslots", require("./timeSlots"));
 router.use("/result", require("./results"));
 router.use("/test", require("./createNewTest"));
 router.use("/registrationStats", require("./registrationStats"));
