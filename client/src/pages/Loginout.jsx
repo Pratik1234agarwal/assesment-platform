@@ -161,6 +161,18 @@ const Loginout = () => {
         <img src={logos} />
       </div>
       <h3 className="mt-4 d-block d-sm-none ">A-DSAT Registration</h3>
+      <h6 className="text-center bg-light pt-3 pb-3 d-block d-sm-none">
+        Already have an account... <br />
+        <button
+          className="but mt-2"
+          onClick={() => {
+            history.push("/signin");
+          }}
+        >
+          Sign In
+        </button>
+      </h6>
+
       <div>
         <form className="form d-block d-sm-none" onSubmit={signUp}>
           <h2>Create Account</h2>

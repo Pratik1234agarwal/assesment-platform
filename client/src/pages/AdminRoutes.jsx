@@ -54,7 +54,7 @@ const AdminRoutes = () => {
 
       <div className="container text-center mt-5">
         <div className="row">
-          <div className="col-12 col-lg-6">
+          <div className="col-12 col-lg-4">
             <div class="card text-center">
               <div class="card-header">Students Outcome</div>
               <div class="card-body">
@@ -70,30 +70,29 @@ const AdminRoutes = () => {
             </div>
           </div>
           {/* /////////////////////////////// */}
-          {/* <div className="col-12 col-lg-4 mt-4 mt-lg-0 ">
+          <div className="col-12 col-lg-4 mt-4 mt-lg-0 ">
             <div class="card text-center">
               <div class="card-header">Make your own Strategy</div>
               <div class="card-body">
-                <h5 class="card-title">Create Test</h5>
+                <h5 class="card-title">Students Slots</h5>
                 <p class="card-text" style={{ fontSize: "17px" }}>
-                  Create your own test and add questions etc... fill the
-                  required details
+                  Check aloted Time Slots and Date to Students
                 </p>
                 <button className="btn btn-danger " onClick={setquestionpaper}>
-                  Add Questions
+                  Check Slots
                 </button>
               </div>
               <div class="card-footer text-muted">Admin</div>
             </div>
-          </div> */}
+          </div>
           {/* /////////////////////////////// */}
-          <div className="col-12 col-lg-6 mt-4 mt-lg-0 mb-5 mb-lg-0">
+          <div className="col-12 col-lg-4 mt-4 mt-lg-0 mb-5 mb-lg-0">
             <div class="card text-center">
               <div class="card-header">Registrations</div>
               <div class="card-body">
                 <h5 class="card-title">Total Registrations for A-DSAT</h5>
                 <p class="card-text" style={{ fontSize: "17px" }}>
-                  Registered students information....
+                  Check Registered students information....
                   <br />
                 </p>
                 <button className="btn btn-danger " onClick={registrations}>
