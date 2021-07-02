@@ -57,7 +57,7 @@ const Instdsat = () => {
       <div className="container-fluid jass text-white text-center">
         <h2 className="pt-5">Online Test - A-DSAT</h2>
         <h5 className="pt-3">
-          The A-DSAT online test assesses candidates knowledge
+          The A-DSAT Online Prerequisite Test for L2 & L3 Program
         </h5>
         <button
           type="button"

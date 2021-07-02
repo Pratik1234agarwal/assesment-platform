@@ -62,8 +62,8 @@
   overflow: hidden;
 }
 .scroll {
-  margin: 4px, 4px;
-  padding: 4px;
+  margin: 4px, 4px, 4px, 4px;
+  padding: 20px;
   background-color: white;
   /* width: 800px; */
 
@@ -71,4 +71,13 @@
   overflow-x: hidden;
   overflow-y: auto;
   text-align: justify;
+}
+.zoom:hover {
+  position: relative;
+  /* top: -25px;
+  left: -35px; */
+  width: auto;
+  height: 500px;
+  display: flex;
+  z-index: 999;
 }

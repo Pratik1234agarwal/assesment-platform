@@ -59,7 +59,7 @@ const SignIn = () => {
       .catch((err) => console.error(err));
   }
 
-  function signIn(event) {
+  async function signIn(event) {
     if (event) {
       event.preventDefault();
     }
@@ -67,15 +67,28 @@ const SignIn = () => {
     let password = passwords;
     let items = { email, password };
     console.warn(items);
-    axios
-      .post("/api/v1/auth/login", items)
-      .then((res) => {
-        console.log(res);
-        // console.log(res.data.data.token);
-        localStorage.setItem("token", res.data.data.token);
-        history.push("/Instdsat");
-      })
-      .catch((err) => console.error(err));
+
+    try {
+      const res = await axios.post("/api/v1/auth/login", items);
+      console.log(res);
+      localStorage.setItem("token", res.data.data.token);
+      history.push("/Instdsat");
+    } catch (err) {
+      console.log(err.response.data);
+      if (err.response.data && err.response.data.message) {
+        alert(err.response.data.message);
+      }
+    }
+
+    // axios
+    //   .post("/api/v1/auth/login", items)
+    //   .then((res) => {
+    //     console.log(res);
+    //     // console.log(res.data.data.token);
+    //     localStorage.setItem("token", res.data.data.token);
+    //     history.push("/Instdsat");
+    //   })
+    //   .catch((err) => console.error(err));
   }
 
   return (
