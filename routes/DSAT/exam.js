@@ -8,18 +8,17 @@ const Paper = require("../../models/Paper");
 const auth = require("../../middleware/auth");
 const config = require("config");
 const { check, validationResult } = require("express-validator");
-
-//TODO: Add checks for test finish
+const scheduleSubmit = require("../../helpers/scheduleSubmit");
 
 const fetchQuestionAndPopulate = async (category) => {
   let totalQuestions = [];
   for (let i = 0; i < category.length; i++) {
-    console.log(category[i]);
+    //console.log(category[i]);
     const questions = await Questions.aggregate([
       { $match: { category: category[i] } },
       { $sample: { size: 5 } },
     ]);
-    console.log("questions", questions);
+    //console.log("questions", questions);
     totalQuestions.push(...questions);
   }
   return totalQuestions;
@@ -42,7 +41,7 @@ router.get("/questionPaper", auth, async (req, res) => {
       "Business Understanding",
     ]);
 
-    console.log(questions);
+    //console.log(questions);
     paper = new Paper({
       questions: questions.map((que) => ({
         questionId: que._id,
@@ -57,6 +56,7 @@ router.get("/questionPaper", auth, async (req, res) => {
       user: req.user.id,
     });
     await paper.save();
+    scheduleSubmit(paper._id, config.get("DsatTimeinMinutes") * 60 * 1000);
     res.json({
       status: "success",
       data: {
@@ -106,10 +106,14 @@ router.post("/answer", auth, async (req, res) => {
   }
 });
 
-// TODO: Add various checks like if the test time has been already over
 router.get("/submit/test", auth, async (req, res) => {
   try {
     const questionPaper = await Paper.findOne({ user: req.user.id });
+    if (questionPaper.finished) {
+      return res
+        .status(400)
+        .json(failErrorResponse("Test Has Already Been Submitted"));
+    }
     if (!questionPaper) {
       return res
         .status(401)

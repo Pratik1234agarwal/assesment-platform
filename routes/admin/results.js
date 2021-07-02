@@ -29,17 +29,6 @@ router.get("/dsat/generateResult", auth, async (req, res) => {
   try {
     let results = [];
     const papers = await Paper.find();
-    console.log(papers.length);
-    // await papers.forEach(async (paper) => {
-    //   let result = await Result.findOne({ user: paper.user });
-    //   if (result) {
-    //     results.push(result);
-    //   } else {
-    //     result = await calculate(paper);
-    //     await result.save();
-    //     results.push(result);
-    //   }
-    // });
     for (let i = 0; i < papers.length; i++) {
       const paper = papers[i];
       let result = await Result.findOne({ user: paper.user }).populate("user", [
