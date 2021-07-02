@@ -117,10 +117,8 @@ router.post("/answer", auth, async (req, res) => {
 
 router.get("/submit/test", auth, async (req, res) => {
   try {
-    const questionPaper = await Paper.findOne({ user: req.user.id }).populate(
-      "user",
-      ["name", "email"]
-    );
+    const questionPaper = await Paper.findOne({ user: req.user.id });
+    const user = await User.findById(req.user.id);
     if (questionPaper.finished) {
       return res
         .status(400)
@@ -134,7 +132,7 @@ router.get("/submit/test", auth, async (req, res) => {
     questionPaper.finished = true;
     questionPaper.finishedAt = Date.now();
     await questionPaper.save();
-    sendMailAfterTest(questionPaper.user.name, questionPaper.user.email);
+    sendMailAfterTest(user.name, user.email);
     return res.json({
       status: "success",
       data: { message: "Test Successfully saved" },
