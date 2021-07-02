@@ -61,3 +61,14 @@
   bottom: 0;
   overflow: hidden;
 }
+.scroll {
+  margin: 4px, 4px;
+  padding: 4px;
+  background-color: white;
+  /* width: 800px; */
+
+  height: calc(100vh - 200px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: justify;
+}

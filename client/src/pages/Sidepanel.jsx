@@ -64,13 +64,14 @@ const Sidepanel = () => {
         confirmButtonColor: "#0E3B7D",
         confirmButtonText: "Ok",
         closeOnConfirm: true,
+        allowEscapeKey: false,
         customClass: "Custom_Cancel",
       },
       function (isConfirm) {
         if (isConfirm) {
           toggleFullScreen();
         } else {
-          toggleFullScreen();
+          window.location.reload();
         }
       }
     );
@@ -89,13 +90,14 @@ const Sidepanel = () => {
                   confirmButtonColor: "#0E3B7D",
                   confirmButtonText: "Ok",
                   closeOnConfirm: true,
+                  allowEscapeKey: false,
                   customClass: "Custom_Cancel",
                 },
                 function (isConfirm) {
                   if (isConfirm) {
                     toggleFullScreen();
                   } else {
-                    toggleFullScreen();
+                    window.location.reload();
                   }
                 }
               )
@@ -115,7 +117,7 @@ const Sidepanel = () => {
         const startedAt = new Date(res.data.data.paper.startedAt).getTime();
         console.log(startedAt);
 
-        if (startedAt + 10 * 60 * 1000 < Date.now()) {
+        if (startedAt + 30 * 60 * 1000 < Date.now()) {
           alert("Your time limit for the test has already exceeded");
           history.push("/finish");
         }
@@ -151,20 +153,48 @@ const Sidepanel = () => {
   };
 
   const onSubmit = async () => {
-    try {
-      const config = {
-        headers: {
-          Authorization: `Token ${localStorage.getItem("token")}`,
-        },
-      };
-      await axios.get("/api/v1/dsat/submit/test", config);
-      alert("Test has been submitted");
+    swal(
+      {
+        title: "Are you Sure",
+        text: "You want to submit the test",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#0E3B7D",
+        confirmButtonText: "Yes",
+        closeOnConfirm: true,
+        allowEscapeKey: false,
+        customClass: "Custom_Cancel",
+      },
+      async function (isConfirm) {
+        if (isConfirm) {
+          try {
+            const config = {
+              headers: {
+                Authorization: `Token ${localStorage.getItem("token")}`,
+              },
+            };
+            await axios.get("/api/v1/dsat/submit/test", config);
+            swal({
+              title: "Test Submitted Succesfully",
+              text: "",
+              type: "success",
+              confirmButtonColor: "#0E3B7D",
+              confirmButtonText: "Ok",
+              closeOnConfirm: true,
+              allowEscapeKey: false,
+              customClass: "Custom_Cancel",
+            });
 
-      history.push("/finish");
-    } catch (err) {
-      console.log(err);
-      if (err.response && err.response.data) alert(err.response.data.message);
-    }
+            history.push("/finish");
+          } catch (err) {
+            console.log(err);
+            if (err.response && err.response.data)
+              alert(err.response.data.message);
+          }
+        } else {
+        }
+      }
+    );
   };
 
   const nextButton = () => {
@@ -344,7 +374,7 @@ const Sidepanel = () => {
             <div className="col-8 ">
               <div class="row ">
                 <div className="container-fluid ">
-                  <div className="container  sem" id="ques">
+                  <div className="container-fluid scroll " id="ques">
                     <b>Q {currentQuestion}:</b>
                     <Question
                       onAnswer={onAnswer}
