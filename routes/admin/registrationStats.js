@@ -27,6 +27,7 @@ router.get("/", auth, async (req, res) => {
 router.get("/active", auth, async (req, res) => {
   try {
     let papers = await Paper.find({ finished: false }).select("startedAt");
+    let p = await Paper.find({ finished: true }).select("startedAt");
     papers = papers.filter(
       (paper) =>
         new Date(paper.startedAt).getTime() < Date.now() &&
@@ -37,6 +38,7 @@ router.get("/active", auth, async (req, res) => {
       status: "success",
       data: {
         activeUser: papers.length,
+        testSubmitted: p.length,
       },
     });
   } catch (err) {
