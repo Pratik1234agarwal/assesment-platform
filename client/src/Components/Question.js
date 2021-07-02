@@ -2,7 +2,8 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 
 const Question = ({ question, onAnswer }) => {
-  let height = "140px",
+  let height = "240px",
+    qheight = "320px",
     qwidth = "250px",
     width = "180px";
   const a = useRef(null);
@@ -57,19 +58,19 @@ const Question = ({ question, onAnswer }) => {
   return (
     <div className="question-wrapper">
       <div className="row">
-        <div className="col-12 col-lg-6 col-md-6">
+        <div className="col-12 col-lg-12 col-md-12">
           <div className="question-text">
-            {question && question.questionText}
+            <h5> {question && question.questionText}</h5>
           </div>
         </div>
-        <div className="col-12 col-lg-6 col-md-6">
+        <div className="col-12 col-lg-12 col-md-12">
           {question && (
             <div>
               {question.questionImage && (
                 <img
                   src={question.questionImage}
-                  height={height}
-                  width={qwidth}
+                  height={qheight}
+                  width={"auto"}
                   className="ml-3"
                 />
               )}
@@ -93,14 +94,14 @@ const Question = ({ question, onAnswer }) => {
                   value="A"
                 />
                 <label for="A" className="ml-3">
-                  {question.A.text}
+                  <h5> {question.A.text} </h5>
                 </label>
                 <br />
                 {question.A.imageUrl != "" && (
                   <img
                     src={question.A.imageUrl}
                     height={height}
-                    width={width}
+                    width={"auto"}
                     className="ml-3"
                   />
                 )}
@@ -116,14 +117,14 @@ const Question = ({ question, onAnswer }) => {
                   value="B"
                 />
                 <label for="B" className="ml-3">
-                  {question.B.text}
+                  <h5>{question.B.text}</h5>
                 </label>
                 <br />
                 {question.B.imageUrl != "" && (
                   <img
                     src={question.B.imageUrl}
                     height={height}
-                    width={width}
+                    width={"auto"}
                     className="ml-3"
                   />
                 )}
@@ -143,14 +144,14 @@ const Question = ({ question, onAnswer }) => {
                   value="C"
                 />
                 <label for="C" className="ml-3">
-                  {question.C.text}
+                  <h5>{question.C.text}</h5>
                 </label>
                 <br />
                 {question.C.imageUrl != "" && (
                   <img
                     src={question.C.imageUrl}
                     height={height}
-                    width={width}
+                    width={"auto"}
                     className="ml-3"
                   />
                 )}
@@ -167,14 +168,14 @@ const Question = ({ question, onAnswer }) => {
                   value="D"
                 />
                 <label for="D" className="ml-3">
-                  {question.D.text}
+                  <h5> {question.D.text} </h5>
                 </label>
                 <br />
                 {question.D.imageUrl != "" && (
                   <img
                     src={question.D.imageUrl}
                     height={height}
-                    width={width}
+                    width={"auto"}
                     className="ml-3"
                   />
                 )}
