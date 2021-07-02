@@ -17,16 +17,12 @@ const sendMailAfterTest = (name, email) => {
     
     Regards \n
     IIT Ropar`,
-    html: `Dear ${name},<br />
-
-    Thank you giving Advanced Data Science Aptitude Test (A-DSAT).<br />
-    
-    Your results will be shared with you over this registered email very soon.<br />
-    
-    All the best for the results.!!<br />
-    <br/>
-    Regards <br/>
-    IIT Ropar`,
+    html: `<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div dir="ltr"><div style="box-sizing:border-box;font-family:&quot;Segoe UI&quot;,system-ui,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,sans-serif;font-size:14px"><p>Dear ${name},</p><p>Thank you giving Advanced Data Science Aptitude Test (A-DSAT).</p>
+    <p>Your results will be shared with you over this registered email very soon.<br></p>
+    <p>All the best for the results.!!<br></p>
+    <p>Regards<br></p>
+    <p>IIT Ropar</p></div></div></div>
+    `,
   });
   sendMail(message);
 };
