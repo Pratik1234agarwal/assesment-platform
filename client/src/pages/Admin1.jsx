@@ -14,6 +14,7 @@ const Admin1 = () => {
 
   const [result, setresult] = useState([]);
   const [testname, settestname] = useState("");
+  const [activeusers, setactiveusers] = useState(0);
   function adminHome() {
     history.push("/adminroutes");
   }
@@ -29,8 +30,14 @@ const Admin1 = () => {
           "/api/v1/admin/result/dsat/generateResult",
           config
         );
+        const res1 = await axios.get(
+          "/api/v1/admin/registrationStats/active",
+          config
+        );
         console.log(res);
-
+        console.log(res1);
+        console.log(res1.data.data.activeUser);
+        setactiveusers(res1.data.data.activeUser);
         settestname(res.data.data.results[0].testName);
         setresult(res.data.data.results);
         console.log(res.data.data.results);
@@ -61,7 +68,7 @@ const Admin1 = () => {
 
       <div className="container-fluid mt-4">
         <div className="row ">
-          <div className="col-12 col-lg-3">
+          <div className="col-12 col-lg-4">
             <div className="adbox1 pt-2 pb-2">
               <div className="row">
                 <div className="col">
@@ -70,13 +77,13 @@ const Admin1 = () => {
                   </div>
                 </div>
                 <div className="col-8">
-                  No of Tests
-                  <h5>1</h5>
+                  Candidates Giving Test
+                  <h5>{activeusers}</h5>
                 </div>
               </div>
             </div>
           </div>
-          <div className="col-12 col-lg-3">
+          <div className="col-12 col-lg-4">
             <div className="adbox2  pt-2 pb-2">
               <div className="row">
                 <div className="col">
@@ -91,7 +98,7 @@ const Admin1 = () => {
               </div>
             </div>
           </div>
-          <div className="col-12 col-lg-3 ">
+          <div className="col-12 col-lg-4 ">
             <div className="adbox3  pt-2 pb-2">
               <div className="row">
                 <div className="col">
@@ -100,21 +107,9 @@ const Admin1 = () => {
                   </div>
                 </div>
                 <div className="col-8">
-                  Appeared Students
+                  Students Submitted Test
                   <h5>{result.length}</h5>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 col-lg-3">
-            <div className="adbox4  pt-2 pb-2">
-              <div className="row">
-                <div className="col">
-                  <div className="text-center">
-                    <img src={check} />
-                  </div>
-                </div>
-                <div className="col-8">Total Cleared</div>
               </div>
             </div>
           </div>
@@ -130,7 +125,7 @@ const Admin1 = () => {
                 <th scope="col">Total Students</th>
               </tr>
             </thead>
-            <AdminData resultlen={result.length} testname={testname} />
+            <AdminData resultlen={result.length} testname="A-DSAT" />
           </table>
 
           {/* <div className="col">

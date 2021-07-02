@@ -137,6 +137,17 @@ const SignIn = () => {
         <img src={logos} />
       </div>
       <h3 className="mt-4 d-block d-sm-none ">A-DSAT Examination</h3>
+      <h6 className="text-center bg-light pt-3 pb-3 d-block d-sm-none">
+        Don't have an account... <br />
+        <button
+          className="but mt-2"
+          onClick={() => {
+            history.push("/");
+          }}
+        >
+          Sign Up
+        </button>
+      </h6>
       <div>
         {/* //// */}
         <form className="form d-block d-sm-none" onSubmit={signIn}>
