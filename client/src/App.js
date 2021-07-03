@@ -24,6 +24,9 @@ import QuestionAddLogin from "./pages/QuestionAddLogin";
 import QuestionListTable from "./pages/QuestionListTable";
 import AddingQuestionRoute from "./pages/AddingQuestionRoute";
 import SignIn from "./pages/SignIn";
+import SlotsChecking from "./pages/SlotsChecking";
+import StudentPerSlot from "./pages/StudentPerSlot";
+import ResetPassword from "./pages/ResetPassword";
 
 axios.defaults.baseURL = "https://adsatiitropar.com";
 
@@ -64,6 +67,13 @@ function App() {
 
         {/* /////////////////// */}
         <Route path="/signin" component={SignIn} />
+        <Route path="/studentslots" component={SlotsChecking} />
+        <Route
+          path="/studentsperslot"
+          render={(props) => <StudentPerSlot {...props} />}
+        />
+
+        <Route path="/resetpassword" component={ResetPassword} />
       </Switch>
     </>
   );

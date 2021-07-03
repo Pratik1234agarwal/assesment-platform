@@ -39,12 +39,12 @@ const Tables = () => {
         accessor: "user.email",
       },
       {
-        Header: "Marks",
+        Header: "Total Marks",
         accessor: "marks",
       },
       {
-        Header: "Total Questions",
-        accessor: "totalQuestion",
+        Header: "Questions Attempted",
+        accessor: "attempted",
       },
       {
         Header: "Correct",
@@ -53,6 +53,10 @@ const Tables = () => {
       {
         Header: "InCorrect",
         accessor: "incorrect",
+      },
+      {
+        Header: "Total Time Taken",
+        accessor: "timeTaken",
       },
     ],
     []
