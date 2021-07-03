@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Loginout.css";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 // import PSDM_log from "../images/PSDM_logo.jpg";
 import logos from "../images/logos.png";
@@ -72,11 +72,65 @@ const SignIn = () => {
       const res = await axios.post("/api/v1/auth/login", items);
       console.log(res);
       localStorage.setItem("token", res.data.data.token);
-      history.push("/Instdsat");
+      const config = {
+        headers: {
+          Authorization: `token ${localStorage.getItem("token")}`,
+        },
+      };
+      const resp = await axios.get("/api/v1/dsat/checkslot", config);
+      console.log(resp);
+      const slot = resp.data.data.slotAlloted;
+      console.log(resp.data.data.slotAlloted);
+      if (slot == false) {
+        console.log("hey");
+        swal(
+          {
+            title: "Slot Not Alloted",
+            text: "You will be given a slot in the next phase",
+            type: "warning",
+            confirmButtonColor: "#0E3B7D",
+            confirmButtonText: "Ok",
+            closeOnConfirm: true,
+            customClass: "Custom_Cancel",
+          },
+          function (isConfirm) {
+            if (isConfirm) {
+              history.push("/signin");
+            } else {
+            }
+          }
+        );
+      } else {
+        const slottime = resp.data.data.slot.startTime;
+        var date = new Date(slottime).toString();
+        console.log(date);
+        swal(
+          {
+            title: "Please login in following date and time",
+            text: date,
+            type: "warning",
+            confirmButtonColor: "#0E3B7D",
+            confirmButtonText: "Ok",
+            closeOnConfirm: true,
+            customClass: "Custom_Cancel",
+          },
+          function (isConfirm) {
+            if (isConfirm) {
+            } else {
+            }
+          }
+        );
+
+        if (resp.data.data.isSlotTime == true) {
+          history.push("/Instdsat");
+        }
+      }
     } catch (err) {
       console.log(err.response.data);
-      if (err.response.data && err.response.data.message) {
-        alert(err.response.data.message);
+
+      console.log(err.response.data.data.message);
+      if (err.response.data && err.response.data.data.message) {
+        alert(err.response.data.data.message);
       }
     }
 
@@ -183,9 +237,9 @@ const SignIn = () => {
             className=" inp"
             required
           />
-          <a href="#">
-            <p className="pt-2">Forgot Your Password</p>
-          </a>
+          <Link to="/resetpassword" className="text-primary ">
+            <p className="pt-1">Forgot Your Password</p>
+          </Link>
           <button className="but ">Sign In</button>
         </form>
         {/* //////// */}
@@ -315,7 +369,9 @@ const SignIn = () => {
                 className=" inp"
                 required
               />
-              <a href="#">Forgot Your Password</a>
+              <Link to="/resetpassword" className="text-primary">
+                Forgot Your Password
+              </Link>
 
               <button className="but">Sign In</button>
             </form>

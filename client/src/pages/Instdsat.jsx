@@ -1,14 +1,31 @@
 import React, { useState, useEffect } from "react";
 import "./Instdsat.css";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 import logo1 from "../images/logo.png";
 import VideoRecorder from "react-video-recorder";
 
 const Instdsat = () => {
   let history = useHistory();
-  useEffect(() => {
+  useEffect(async () => {
     if (localStorage.getItem("token")) {
-      // history.push("/Instdsat");
+      const config = {
+        headers: {
+          Authorization: `token ${localStorage.getItem("token")}`,
+        },
+      };
+      try {
+        const resp = await axios.get("/api/v1/dsat/checkslot", config);
+        if (resp.data.data.isSlotTime == true) {
+        } else {
+          history.push("/signin");
+        }
+      } catch (err) {
+        console.log(err.response.data.msg);
+        if (err.response && err.response.data) {
+          alert(err.response.data.message);
+        }
+      }
     } else {
       history.push("/signin");
     }
@@ -17,7 +34,7 @@ const Instdsat = () => {
     if (localStorage.getItem("token")) {
       history.push("/sidepanel");
     } else {
-      history.push("/");
+      history.push("/signin");
     }
   }
 

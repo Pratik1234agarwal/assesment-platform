@@ -11,10 +11,12 @@ import { Link, useHistory } from "react-router-dom";
 
 const Admin1 = () => {
   let history = useHistory();
+  const [no, setno] = useState([]);
 
   const [result, setresult] = useState([]);
   const [testname, settestname] = useState("");
   const [activeusers, setactiveusers] = useState(0);
+  const [testsubmittedcount, settestsubmittedcount] = useState(0);
   function adminHome() {
     history.push("/adminroutes");
   }
@@ -34,13 +36,17 @@ const Admin1 = () => {
           "/api/v1/admin/registrationStats/active",
           config
         );
+        const res2 = await axios.get("/api/v1/admin/registrationStats", config);
         console.log(res);
         console.log(res1);
         console.log(res1.data.data.activeUser);
         setactiveusers(res1.data.data.activeUser);
+        settestsubmittedcount(res1.data.data.testSubmitted);
         settestname(res.data.data.results[0].testName);
         setresult(res.data.data.results);
         console.log(res.data.data.results);
+
+        setno(res2.data.data.numberOfUserRegistered);
         console.log(result);
 
         console.log(result.length);
@@ -93,7 +99,7 @@ const Admin1 = () => {
                 </div>
                 <div className="col-8">
                   Total Students
-                  <h5>{result.length}</h5>
+                  <h5>{no}</h5>
                 </div>
               </div>
             </div>
@@ -108,7 +114,7 @@ const Admin1 = () => {
                 </div>
                 <div className="col-8">
                   Students Submitted Test
-                  <h5>{result.length}</h5>
+                  <h5>{testsubmittedcount}</h5>
                 </div>
               </div>
             </div>

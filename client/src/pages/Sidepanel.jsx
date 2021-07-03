@@ -112,6 +112,11 @@ const Sidepanel = () => {
         },
       };
       try {
+        const resp = await axios.get("/api/v1/dsat/checkslot", config);
+        if (resp.data.data.isSlotTime == true) {
+        } else {
+          history.push("/signin");
+        }
         const res = await axios.get("/api/v1/dsat/questionPaper", config);
         console.log(res.data);
         const startedAt = new Date(res.data.data.paper.startedAt).getTime();

@@ -12,9 +12,12 @@ import Tables from "./Tables";
 
 const AdminResult = () => {
   let history = useHistory();
+  const [no, setno] = useState([]);
 
   const [result, setresult] = useState([]);
   const [testname, settestname] = useState("");
+  const [activeusers, setactiveusers] = useState(0);
+  const [testsubmittedcount, settestsubmittedcount] = useState(0);
   function adminHome() {
     history.push("/adminroutes");
   }
@@ -30,9 +33,18 @@ const AdminResult = () => {
           "/api/v1/admin/result/dsat/generateResult",
           config
         );
+        const res1 = await axios.get(
+          "/api/v1/admin/registrationStats/active",
+          config
+        );
+        const res2 = await axios.get("/api/v1/admin/registrationStats", config);
         console.log(res);
         setresult(res.data.data.results);
         settestname(res.data.data.results[0].testName);
+        console.log(res1.data.data.activeUser);
+        setactiveusers(res1.data.data.activeUser);
+        settestsubmittedcount(res1.data.data.testSubmitted);
+        setno(res2.data.data.numberOfUserRegistered);
         // console.log(res.data.data.results);
         console.log(result);
 
@@ -82,61 +94,49 @@ const AdminResult = () => {
       </div>
 
       <div className="container-fluid mt-4">
-        <div className="row">
-          <div className="col-12 col-lg-3 ">
+        <div className="row ">
+          <div className="col-12 col-lg-4">
             <div className="adbox1 pt-2 pb-2">
               <div className="row">
-                <div className="col-4">
-                  <div className="text-center pl-2">
+                <div className="col">
+                  <div className="text-center">
                     <img src={university} />
                   </div>
                 </div>
                 <div className="col-8">
-                  Test Name
-                  <h5>{testname}</h5>
+                  Candidates Giving Test
+                  <h5>{activeusers}</h5>
                 </div>
               </div>
             </div>
           </div>
-          <div className="col-12 col-lg-3 ">
+          <div className="col-12 col-lg-4">
             <div className="adbox2  pt-2 pb-2">
               <div className="row">
-                <div className="col-4">
-                  <div className="text-center pl-2">
+                <div className="col">
+                  <div className="text-center">
                     <img src={group} />
                   </div>
                 </div>
                 <div className="col-8">
                   Total Students
-                  <h5>{result.length}</h5>
+                  <h5>{no}</h5>
                 </div>
               </div>
             </div>
           </div>
-          <div className="col-12 col-lg-3 ">
+          <div className="col-12 col-lg-4 ">
             <div className="adbox3  pt-2 pb-2">
               <div className="row">
-                <div className="col-4">
-                  <div className="text-center pl-2">
+                <div className="col">
+                  <div className="text-center">
                     <img src={user} />
                   </div>
                 </div>
                 <div className="col-8">
-                  Appeared Students
-                  <h5>{result.length}</h5>
+                  Students Submitted Test
+                  <h5>{testsubmittedcount}</h5>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 col-lg-3">
-            <div className="adbox4  pt-2 pb-2">
-              <div className="row">
-                <div className="col-4">
-                  <div className="text-center pl-2">
-                    <img src={check} />
-                  </div>
-                </div>
-                <div className="col-8">Total Cleared</div>
               </div>
             </div>
           </div>
