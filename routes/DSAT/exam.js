@@ -7,6 +7,7 @@ const User = require("../../models/User");
 const Questions = require("../../models/Questions");
 const Paper = require("../../models/Paper");
 const auth = require("../../middleware/auth");
+const TimeSlot = require("../../models/timeSlot");
 const config = require("config");
 const { check, validationResult } = require("express-validator");
 const scheduleSubmit = require("../../helpers/scheduleSubmit");
@@ -25,6 +26,57 @@ const fetchQuestionAndPopulate = async (category) => {
   }
   return totalQuestions;
 };
+
+function checkSlotDetails(d1, d2) {
+  const date = Date.now();
+  if (date > d1.getTime() && date < d2.getTime()) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// Route to check if user's slot is there or not.
+router.get("/checkSlot", auth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user.slotAlloted) {
+      return res.json({
+        status: "success",
+        data: {
+          slotAlloted: false,
+        },
+      });
+    }
+    const slot = await TimeSlot.findById(user.timeSlot).select(
+      "startTime endTime"
+    );
+    const d1 = new Date(slot.startTime);
+    const d2 = new Date(slot.endTime);
+
+    if (checkSlotDetails(d1, d2)) {
+      return res.json({
+        status: "success",
+        data: {
+          slotAlloted: true,
+          isSlotTime: true,
+        },
+      });
+    } else {
+      return res.json({
+        status: "success",
+        data: {
+          slotAlloted: true,
+          isSlotTime: false,
+          slot,
+        },
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(serverErrorResponse());
+  }
+});
 
 // TODO: Check if the test has been finished
 router.get("/questionPaper", auth, async (req, res) => {
