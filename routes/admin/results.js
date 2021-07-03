@@ -86,7 +86,12 @@ async function calculate(paper) {
   let categoryWise = Object.values(category);
 
   console.log(categoryWise);
-
+  let timeTaken = 0;
+  if (paper.finishedAt) {
+    timeTaken =
+      new Date(paper.finishedAt.getTime()) -
+      new Date(paper.startedAt.getTime());
+  }
   report = new Result({
     paperId: paper._id,
     user: paper.user,
@@ -98,6 +103,7 @@ async function calculate(paper) {
     notAttempted,
     totalQuestion: paper.questions.length,
     categoryWise,
+    timeTaken,
   });
 
   return report;
