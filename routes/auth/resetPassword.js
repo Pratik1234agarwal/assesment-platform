@@ -70,7 +70,9 @@ router.post("/resetPassword/:token", async (req, res) => {
     }
     user.password = password;
     await user.save();
-    res.json({ status: "success", message: "Password Sucessfully changed" });
+    res.send(
+      "password succesfully changed, close this window and login again with the new password"
+    );
   } catch (err) {
     console.log(err);
     res.status.json(serverErrorResponse());
