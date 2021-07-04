@@ -101,28 +101,28 @@ const SignIn = () => {
           }
         );
       } else {
-        const slottime = resp.data.data.slot.startTime;
-        var date = new Date(slottime).toString();
-        console.log(date);
-        swal(
-          {
-            title: "Please login in following date and time",
-            text: date,
-            type: "warning",
-            confirmButtonColor: "#0E3B7D",
-            confirmButtonText: "Ok",
-            closeOnConfirm: true,
-            customClass: "Custom_Cancel",
-          },
-          function (isConfirm) {
-            if (isConfirm) {
-            } else {
-            }
-          }
-        );
-
         if (resp.data.data.isSlotTime == true) {
           history.push("/Instdsat");
+        } else {
+          const slottime = resp.data.data.slot.startTime;
+          var date = new Date(slottime).toString();
+          console.log(date);
+          swal(
+            {
+              title: "Please login in following date and time",
+              text: date,
+              type: "warning",
+              confirmButtonColor: "#0E3B7D",
+              confirmButtonText: "Ok",
+              closeOnConfirm: true,
+              customClass: "Custom_Cancel",
+            },
+            function (isConfirm) {
+              if (isConfirm) {
+              } else {
+              }
+            }
+          );
         }
       }
     } catch (err) {
