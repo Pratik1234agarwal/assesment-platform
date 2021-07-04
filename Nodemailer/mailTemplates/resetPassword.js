@@ -11,9 +11,11 @@ const sendMailForPasswordReset = (email, token) => {
     email,
     subject: "A-DSAT Password Reset",
     text: "Link to reset you password is " + url,
-    html: `<h1> A-DSAT IIT Ropar password reset </h1>
+    html: `<h2> A-DSAT IIT Ropar password reset </h2>
           <div>
               Click <a href="${url}">here</a> to reset you password
+              <br/ >
+              In case the link is not clickable. Kindly visite this url :${url}
           </div>`,
   });
   console.log("message", message);
