@@ -95,22 +95,63 @@ const SignIn = () => {
           },
           function (isConfirm) {
             if (isConfirm) {
-              history.push("/signin");
+              setEmails("");
+              setPasswords("");
             } else {
             }
           }
         );
       } else {
         if (resp.data.data.isSlotTime == true) {
-          history.push("/Instdsat");
+          console.log("in if");
+          console.log(resp.data.data.isSlotTime);
+          history.push("/instdsat");
         } else {
-          const slottime = resp.data.data.slot.startTime;
-          var date = new Date(slottime).toString();
+          const slotstarttime = resp.data.data.slot.startTime;
+          const slotendtime = resp.data.data.slot.endTime;
+          var date = new Date(slotstarttime);
+
+          var year = date.getFullYear();
+          var month = date.getMonth() + 1;
+          var dt = date.getDate();
+
+          if (dt < 10) {
+            dt = "0" + dt;
+          }
+          if (month < 10) {
+            month = "0" + month;
+          }
+
+          var date1 = new Date(slotendtime);
+
+          const time = new Date(date).toLocaleTimeString("en", {
+            timeStyle: "short",
+            hour12: true,
+            timeZone: "IST",
+          });
+          const time2 = new Date(date1).toLocaleTimeString("en", {
+            timeStyle: "short",
+            hour12: true,
+            timeZone: "IST",
+          });
+
           console.log(date);
+          console.log(resp.data.data.isSlotTime);
           swal(
             {
               title: "Please login in following date and time",
-              text: date,
+              text:
+                dt +
+                "-" +
+                month +
+                "-" +
+                year +
+                " " +
+                "&" +
+                " " +
+                time +
+                "-" +
+                time2,
               type: "warning",
               confirmButtonColor: "#0E3B7D",
               confirmButtonText: "Ok",
@@ -119,6 +160,8 @@ const SignIn = () => {
             },
             function (isConfirm) {
               if (isConfirm) {
+                setEmails("");
+                setPasswords("");
               } else {
               }
             }
@@ -140,7 +183,7 @@ const SignIn = () => {
     //     console.log(res);
     //     // console.log(res.data.data.token);
     //     localStorage.setItem("token", res.data.data.token);
-    //     history.push("/Instdsat");
+    //     history.push("/instdsat");
     //   })
     //   .catch((err) => console.error(err));
   }
