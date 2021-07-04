@@ -105,7 +105,7 @@ const Sidepanel = () => {
       });
     }
     if (localStorage.getItem("token")) {
-      // history.push("/Instdsat");
+      // history.push("/instdsat");
       const config = {
         headers: {
           Authorization: `Token ${localStorage.getItem("token")}`,
