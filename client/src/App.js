@@ -15,6 +15,7 @@ import Tables from "./pages/Tables";
 import Cameraweb from "./Components/Cameraweb";
 import PSDM_log from "./images/PSDM_logo.jpg";
 import logonew from "./images/logonew.png";
+import axios from "axios";
 
 import logos from "./images/logos.png";
 import ADSATreg from "./pages/ADSATreg";
@@ -22,6 +23,13 @@ import QuestionAddDemo from "./pages/QuestionAddDemo";
 import QuestionAddLogin from "./pages/QuestionAddLogin";
 import QuestionListTable from "./pages/QuestionListTable";
 import AddingQuestionRoute from "./pages/AddingQuestionRoute";
+import SignIn from "./pages/SignIn";
+import SlotsChecking from "./pages/SlotsChecking";
+import StudentPerSlot from "./pages/StudentPerSlot";
+import ResetPassword from "./pages/ResetPassword";
+
+axios.defaults.baseURL = "https://adsatiitropar.com";
+
 function App() {
   return (
     <>
@@ -56,6 +64,16 @@ function App() {
 
         <Route path="/questiontable" component={QuestionListTable} />
         <Route path="/questionroutes" component={AddingQuestionRoute} />
+
+        {/* /////////////////// */}
+        <Route path="/signin" component={SignIn} />
+        <Route path="/studentslots" component={SlotsChecking} />
+        <Route
+          path="/studentsperslot"
+          render={(props) => <StudentPerSlot {...props} />}
+        />
+
+        <Route path="/resetpassword" component={ResetPassword} />
       </Switch>
     </>
   );

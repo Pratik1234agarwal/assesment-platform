@@ -1,5 +1,5 @@
 .hem {
-  height: 430px;
+  /* height: 430px; */
 }
 .circle1 {
   color: #0468bf;
@@ -37,7 +37,7 @@
   height: 40px;
 }
 .sem {
-  height: 430px;
+  /* height: 430px; */
 }
 .jem {
   /* position: absolute; */
@@ -60,4 +60,24 @@
   top: 0;
   bottom: 0;
   overflow: hidden;
+}
+.scroll {
+  margin: 4px, 4px, 4px, 4px;
+  padding: 20px;
+  background-color: white;
+  /* width: 800px; */
+
+  height: calc(100vh - 200px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: justify;
+}
+.zoom:hover {
+  position: relative;
+  /* top: -25px;
+  left: -35px; */
+  width: auto;
+  height: 500px;
+  display: flex;
+  z-index: 999;
 }

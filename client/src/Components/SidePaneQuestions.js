@@ -82,9 +82,9 @@ const SidePaneQuestions = ({
       );
     }
   };
-  const date = new Date(startedAt).getTime() + 10 * 60 * 1000;
+  const date = new Date(startedAt).getTime() + 30 * 60 * 1000;
   return (
-    <div className="container shadow bg-light rounded hem">
+    <div className="container shadow bg-light rounded scroll hem">
       <h5 className="text-center pt-3">Time Left</h5>
       <hr />
       <div className="text-center ">
@@ -101,6 +101,7 @@ const SidePaneQuestions = ({
       <h5 className="text-center pt-4">Questions</h5>
       <hr />
       <div className="row pl-2 pr-2">{quest()}</div>
+      <h5 className="text-center pt-4"></h5>
     </div>
   );
 };

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Loginout.css";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useAlert } from "react-alert";
 // import PSDM_log from "../images/PSDM_logo.jpg";
 import logos from "../images/logos.png";
@@ -9,15 +9,10 @@ import SweetAlert from "sweetalert-react";
 import "sweetalert/dist/sweetalert.css";
 import swal from "sweetalert";
 
-const Loginout = () => {
+const SignIn = () => {
   const [popup, setpopup] = useState({ show: false });
   const alerts = useAlert();
   let history = useHistory();
-  // useEffect(() => {
-  //   if (localStorage.getItem("token")) {
-  //     history.push("/Instdsat");
-  //   }
-  // }, []);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,73 +25,41 @@ const Loginout = () => {
   const [passwords, setPasswords] = useState("");
   const [branch, setBranch] = useState("");
 
-  async function signUp(event) {
+  function signUp(event) {
     if (event) {
       event.preventDefault();
     }
     let item = { name, email, phone, category, university, password, branch };
     console.warn(item);
     console.log(item);
-
-    try {
-      const res = await axios.post(`/api/v1/auth/signup`, item);
-      console.log(res);
-      swal(
-        {
-          title: "Successfully Registered",
-          text: "Best Of Luck!",
-          type: "success",
-          confirmButtonColor: "#0E3B7D",
-          confirmButtonText: "Ok",
-          closeOnConfirm: false,
-          customClass: "Custom_Cancel",
-        },
-        function (isConfirm) {
-          if (isConfirm) {
-            window.location.replace("https://www.iitrpr.ac.in/aiupskilling");
-          } else {
-            window.location.replace("https://www.iitrpr.ac.in/aiupskilling");
+    axios
+      .post("/api/v1/auth/signup", item)
+      .then((res) => {
+        console.log(res);
+        // localStorage.setItem("token", res.data.data.token);
+        swal(
+          {
+            title: "Successfully Registered",
+            text: "Best Of Luck!",
+            type: "success",
+            confirmButtonColor: "#0E3B7D",
+            confirmButtonText: "Ok",
+            closeOnConfirm: false,
+            customClass: "Custom_Cancel",
+          },
+          function (isConfirm) {
+            if (isConfirm) {
+              window.location.replace("https://www.iitrpr.ac.in/aiupskilling");
+            } else {
+              window.location.replace("https://www.iitrpr.ac.in/aiupskilling");
+            }
           }
-        }
-      );
-    } catch (err) {
-      console.log(err.response.data);
-      if (err.response.data && err.response.data.message) {
-        alert(err.response.data.message);
-      }
-    }
-
-    // axios
-    //   .post("/api/v1/auth/signup", item)
-    //   .then((res) => {
-    //     console.log(res);
-    //     // localStorage.setItem("token", res.data.data.token);
-    //     swal(
-    //       {
-    //         title: "Successfully Registered",
-    //         text: "Best Of Luck!",
-    //         type: "success",
-    //         confirmButtonColor: "#0E3B7D",
-    //         confirmButtonText: "Ok",
-    //         closeOnConfirm: false,
-    //         customClass: "Custom_Cancel",
-    //       },
-    //       function (isConfirm) {
-    //         if (isConfirm) {
-    //           window.location.replace("https://www.iitrpr.ac.in/aiupskilling");
-    //         } else {
-    //           window.location.replace("https://www.iitrpr.ac.in/aiupskilling");
-    //         }
-    //       }
-    //     );
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //     alert(err);
-    //   });
+        );
+      })
+      .catch((err) => console.error(err));
   }
 
-  function signIn(event) {
+  async function signIn(event) {
     if (event) {
       event.preventDefault();
     }
@@ -104,15 +67,82 @@ const Loginout = () => {
     let password = passwords;
     let items = { email, password };
     console.warn(items);
-    axios
-      .post("/api/v1/auth/login", items)
-      .then((res) => {
-        console.log(res);
-        // console.log(res.data.data.token);
-        localStorage.setItem("token", res.data.data.token);
-      })
-      .catch((err) => console.error(err));
-    history.push("/Instdsat");
+
+    try {
+      const res = await axios.post("/api/v1/auth/login", items);
+      console.log(res);
+      localStorage.setItem("token", res.data.data.token);
+      const config = {
+        headers: {
+          Authorization: `token ${localStorage.getItem("token")}`,
+        },
+      };
+      const resp = await axios.get("/api/v1/dsat/checkslot", config);
+      console.log(resp);
+      const slot = resp.data.data.slotAlloted;
+      console.log(resp.data.data.slotAlloted);
+      if (slot == false) {
+        console.log("hey");
+        swal(
+          {
+            title: "Slot Not Alloted",
+            text: "You will be given a slot in the next phase",
+            type: "warning",
+            confirmButtonColor: "#0E3B7D",
+            confirmButtonText: "Ok",
+            closeOnConfirm: true,
+            customClass: "Custom_Cancel",
+          },
+          function (isConfirm) {
+            if (isConfirm) {
+              history.push("/signin");
+            } else {
+            }
+          }
+        );
+      } else {
+        if (resp.data.data.isSlotTime == true) {
+          history.push("/Instdsat");
+        } else {
+          const slottime = resp.data.data.slot.startTime;
+          var date = new Date(slottime).toString();
+          console.log(date);
+          swal(
+            {
+              title: "Please login in following date and time",
+              text: date,
+              type: "warning",
+              confirmButtonColor: "#0E3B7D",
+              confirmButtonText: "Ok",
+              closeOnConfirm: true,
+              customClass: "Custom_Cancel",
+            },
+            function (isConfirm) {
+              if (isConfirm) {
+              } else {
+              }
+            }
+          );
+        }
+      }
+    } catch (err) {
+      console.log(err.response.data);
+
+      console.log(err.response.data.data.message);
+      if (err.response.data && err.response.data.data.message) {
+        alert(err.response.data.data.message);
+      }
+    }
+
+    // axios
+    //   .post("/api/v1/auth/login", items)
+    //   .then((res) => {
+    //     console.log(res);
+    //     // console.log(res.data.data.token);
+    //     localStorage.setItem("token", res.data.data.token);
+    //     history.push("/Instdsat");
+    //   })
+    //   .catch((err) => console.error(err));
   }
 
   return (
@@ -160,22 +190,23 @@ const Loginout = () => {
       <div className="text-center">
         <img src={logos} />
       </div>
-      <h3 className="mt-4 d-block d-sm-none ">A-DSAT Registration</h3>
+      <h3 className="mt-4 d-block d-sm-none ">A-DSAT Examination</h3>
       <h6 className="text-center bg-light pt-3 pb-3 d-block d-sm-none">
-        Already have an account... <br />
+        Don't have an account... <br />
         <button
           className="but mt-2"
           onClick={() => {
-            history.push("/signin");
+            history.push("/");
           }}
         >
-          Sign In
+          Sign Up
         </button>
       </h6>
-
       <div>
-        <form className="form d-block d-sm-none" onSubmit={signUp}>
-          <h2>Create Account</h2>
+        {/* //// */}
+        <form className="form d-block d-sm-none" onSubmit={signIn}>
+          <h2>Sign In</h2>
+          <p>Enter Your Details</p>
           {/* <div class="social-container">
                 <a href="#" class="social">
                   <i class="fa fa-facebook"></i>
@@ -187,78 +218,36 @@ const Loginout = () => {
                   <i class="fa fa-linkedin"></i>
                 </a>
               </div>
-              <span>or use your email for registration</span> */}
-          {/* <input type="text" name="name" placeholder="Name" /> */}
-          <input
-            type="name"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Name"
-            className="mt-3 inp"
-            required
-          />
+              <span>or use your account</span> */}
           <input
             type="email"
             name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={emails}
             placeholder="Email"
+            onChange={(e) => setEmails(e.target.value)}
             className=" inp"
             required
           />
           <input
             type="password"
             name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
+            value={passwords}
+            onChange={(e) => setPasswords(e.target.value)}
             className=" inp"
             required
           />
-          <input
-            type="phone"
-            name="phone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="Phone No."
-            className=" inp"
-            required
-          />
-          <input
-            type="category"
-            name="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            placeholder="Category:(Student/Professional)"
-            className=" inp"
-            required
-          />
-          <input
-            type="university"
-            name="university"
-            value={university}
-            onChange={(e) => setUniversity(e.target.value)}
-            placeholder="College/University Name"
-            className=" inp"
-            required
-          />
-          <input
-            type="branch"
-            name="branch"
-            onChange={(e) => setBranch(e.target.value)}
-            value={branch}
-            placeholder="Branch"
-            className=" inp"
-            // required
-          />
-          <button className="but mt-2">Register</button>
+          <Link to="/resetpassword" className="text-primary ">
+            <p className="pt-1">Forgot Your Password</p>
+          </Link>
+          <button className="but ">Sign In</button>
         </form>
+        {/* //////// */}
       </div>
       <div className="body1">
-        <h3 className="mt-5 d-none d-sm-block">A-DSAT Registration</h3>
+        <h3 className="mt-5 d-none d-sm-block">A-DSAT Examination</h3>
         <div class="containers mt-2 d-none d-sm-block" id="containers">
-          <div class="form-container sign-up-container">
+          <div class="form-container sign-in-container">
             <form className="form" onSubmit={signUp}>
               <h2>Create Account</h2>
               {/* <div class="social-container">
@@ -346,7 +335,7 @@ const Loginout = () => {
               </button>
             </form>
           </div>
-          <div class="form-container sign-in-container">
+          <div class="form-container sign-up-container">
             <form className="form" onSubmit={signIn}>
               <h2>Sign In</h2>
               <p>Enter Your Details</p>
@@ -380,7 +369,9 @@ const Loginout = () => {
                 className=" inp"
                 required
               />
-              <a href="#">Forgot Your Password</a>
+              <Link to="/resetpassword" className="text-primary">
+                Forgot Your Password
+              </Link>
 
               <button className="but">Sign In</button>
             </form>
@@ -395,16 +386,16 @@ const Loginout = () => {
                 </button>
               </div>
               <div class="overlay-panel overlay-right">
-                <h2>Hello, Students!</h2>
-                <p>Welcome to A-DSAT! Wish you best of luck</p>
+                <h2>Hello Students!</h2>
+                <p>Create an account to give test</p>
                 <button
                   class="ghost but"
-                  id="signUp"
+                  id="signIn"
                   onClick={() => {
-                    history.push("/signin");
+                    history.push("/");
                   }}
                 >
-                  Sign In
+                  Sign Up
                 </button>
               </div>
             </div>
@@ -415,4 +406,4 @@ const Loginout = () => {
   );
 };
 
-export default Loginout;
+export default SignIn;

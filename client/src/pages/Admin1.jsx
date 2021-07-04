@@ -11,9 +11,12 @@ import { Link, useHistory } from "react-router-dom";
 
 const Admin1 = () => {
   let history = useHistory();
+  const [no, setno] = useState([]);
 
   const [result, setresult] = useState([]);
   const [testname, settestname] = useState("");
+  const [activeusers, setactiveusers] = useState(0);
+  const [testsubmittedcount, settestsubmittedcount] = useState(0);
   function adminHome() {
     history.push("/adminroutes");
   }
@@ -29,11 +32,21 @@ const Admin1 = () => {
           "/api/v1/admin/result/dsat/generateResult",
           config
         );
+        const res1 = await axios.get(
+          "/api/v1/admin/registrationStats/active",
+          config
+        );
+        const res2 = await axios.get("/api/v1/admin/registrationStats", config);
         console.log(res);
-
+        console.log(res1);
+        console.log(res1.data.data.activeUser);
+        setactiveusers(res1.data.data.activeUser);
+        settestsubmittedcount(res1.data.data.testSubmitted);
         settestname(res.data.data.results[0].testName);
         setresult(res.data.data.results);
         console.log(res.data.data.results);
+
+        setno(res2.data.data.numberOfUserRegistered);
         console.log(result);
 
         console.log(result.length);
@@ -61,7 +74,7 @@ const Admin1 = () => {
 
       <div className="container-fluid mt-4">
         <div className="row ">
-          <div className="col-12 col-lg-3">
+          <div className="col-12 col-lg-4">
             <div className="adbox1 pt-2 pb-2">
               <div className="row">
                 <div className="col">
@@ -70,13 +83,13 @@ const Admin1 = () => {
                   </div>
                 </div>
                 <div className="col-8">
-                  No of Tests
-                  <h5>1</h5>
+                  Candidates Giving Test
+                  <h5>{activeusers}</h5>
                 </div>
               </div>
             </div>
           </div>
-          <div className="col-12 col-lg-3">
+          <div className="col-12 col-lg-4">
             <div className="adbox2  pt-2 pb-2">
               <div className="row">
                 <div className="col">
@@ -86,12 +99,12 @@ const Admin1 = () => {
                 </div>
                 <div className="col-8">
                   Total Students
-                  <h5>{result.length}</h5>
+                  <h5>{no}</h5>
                 </div>
               </div>
             </div>
           </div>
-          <div className="col-12 col-lg-3 ">
+          <div className="col-12 col-lg-4 ">
             <div className="adbox3  pt-2 pb-2">
               <div className="row">
                 <div className="col">
@@ -100,21 +113,9 @@ const Admin1 = () => {
                   </div>
                 </div>
                 <div className="col-8">
-                  Appeared Students
-                  <h5>{result.length}</h5>
+                  Students Submitted Test
+                  <h5>{testsubmittedcount}</h5>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 col-lg-3">
-            <div className="adbox4  pt-2 pb-2">
-              <div className="row">
-                <div className="col">
-                  <div className="text-center">
-                    <img src={check} />
-                  </div>
-                </div>
-                <div className="col-8">Total Cleared</div>
               </div>
             </div>
           </div>
@@ -130,7 +131,7 @@ const Admin1 = () => {
                 <th scope="col">Total Students</th>
               </tr>
             </thead>
-            <AdminData resultlen={result.length} testname={testname} />
+            <AdminData resultlen={result.length} testname="A-DSAT" />
           </table>
 
           {/* <div className="col">
