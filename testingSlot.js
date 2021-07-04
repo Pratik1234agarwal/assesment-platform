@@ -34,7 +34,7 @@ async function newSlot() {
         );
         console.log("User added to the database ", users[i]);
       } else {
-        console.log(user[i], " Not present in database");
+        console.log(users[i], " Not present in database");
       }
     }
 
@@ -42,6 +42,7 @@ async function newSlot() {
     //   { email: "testing@test.com" },
     //   { slotAlloted: true, timeSlot: timeSlot._id }
     // );
+    console.log("Testing slot divided");
   } catch (err) {
     console.log(err);
   }
