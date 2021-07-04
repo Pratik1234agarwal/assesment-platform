@@ -12,13 +12,15 @@ const users = [
   "1abhay234@gmail.com",
   "abhay2704@outlook.com",
   "pratik.agarwal@theikigailab.com",
+  "munishchoudhary201@gmail.com",
+  "munishchoudhary204@gmail.com",
 ];
 
 async function newSlot() {
   try {
     const timeSlot = new TimeSlot({
-      startTime: new Date(2021, 6, 4, 12, 0),
-      endTime: new Date(2021, 6, 4, 12, 30),
+      startTime: new Date(2021, 6, 4, 13, 0),
+      endTime: new Date(2021, 6, 4, 13, 30),
       slotNumber: 100,
     });
     await timeSlot.save();
