@@ -4,9 +4,7 @@ const config = require("config");
 
 const sendMailForPasswordReset = (email, token) => {
   console.log(email);
-  const url = `${config.get(
-    "hostUrl"
-  )}/api/v1/auth/reset/resetPassword/${token}`;
+  const url = `https://adsatiitropar.com/api/v1/auth/reset/resetPassword/${token}`;
   const message = messageFormatter({
     email,
     subject: "A-DSAT Password Reset",
