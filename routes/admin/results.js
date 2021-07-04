@@ -74,9 +74,11 @@ async function calculate(paper) {
       resultCategoryWise(category, question.category, "questionAttempted");
       if (questionFromDatabase.answer === question.answer) {
         correct++;
+        marks += 4;
         resultCategoryWise(category, question.category, "correct");
       } else {
         incorrect++;
+        marks -= 1;
       }
     } else if (question.status === "not answered") {
       notAttempted++;
@@ -95,7 +97,7 @@ async function calculate(paper) {
   report = new Result({
     paperId: paper._id,
     user: paper.user,
-    marks: correct * 1.0,
+    marks,
     totalMarks: paper.questions.length * 1.0,
     attempted,
     correct,
