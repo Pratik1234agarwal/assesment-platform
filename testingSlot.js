@@ -19,8 +19,8 @@ const users = [
 async function newSlot() {
   try {
     const timeSlot = new TimeSlot({
-      startTime: new Date(2021, 6, 5, 10, 0),
-      endTime: new Date(2021, 6, 5, 10, 30),
+      startTime: new Date(2021, 6, 5, 20, 0),
+      endTime: new Date(2021, 6, 5, 20, 30),
       slotNumber: 100,
     });
     await timeSlot.save();
