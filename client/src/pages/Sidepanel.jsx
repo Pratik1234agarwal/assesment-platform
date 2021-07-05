@@ -41,7 +41,7 @@ const Sidepanel = () => {
       .then((res) => {
         username = res.data.data.user.name;
         useremail = res.data.data.user.email;
-        console.log(res.data.data.user);
+        // console.log(res.data.data.user);
       })
       .catch((err) => console.error(err));
   }
@@ -118,9 +118,9 @@ const Sidepanel = () => {
           history.push("/signin");
         }
         const res = await axios.get("/api/v1/dsat/questionPaper", config);
-        console.log(res.data);
+        // console.log(res.data);
         const startedAt = new Date(res.data.data.paper.startedAt).getTime();
-        console.log(startedAt);
+        // console.log(startedAt);
 
         if (startedAt + 30 * 60 * 1000 < Date.now()) {
           alert("Your time limit for the test has already exceeded");

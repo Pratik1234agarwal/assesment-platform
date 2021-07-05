@@ -3,15 +3,9 @@ import logo1 from "../images/logo.png";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useTable, usePagination } from "react-table";
-import user from "../images/icons/user.png";
-import group from "../images/icons/group.png";
-import university from "../images/icons/university.png";
+import AdminBoxes from "./AdminBoxes";
 
 const StudentPerSlot = (props) => {
-  const [activeusers, setactiveusers] = useState(0);
-  const [testsubmittedcount, settestsubmittedcount] = useState(0);
-  const [no, setno] = useState([]);
-
   const [data, setData] = useState([]);
   const [slotno, setslotno] = useState();
   const [datetim, setdatetim] = useState();
@@ -30,18 +24,8 @@ const StudentPerSlot = (props) => {
           `/api/v1/admin/timeslots/${props.location.state.id}`,
           config
         );
-        const res1 = await axios.get(
-          "/api/v1/admin/registrationStats/active",
-          config
-        );
-        const res2 = await axios.get("/api/v1/admin/registrationStats", config);
-        setno(res2.data.data.numberOfUserRegistered);
-        console.log(res1);
-        console.log(res1.data.data.activeUser);
-        setactiveusers(res1.data.data.activeUser);
-        settestsubmittedcount(res1.data.data.testSubmitted);
 
-        console.log(res);
+        // console.log(res);
         setData(res.data.data.users);
         settotalstudents(res.data.data.users.length);
         setslotno(res.data.data.timeSlot.slotNumber);
@@ -118,55 +102,7 @@ const StudentPerSlot = (props) => {
         </div>
       </div>
 
-      <div className="container pt-3">
-        <div className="row ">
-          <div className="col-12 col-lg-4">
-            <div className="adbox1 pt-2 pb-2">
-              <div className="row">
-                <div className="col">
-                  <div className="text-center">
-                    <img src={university} />
-                  </div>
-                </div>
-                <div className="col-8">
-                  Candidates Giving Test
-                  <h5>{activeusers}</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 col-lg-4">
-            <div className="adbox2  pt-2 pb-2">
-              <div className="row">
-                <div className="col">
-                  <div className="text-center">
-                    <img src={group} />
-                  </div>
-                </div>
-                <div className="col-8">
-                  Total Students
-                  <h5>{no}</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 col-lg-4 ">
-            <div className="adbox3  pt-2 pb-2">
-              <div className="row">
-                <div className="col">
-                  <div className="text-center">
-                    <img src={user} />
-                  </div>
-                </div>
-                <div className="col-8">
-                  Students Submitted Test
-                  <h5>{testsubmittedcount}</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <AdminBoxes />
 
       <div className="container mt-3 text-white">
         <button

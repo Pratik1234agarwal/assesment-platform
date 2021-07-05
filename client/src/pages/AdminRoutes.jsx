@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from "react";
 import logo1 from "../images/logo.png";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
-import user from "../images/icons/user.png";
-import group from "../images/icons/group.png";
-import university from "../images/icons/university.png";
+import AdminBoxes from "./AdminBoxes";
 
 const AdminRoutes = () => {
   let history = useHistory();
-
-  const [activeusers, setactiveusers] = useState(0);
-  const [testsubmittedcount, settestsubmittedcount] = useState(0);
-  const [no, setno] = useState([]);
 
   const logout = () => {
     localStorage.removeItem("Admin");
@@ -30,32 +23,10 @@ const AdminRoutes = () => {
 
   useEffect(async () => {
     if (localStorage.getItem("Admin")) {
-      const config = {
-        headers: {
-          Authorization: `Admin ${localStorage.getItem("Admin")}`,
-        },
-      };
-      try {
-        const res1 = await axios.get(
-          "/api/v1/admin/registrationStats/active",
-          config
-        );
-        const res = await axios.get("/api/v1/admin/registrationStats", config);
-        setno(res.data.data.numberOfUserRegistered);
-        console.log(res1);
-        console.log(res1.data.data.activeUser);
-        setactiveusers(res1.data.data.activeUser);
-        settestsubmittedcount(res1.data.data.testSubmitted);
-      } catch (err) {
-        console.log(err.response.data);
-        if (err.response.data && err.response.data.message) {
-          alert(err.response.data.message);
-        }
-      }
     } else {
       history.push("/admin");
     }
-  });
+  }, []);
 
   return (
     <>
@@ -65,55 +36,7 @@ const AdminRoutes = () => {
         </div>
       </div>
 
-      <div className="container pt-3">
-        <div className="row ">
-          <div className="col-12 col-lg-4">
-            <div className="adbox1 pt-2 pb-2">
-              <div className="row">
-                <div className="col">
-                  <div className="text-center">
-                    <img src={university} />
-                  </div>
-                </div>
-                <div className="col-8">
-                  Candidates Giving Test
-                  <h5>{activeusers}</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 col-lg-4">
-            <div className="adbox2  pt-2 pb-2">
-              <div className="row">
-                <div className="col">
-                  <div className="text-center">
-                    <img src={group} />
-                  </div>
-                </div>
-                <div className="col-8">
-                  Total Students
-                  <h5>{no}</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 col-lg-4 ">
-            <div className="adbox3  pt-2 pb-2">
-              <div className="row">
-                <div className="col">
-                  <div className="text-center">
-                    <img src={user} />
-                  </div>
-                </div>
-                <div className="col-8">
-                  Students Submitted Test
-                  <h5>{testsubmittedcount}</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <AdminBoxes />
 
       <div className="container mt-3 text-white">
         <button

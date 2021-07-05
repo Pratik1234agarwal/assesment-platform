@@ -20,7 +20,7 @@ const QuestionListTable = () => {
       };
       try {
         const res = await axios.get("/api/v1/admin/questions/list", config);
-        console.log(res.data.data.questions);
+        // console.log(res.data.data.questions);
         setquestion(res.data.data.questions);
       } catch (err) {
         console.log(err);

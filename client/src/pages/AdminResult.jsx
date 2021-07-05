@@ -1,23 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./AdminResult.css";
 import logo1 from "../images/logo.png";
-import user from "../images/icons/user.png";
-import group from "../images/icons/group.png";
-import university from "../images/icons/university.png";
-import check from "../images/icons/check.png";
 import AdminResultData from "../Components/AdminResultData";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import Tables from "./Tables";
+import AdminBoxes from "./AdminBoxes";
 
 const AdminResult = () => {
   let history = useHistory();
-  const [no, setno] = useState([]);
 
   const [result, setresult] = useState([]);
   const [testname, settestname] = useState("");
-  const [activeusers, setactiveusers] = useState(0);
-  const [testsubmittedcount, settestsubmittedcount] = useState(0);
   function adminHome() {
     history.push("/adminroutes");
   }
@@ -33,22 +27,13 @@ const AdminResult = () => {
           "/api/v1/admin/result/dsat/generateResult",
           config
         );
-        const res1 = await axios.get(
-          "/api/v1/admin/registrationStats/active",
-          config
-        );
-        const res2 = await axios.get("/api/v1/admin/registrationStats", config);
-        console.log(res);
+        // console.log(res);
         setresult(res.data.data.results);
         settestname(res.data.data.results[0].testName);
-        console.log(res1.data.data.activeUser);
-        setactiveusers(res1.data.data.activeUser);
-        settestsubmittedcount(res1.data.data.testSubmitted);
-        setno(res2.data.data.numberOfUserRegistered);
         // console.log(res.data.data.results);
-        console.log(result);
+        // console.log(result);
 
-        console.log(result.length);
+        // console.log(result.length);
       } catch (err) {
         console.log(err);
         // console.log(err.response.data.msg);
@@ -72,7 +57,7 @@ const AdminResult = () => {
       axios
         .get("/api/v1/admin/result/sendMail", config)
         .then(function (res) {
-          console.log(res);
+          // console.log(res);
           alert("Reault Mail have been sent to the students");
           console.log("Result Mail send to students");
         })
@@ -93,55 +78,7 @@ const AdminResult = () => {
         </div>
       </div>
 
-      <div className="container-fluid mt-4">
-        <div className="row ">
-          <div className="col-12 col-lg-4">
-            <div className="adbox1 pt-2 pb-2">
-              <div className="row">
-                <div className="col">
-                  <div className="text-center">
-                    <img src={university} />
-                  </div>
-                </div>
-                <div className="col-8">
-                  Candidates Giving Test
-                  <h5>{activeusers}</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 col-lg-4">
-            <div className="adbox2  pt-2 pb-2">
-              <div className="row">
-                <div className="col">
-                  <div className="text-center">
-                    <img src={group} />
-                  </div>
-                </div>
-                <div className="col-8">
-                  Total Students
-                  <h5>{no}</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 col-lg-4 ">
-            <div className="adbox3  pt-2 pb-2">
-              <div className="row">
-                <div className="col">
-                  <div className="text-center">
-                    <img src={user} />
-                  </div>
-                </div>
-                <div className="col-8">
-                  Students Submitted Test
-                  <h5>{testsubmittedcount}</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <AdminBoxes />
 
       <div className="container text-center pt-4">
         <h3 className="pt-2">Students Result</h3>

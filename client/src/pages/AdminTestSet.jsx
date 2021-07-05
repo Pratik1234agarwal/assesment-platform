@@ -37,7 +37,7 @@ const AdminTestSet = () => {
       negativeMarksPerQuestion,
       questionBank,
     };
-    console.log(item);
+    // console.log(item);
     const config = {
       headers: {
         Authorization: `Admin ${localStorage.getItem("Admin")}`,
@@ -46,7 +46,7 @@ const AdminTestSet = () => {
     axios
       .post("/api/v1/admin/test/create", item, config)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         <QuestionAdd
           testname={testName}
           questno={numberOfQuestions}

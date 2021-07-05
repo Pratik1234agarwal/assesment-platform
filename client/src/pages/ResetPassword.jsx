@@ -14,11 +14,11 @@ const ResetPassword = () => {
       event.preventDefault();
     }
     let item = { email };
-    console.warn(item);
-    console.log(item);
+    // console.warn(item);
+    // console.log(item);
     try {
       const res = await axios.post("/api/v1/auth/reset/resetPassword", item);
-      console.log(res);
+      // console.log(res);
       swal(
         {
           title: "Mail Sent",

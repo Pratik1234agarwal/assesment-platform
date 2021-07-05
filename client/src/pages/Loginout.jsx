@@ -35,12 +35,12 @@ const Loginout = () => {
       event.preventDefault();
     }
     let item = { name, email, phone, category, university, password, branch };
-    console.warn(item);
-    console.log(item);
+    // console.warn(item);
+    // console.log(item);
 
     try {
       const res = await axios.post(`/api/v1/auth/signup`, item);
-      console.log(res);
+      // console.log(res);
       swal(
         {
           title: "Successfully Registered",

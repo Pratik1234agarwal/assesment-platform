@@ -46,7 +46,7 @@ const Question = ({ question, onAnswer }) => {
           },
         }
       );
-      console.log(res.data);
+      // console.log(res.data);
       onAnswer(e.target.value);
       // e.target.checked = false;
     } catch (err) {

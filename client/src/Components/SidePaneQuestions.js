@@ -14,8 +14,8 @@ const SidePaneQuestions = ({
   let history = useHistory();
 
   useEffect(() => {
-    console.log("pol");
-  });
+    // console.log("pol");
+  }, []);
 
   const quest = () => {
     return (

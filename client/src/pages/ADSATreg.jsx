@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import logo1 from "../images/logo.png";
-import user from "../images/icons/user.png";
-import group from "../images/icons/group.png";
-import university from "../images/icons/university.png";
 import ADSATable from "./ADSATable";
 import exportFromJSON from "export-from-json";
+import AdminBoxes from "./AdminBoxes";
 
 const ADSATreg = () => {
   const fileName = "A-DSAT Registration";
@@ -19,8 +17,6 @@ const ADSATreg = () => {
   let history = useHistory();
   const [no, setno] = useState([]);
   const [data, setData] = useState([]);
-  const [activeusers, setactiveusers] = useState(0);
-  const [testsubmittedcount, settestsubmittedcount] = useState(0);
 
   function adminHome() {
     history.push("/adminroutes");
@@ -35,15 +31,10 @@ const ADSATreg = () => {
       };
       try {
         const res = await axios.get("/api/v1/admin/registrationStats", config);
-        const res1 = await axios.get(
-          "/api/v1/admin/registrationStats/active",
-          config
-        );
+
         console.log(res.data.data.numberOfUserRegistered);
         setno(res.data.data.numberOfUserRegistered);
         setData(res.data.data.users);
-        setactiveusers(res1.data.data.activeUser);
-        settestsubmittedcount(res1.data.data.testSubmitted);
       } catch (err) {
         console.log(err);
         if (err.response && err.response.data) alert(err.response.data.message);
@@ -54,7 +45,7 @@ const ADSATreg = () => {
 
   return (
     <>
-      <div className="container-fluid admn">
+      <div className="container-fluid admn ">
         <div className="row ml-3 ">
           <Link to="/adminroutes">
             <img src={logo1} />
@@ -62,55 +53,7 @@ const ADSATreg = () => {
         </div>
       </div>
 
-      <div className="container mt-4">
-        <div className="row ">
-          <div className="col-12 col-lg-4">
-            <div className="adbox1 pt-2 pb-2">
-              <div className="row">
-                <div className="col">
-                  <div className="text-center">
-                    <img src={university} />
-                  </div>
-                </div>
-                <div className="col-8">
-                  Candidates Giving Test
-                  <h5>{activeusers}</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 col-lg-4">
-            <div className="adbox2  pt-2 pb-2">
-              <div className="row">
-                <div className="col">
-                  <div className="text-center">
-                    <img src={group} />
-                  </div>
-                </div>
-                <div className="col-8">
-                  Total Students
-                  <h5>{no}</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 col-lg-4 ">
-            <div className="adbox3  pt-2 pb-2">
-              <div className="row">
-                <div className="col">
-                  <div className="text-center">
-                    <img src={user} />
-                  </div>
-                </div>
-                <div className="col-8">
-                  Students Submitted Test
-                  <h5>{testsubmittedcount}</h5>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <AdminBoxes />
 
       <div className="container mt-3 text-white">
         <button

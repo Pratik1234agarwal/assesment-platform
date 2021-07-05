@@ -19,11 +19,11 @@ const QuestionAddLogin = () => {
 
   function Login() {
     let item = { username, password };
-    console.warn(item);
+    // console.warn(item);
     axios
       .post("/api/v1/admin/login", item)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         localStorage.setItem("questionAdd", res.data.data.token);
         alert("Signin Complete");
         history.push("/questionroutes");

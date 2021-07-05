@@ -66,11 +66,11 @@ const SignIn = () => {
     let email = emails;
     let password = passwords;
     let items = { email, password };
-    console.warn(items);
+    // console.warn(items);
 
     try {
       const res = await axios.post("/api/v1/auth/login", items);
-      console.log(res);
+      // console.log(res);
       localStorage.setItem("token", res.data.data.token);
       const config = {
         headers: {
@@ -78,9 +78,9 @@ const SignIn = () => {
         },
       };
       const resp = await axios.get("/api/v1/dsat/checkslot", config);
-      console.log(resp);
+      // console.log(resp);
       const slot = resp.data.data.slotAlloted;
-      console.log(resp.data.data.slotAlloted);
+      // console.log(resp.data.data.slotAlloted);
       if (slot == false) {
         console.log("hey");
         swal(
@@ -103,8 +103,8 @@ const SignIn = () => {
         );
       } else {
         if (resp.data.data.isSlotTime == true) {
-          console.log("in if");
-          console.log(resp.data.data.isSlotTime);
+          // console.log("in if");
+          // console.log(resp.data.data.isSlotTime);
           history.push("/instdsat");
         } else {
           const slotstarttime = resp.data.data.slot.startTime;
@@ -135,8 +135,8 @@ const SignIn = () => {
             timeZone: "IST",
           });
 
-          console.log(date);
-          console.log(resp.data.data.isSlotTime);
+          // console.log(date);
+          // console.log(resp.data.data.isSlotTime);
           swal(
             {
               title: "Please login in following date and time",
