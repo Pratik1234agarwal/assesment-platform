@@ -28,7 +28,7 @@ router.get("/dsat", auth, async (req, res) => {
 router.get("/dsat/generateResult", auth, async (req, res) => {
   try {
     let results = [];
-    const papers = await Paper.find();
+    const papers = await Paper.find({ finished: true });
     for (let i = 0; i < papers.length; i++) {
       const paper = papers[i];
       let result = await Result.findOne({ user: paper.user }).populate("user", [
