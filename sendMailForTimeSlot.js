@@ -25,7 +25,8 @@ function formatSlot(startTime, endTime) {
 
 async function Mails() {
   try {
-    const users = await User.find({ slotAlloted: true });
+    let users = await User.find();
+    users = users.slice(2500, 5000);
     for (let i = 0; i < users.length; i++) {
       const user = users[i];
       console.log(user);
@@ -45,7 +46,7 @@ async function Mails() {
   }
 }
 
-setTimeout(Mails, 100);
+setTimeout(Mails, 1000);
 
 //endMail("Pratik", "pratik1234agarwal@gmail.com");
 //sendMail("Abhay", "abhay.pandey@theikigailab.com");
