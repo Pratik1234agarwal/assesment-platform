@@ -40,6 +40,7 @@ async function generate() {
       cimage: q.C.imageUrl ? q.C.imageUrl : "",
       d: q.D.text,
       bimage: q.D.imageUrl ? q.D.imageUrl : "",
+      category: q.category,
     }));
 
     // Writing data in Excel.

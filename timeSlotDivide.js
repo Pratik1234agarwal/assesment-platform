@@ -6,12 +6,12 @@ const { format } = require("morgan");
 const wb = new xl.Workbook();
 const ws = wb.addWorksheet("Slot Mailing");
 
-const DATE = [6, 7];
-const slotFrom = 9;
-const slotTo = 21;
+const DATE = [13, 14];
+const slotFrom = 10;
+const slotTo = 20;
 
 async function slotDivider() {
-  let count = 0;
+  let count = 48;
   for (let k = 0; k < DATE.length; k++) {
     let date = DATE[k];
     for (let i = slotFrom; i < slotTo; i++) {
@@ -20,7 +20,6 @@ async function slotDivider() {
         const slot1 = new TimeSlot({
           startTime: new Date(2021, 6, date, i, 0),
           endTime: new Date(2021, 6, date, i, 30),
-          students: [],
           slotNumber: count,
         });
         count++;
@@ -41,18 +40,25 @@ async function slotDivider() {
 }
 
 const NUMBER_OF_STUDENTS_TO_BE_ALLOTED = 2500;
-let NUMBER_PER_SLOT = 52;
+const startFrom = 2500;
+let NUMBER_PER_SLOT = 62;
 
 async function divideStudent() {
   try {
     let users = await User.find();
-    users = users.slice(0, NUMBER_OF_STUDENTS_TO_BE_ALLOTED);
-    const slots = await TimeSlot.find();
+    console.log(users.length);
+    users = users.slice(
+      startFrom,
+      NUMBER_OF_STUDENTS_TO_BE_ALLOTED + startFrom
+    );
+    console.log(users.length);
+    const slots = await TimeSlot.find({ slotNumber: { $gte: 48 } });
+    console.log(slots.length);
     let count = 0;
     for (let i = 0; i < slots.length; i++) {
       const slot = slots[i];
-      if (i == slots.length - 1) {
-        NUMBER_PER_SLOT = 56;
+      if (i == 20) {
+        NUMBER_PER_SLOT = 63;
       }
       for (let j = 0; j < NUMBER_PER_SLOT; j++) {
         // users[count].timeSlot = slot._id;
