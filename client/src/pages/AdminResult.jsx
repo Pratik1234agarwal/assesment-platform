@@ -46,27 +46,26 @@ const AdminResult = () => {
     }
   }, []);
 
-  const Sendmail = () => {
-    // alert("Result Mail send to students");
-    if (localStorage.getItem("Admin")) {
-      const config = {
-        headers: {
-          Authorization: `Admin ${localStorage.getItem("Admin")}`,
-        },
-      };
-      axios
-        .get("/api/v1/admin/result/sendMail", config)
-        .then(function (res) {
-          // console.log(res);
-          alert("Reault Mail have been sent to the students");
-          console.log("Result Mail send to students");
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        });
-    }
-  };
+  // const Sendmail = () => {
+  //   if (localStorage.getItem("Admin")) {
+  //     const config = {
+  //       headers: {
+  //         Authorization: `Admin ${localStorage.getItem("Admin")}`,
+  //       },
+  //     };
+  //     axios
+  //       .get("/api/v1/admin/result/sendMail", config)
+  //       .then(function (res) {
+  //         // console.log(res);
+  //         alert("Reault Mail have been sent to the students");
+  //         console.log("Result Mail send to students");
+  //       })
+  //       .catch(function (error) {
+  //         // handle error
+  //         console.log(error);
+  //       });
+  //   }
+  // };
 
   return (
     <>
@@ -80,13 +79,19 @@ const AdminResult = () => {
 
       <AdminBoxes />
 
-      <div className="container text-center pt-4">
-        <h3 className="pt-2">Students Result</h3>
-        <div className="text-center mt-3 mb-4">
+      <div className="container text-right mt-3 mb-4">
+        <button className="btn btn-danger" onClick={adminHome}>
+          Go Back
+        </button>
+      </div>
+
+      <div className="container text-center ">
+        <h3 className=" pb-3">Students Result</h3>
+        {/* <div className="text-center mt-3 mb-4">
           <button className="btn btn-danger" onClick={Sendmail}>
             Send Mail To All
           </button>
-        </div>
+        </div> */}
         {/* <div className="row mt-4 ">
           <table class="table">
             <thead>
@@ -111,12 +116,6 @@ const AdminResult = () => {
         {/* </div>
           <div className="row-2"></div>
         </div> */}
-      </div>
-
-      <div className="container text-center mt-5 mb-5">
-        <button className="btn btn-danger" onClick={adminHome}>
-          Go Back
-        </button>
       </div>
     </>
   );
