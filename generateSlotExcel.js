@@ -41,7 +41,7 @@ async function generate() {
   let data = [];
   try {
     const slots = await TimeSlot.find();
-    for (let i = 0; i < slots.length / 2; i++) {
+    for (let i = 0; i < 24; i++) {
       const slot = slots[i];
 
       const users = await User.find({ timeSlot: slot._id });
