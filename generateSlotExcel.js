@@ -48,7 +48,7 @@ async function generate() {
       let attempted = 0;
       let passed = 0;
       for (let j = 0; j < users.length; j++) {
-        const result = await Results.find({ user: users[j]._id }).select(
+        const result = await Results.findOne({ user: users[j]._id }).select(
           "marks"
         );
         if (result) {
