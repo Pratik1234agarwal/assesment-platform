@@ -41,7 +41,7 @@ async function generate() {
   let data = [];
   try {
     const slots = await TimeSlot.find();
-    for (let i = 0; i < 24; i++) {
+    for (let i = 24; i < 48; i++) {
       const slot = slots[i];
 
       const users = await User.find({ timeSlot: slot._id });
@@ -62,7 +62,7 @@ async function generate() {
         date: slot.startTime.toDateString(),
         slot: `Slot ${slot.slotNumber + 1}`,
         timing: formatSlot(slot.startTime, slot.endTime),
-        registered: i == slots.length - 1 ? 56 : 52,
+        registered: i == slots.length - 1 ? "56" : "52",
         appeared: `${attempted}`,
         passed: `${passed}`,
         passingper: `${(passed / attempted) * 100}`,
@@ -78,7 +78,7 @@ async function generate() {
       });
       rowIndex++;
     });
-    wb.write("SlotExcelData6thJuly.xlsx");
+    wb.write("SlotExcelData7thJuly.xlsx");
 
     console.log("Excel Generated");
   } catch (err) {
