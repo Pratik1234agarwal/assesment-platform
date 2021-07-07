@@ -28,7 +28,10 @@ const AdminLogin = () => {
         alert("Signin Complete");
         history.push("/adminroutes");
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        // console.log(err.response.data.message),
+        alert(err.response.data.message);
+      });
   }
   return (
     <>
