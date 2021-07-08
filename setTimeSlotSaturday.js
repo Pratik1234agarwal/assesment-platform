@@ -54,6 +54,7 @@ async function getStudentList() {
       }
     }
   }
+  console.log(data);
 }
 
 async function sendMail(slot) {
