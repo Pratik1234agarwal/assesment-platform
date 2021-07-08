@@ -1,5 +1,6 @@
 const User = require('./models/User');
 const TimeSlot = require('./models/timeSlot');
+const Results = require('./models/Result');
 require('./config/db')();
 const xl = require('excel4node');
 const wb = new xl.Workbook();
@@ -44,7 +45,7 @@ async function getStudentList() {
       const result = await Results.findOne({ user: users[j]._id }).select(
         'marks'
       );
-      if (result) {
+      if (!result) {
         data.push({
           name: users[j].name,
           email: users[j].email,
