@@ -59,6 +59,7 @@ async function getStudentList() {
 
 async function sendMail(slot) {
   console.log('Starting sending mail to, ', data.length);
+  console.log(slot);
   for (let i = 0; i < data.length; i++) {
     const user = data[i];
     try {
@@ -70,6 +71,7 @@ async function sendMail(slot) {
         '10th of July'
       );
     } catch (err) {
+      console.log(err);
       console.log(`[Err in sending mail to email : ${user.email}]`);
     }
   }
