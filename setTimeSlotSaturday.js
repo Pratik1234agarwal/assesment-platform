@@ -63,7 +63,7 @@ async function sendMail(slot) {
   for (let i = 0; i < data.length; i++) {
     const user = data[i];
     try {
-      timeSlotMailGeneral(
+      await timeSlotMailGeneral(
         user.name,
         user.email,
         '10th of July',
