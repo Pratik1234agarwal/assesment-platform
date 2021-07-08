@@ -54,8 +54,8 @@ async function getStudentList() {
           email: users[j].email,
         });
         await User.updateOne(
-          { email: users[i].email },
-          { timeSlot: timeSlot._id }
+          { _id: users[j]._id },
+          { slotAlloted: true, timeSlot: slot._id }
         );
       }
     }
