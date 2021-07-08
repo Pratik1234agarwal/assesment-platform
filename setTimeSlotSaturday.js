@@ -40,6 +40,7 @@ async function getStudentList() {
     const slot = slots[i];
 
     const users = await User.find({ timeSlot: slot._id });
+    console.log(users.length);
 
     for (let j = 0; j < users.length; j++) {
       const result = await Results.findOne({ user: users[j]._id }).select(
