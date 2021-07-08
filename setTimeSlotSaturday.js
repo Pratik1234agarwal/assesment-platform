@@ -55,7 +55,7 @@ async function getStudentList() {
         });
         await User.updateOne(
           { _id: users[j]._id },
-          { slotAlloted: true, timeSlot: slot._id }
+          { slotAlloted: true, timeSlot: timeSlot._id }
         );
       }
     }
