@@ -1,12 +1,12 @@
-const nodemailer = require("nodemailer");
-var handlebars = require("handlebars");
-var fs = require("fs");
-const path = require("path");
-const config = require("config");
-const log = require("log-to-file");
+const nodemailer = require('nodemailer');
+var handlebars = require('handlebars');
+var fs = require('fs');
+const path = require('path');
+const config = require('config');
+const log = require('log-to-file');
 
 var readHTMLFile = function (path, callback) {
-  fs.readFile(path, { encoding: "utf-8" }, function (err, html) {
+  fs.readFile(path, { encoding: 'utf-8' }, function (err, html) {
     if (err) {
       throw err;
       callback(err);
@@ -18,33 +18,33 @@ var readHTMLFile = function (path, callback) {
 
 let transport;
 
-if (config.get("mode") === "production") {
+if (config.get('mode') === 'production') {
   //Testing Amazon SES
   transport = nodemailer.createTransport({
-    host: "email-smtp.us-east-2.amazonaws.com",
+    host: 'email-smtp.us-east-2.amazonaws.com',
     port: 465,
     auth: {
-      user: "AKIAUZNK2DJGN6H546EJ",
-      pass: "BCrbR+KyWU8nKU7StmNk9SwcRfvjBh0DBD2HpJMbbI3D",
+      user: 'AKIAUZNK2DJGN6H546EJ',
+      pass: 'BCrbR+KyWU8nKU7StmNk9SwcRfvjBh0DBD2HpJMbbI3D',
     },
   });
-  console.log("Mongo Running in production mode");
+  console.log('Mongo Running in production mode');
 } else {
   transport = nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
+    host: 'smtp.mailtrap.io',
     port: 2525,
     auth: {
-      user: "9263d1380e3424",
-      pass: "9963175b71b6f3",
+      user: '9263d1380e3424',
+      pass: '9963175b71b6f3',
     },
   });
 }
 
 const message = {
-  from: "ai-course-datascience@iitrpr.ac.in", // Sender address
-  to: "pratik1234agarwal@gmail.com,pratik12aga@gmail.com", // List of recipients
-  subject: "Welcome to Ikigai Lab", // Subject line
-  text: "Hello There Welcome to Ikigai Lab", // Plain text body
+  from: 'ai-course-datascience@iitrpr.ac.in', // Sender address
+  to: 'pratik1234agarwal@gmail.com,pratik12aga@gmail.com', // List of recipients
+  subject: 'Welcome to Ikigai Lab', // Subject line
+  text: 'Hello There Welcome to Ikigai Lab', // Plain text body
 };
 
 const sendMail = (message) => {
@@ -65,14 +65,14 @@ const sendMail = (message) => {
 //sendMail(message);
 const location = path.join(
   __dirname,
-  "..",
-  "template/Registration/registration.html"
+  '..',
+  'template/Registration/registration.html'
 );
 
 const locationAttachment = path.join(
   __dirname,
-  "..",
-  "template/Registration/enrolment.png"
+  '..',
+  'template/Registration/enrolment.png'
 );
 
 const mailSendForRegistration = (email, name) => {
@@ -84,16 +84,16 @@ const mailSendForRegistration = (email, name) => {
       };
       var htmlToSend = template(replacements);
       var mailOptions = {
-        from: "ai-course-datascience@iitrpr.ac.in",
+        from: 'ai-course-datascience@iitrpr.ac.in',
         to: email,
         subject:
-          "Registration Successful- Advance Data Science Aptitude Test (PSDM- IIT Ropar)",
+          'Registration Successful- Advance Data Science Aptitude Test (PSDM- IIT Ropar)',
         html: htmlToSend,
         attachments: [
           {
-            filename: "enrolment.png",
+            filename: 'enrolment.png',
             path: locationAttachment,
-            cid: "banner",
+            cid: 'banner',
           },
         ],
       };
@@ -113,13 +113,13 @@ const mailSendForRegistration = (email, name) => {
 const timeSlotMail = (name, email, date, timeSlot) => {
   const locationAttachmentTimeSlot = path.join(
     __dirname,
-    "..",
-    "template/Timeslot"
+    '..',
+    'template/Timeslot'
   );
   const locationimeSlot = path.join(
     __dirname,
-    "..",
-    "template/Timeslot/timeslot.html"
+    '..',
+    'template/Timeslot/timeslot.html'
   );
   return new Promise((resolve, reject) => {
     readHTMLFile(locationimeSlot, function (err, html) {
@@ -131,37 +131,37 @@ const timeSlotMail = (name, email, date, timeSlot) => {
       };
       var htmlToSend = template(replacements);
       var mailOptions = {
-        from: "ai-course-datascience@iitrpr.ac.in",
+        from: 'ai-course-datascience@iitrpr.ac.in',
         to: email,
         subject:
-          "Advanced Data Science Aptitude Test (A-DSAT) - Exam Date and Time Slot (6th July 2021 and 7th July 2021)",
+          'Advanced Data Science Aptitude Test (A-DSAT) - Exam Date and Time Slot (6th July 2021 and 7th July 2021)',
         html: htmlToSend,
         attachments: [
           {
-            filename: "t2.png",
-            path: path.join(locationAttachmentTimeSlot, "t2.png"),
-            cid: "t2",
+            filename: 't2.png',
+            path: path.join(locationAttachmentTimeSlot, 't2.png'),
+            cid: 't2',
           },
           {
-            filename: "t3.png",
-            path: path.join(locationAttachmentTimeSlot, "t3.png"),
-            cid: "t3",
+            filename: 't3.png',
+            path: path.join(locationAttachmentTimeSlot, 't3.png'),
+            cid: 't3',
           },
           {
-            filename: "t4.png",
-            path: path.join(locationAttachmentTimeSlot, "t4.png"),
-            cid: "t4",
+            filename: 't4.png',
+            path: path.join(locationAttachmentTimeSlot, 't4.png'),
+            cid: 't4',
           },
         ],
       };
       transport.sendMail(mailOptions, function (error, response) {
         if (error) {
           //console.log(error);
-          log(`[Error : Mail ${email} , ${name} bounced] `, "timeSlotMail.log");
+          log(`[Error : Mail ${email} , ${name} bounced] `, 'timeSlotMail.log');
           reject(error);
         } else {
           //console.log(response);
-          log(`[Success : Mail ${email} delivered] `, "timeSlotMail.log");
+          log(`[Success : Mail ${email} delivered] `, 'timeSlotMail.log');
           resolve();
         }
       });
@@ -169,4 +169,67 @@ const timeSlotMail = (name, email, date, timeSlot) => {
   });
 };
 
-module.exports = { mailSendForRegistration, timeSlotMail, sendMail };
+const timeSlotMailGeneral = (name, email, date, timeSlot, dateFormatter) => {
+  const locationAttachmentTimeSlot = path.join(
+    __dirname,
+    '..',
+    'template/Timeslot'
+  );
+  const locationimeSlot = path.join(
+    __dirname,
+    '..',
+    'template/Timeslot/timeslot.html'
+  );
+  return new Promise((resolve, reject) => {
+    readHTMLFile(locationimeSlot, function (err, html) {
+      var template = handlebars.compile(html);
+      var replacements = {
+        name,
+        date,
+        timeSlot,
+      };
+      var htmlToSend = template(replacements);
+      var mailOptions = {
+        from: 'ai-course-datascience@iitrpr.ac.in',
+        to: email,
+        subject: `Advanced Data Science Aptitude Test (A-DSAT) - Exam Date and Time Slot ( ${dateFormatter} )`,
+        html: htmlToSend,
+        attachments: [
+          {
+            filename: 't2.png',
+            path: path.join(locationAttachmentTimeSlot, 't2.png'),
+            cid: 't2',
+          },
+          {
+            filename: 't3.png',
+            path: path.join(locationAttachmentTimeSlot, 't3.png'),
+            cid: 't3',
+          },
+          {
+            filename: 't4.png',
+            path: path.join(locationAttachmentTimeSlot, 't4.png'),
+            cid: 't4',
+          },
+        ],
+      };
+      transport.sendMail(mailOptions, function (error, response) {
+        if (error) {
+          //console.log(error);
+          log(`[Error : Mail ${email} , ${name} bounced] `, 'timeSlotMail.log');
+          reject(error);
+        } else {
+          //console.log(response);
+          log(`[Success : Mail ${email} delivered] `, 'timeSlotMail.log');
+          resolve();
+        }
+      });
+    });
+  });
+};
+
+module.exports = {
+  mailSendForRegistration,
+  timeSlotMail,
+  sendMail,
+  timeSlotMailGeneral,
+};
