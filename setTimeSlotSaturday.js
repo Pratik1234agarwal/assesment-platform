@@ -36,7 +36,8 @@ let data = [];
 async function getStudentList() {
   const slots = await TimeSlot.find({ slotNumber: { $lt: 48 } });
   console.log(slots.length);
-  const timeSlot = await TimeSlot.find({ slotNumber: 101 });
+  const timeSlot = await TimeSlot.findOne({ slotNumber: 101 });
+  console.log(timeSlot);
   for (let i = 0; i < slots.length; i++) {
     const slot = slots[i];
 
@@ -109,11 +110,11 @@ async function doeveything() {
   try {
     slot = await createNewSlot();
     await getStudentList();
-    await sendMail();
-    await generateExcel();
+    //await sendMail();
+    //await generateExcel();
   } catch (err) {
     console.log(err);
   }
 }
 
-setTimeout(getStudentList, 1000);
+setTimeout(doeveything, 1000);
