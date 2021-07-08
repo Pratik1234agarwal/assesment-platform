@@ -54,7 +54,7 @@ async function getStudentList() {
       }
     }
   }
-  console.log(data);
+  console.log('Number of students not giving the test: ', data.length);
 }
 
 async function sendMail(slot) {
@@ -94,14 +94,15 @@ async function generateExcel() {
     rowIndex++;
   });
   wb.write('SlotForSaturday.xlsx');
+  console.log('Excel Generated');
 }
 
 async function doeveything() {
   try {
-    slot = createNewSlot();
-    getStudentList();
-    sendMail(slot);
-    generateExcel();
+    slot = await createNewSlot();
+    await getStudentList();
+    await sendMail(slot);
+    await generateExcel();
   } catch (err) {
     console.log(err);
   }
