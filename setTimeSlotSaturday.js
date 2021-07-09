@@ -34,33 +34,49 @@ async function createNewSlot() {
 let data = [];
 
 async function getStudentList() {
-  const slots = await TimeSlot.find({ slotNumber: { $lt: 48 } });
-  console.log(slots.length);
-  const timeSlot = await TimeSlot.findOne({ slotNumber: 101 });
-  console.log(timeSlot);
-  for (let i = 0; i < slots.length; i++) {
-    const slot = slots[i];
+  // const slots = await TimeSlot.find({ slotNumber: { $lt: 48 } });
+  // console.log(slots.length);
+  // const timeSlot = await TimeSlot.findOne({ slotNumber: 101 });
+  // console.log(timeSlot);
+  // for (let i = 0; i < slots.length; i++) {
+  //   const slot = slots[i];
 
-    const users = await User.find({ timeSlot: slot._id });
-    console.log(users.length);
+  //   const users = await User.find({ timeSlot: slot._id });
+  //   console.log(users.length);
 
-    for (let j = 0; j < users.length; j++) {
-      const result = await Results.findOne({ user: users[j]._id }).select(
-        'marks'
-      );
-      if (!result) {
-        data.push({
-          name: users[j].name,
-          email: users[j].email,
-          phone: users[j].phone,
-        });
-        // await User.updateOne(
-        //   { _id: users[j]._id },
-        //   { slotAlloted: true, timeSlot: timeSlot._id }
-        // );
-      }
+  //   for (let j = 0; j < users.length; j++) {
+  //     const result = await Results.findOne({ user: users[j]._id }).select(
+  //       'marks'
+  //     );
+  //     if (!result) {
+  //       data.push({
+  //         name: users[j].name,
+  //         email: users[j].email,
+  //         phone: users[j].phone,
+  //       });
+  //       await User.updateOne(
+  //         { _id: users[j]._id },
+  //         { slotAlloted: true, timeSlot: timeSlot._id }
+  //       );
+  //     }
+  //   }
+  //   console.log('Changes done');
+  // }
+
+  const users = await User.find().limit(2500);
+  for (let i = 0; i < users.length; i++) {
+    const res = await Results.findOne({ user: users[i]._id });
+    if (!res) {
+      data.push({
+        name: users[i].name,
+        email: users[i].email,
+        phone: users[i].phone,
+      });
+      // await User.updateOne(
+      //   { _id: users[i]._id },
+      //   { slotAlloted: true, timeSlot: timeSlot._id }
+      // );
     }
-    console.log('Changes done');
   }
   console.log('Number of students not giving the test: ', data.length);
 }
@@ -86,7 +102,7 @@ async function sendMail(slot) {
   console.log('All mails have been sent');
 }
 
-async function generateExcel() {
+async function generateExcel(slot) {
   const headingColumnNames = ['Name', 'Email', 'Phone'];
   //Write Column Title in Excel file
   let headingColumnIndex = 1;
@@ -118,4 +134,4 @@ async function doeveything() {
   }
 }
 
-setTimeout(doeveything, 1000);
+setTimeout(getStudentList, 1000);
