@@ -52,11 +52,12 @@ async function getStudentList() {
         data.push({
           name: users[j].name,
           email: users[j].email,
+          phone: users[j].phone,
         });
-        await User.updateOne(
-          { _id: users[j]._id },
-          { slotAlloted: true, timeSlot: timeSlot._id }
-        );
+        // await User.updateOne(
+        //   { _id: users[j]._id },
+        //   { slotAlloted: true, timeSlot: timeSlot._id }
+        // );
       }
     }
     console.log('Changes done');
@@ -86,7 +87,7 @@ async function sendMail(slot) {
 }
 
 async function generateExcel() {
-  const headingColumnNames = ['Name', 'Email'];
+  const headingColumnNames = ['Name', 'Email', 'Phone'];
   //Write Column Title in Excel file
   let headingColumnIndex = 1;
   headingColumnNames.forEach((heading) => {
@@ -111,7 +112,7 @@ async function doeveything() {
     slot = await createNewSlot();
     await getStudentList();
     //await sendMail();
-    //await generateExcel();
+    await generateExcel();
   } catch (err) {
     console.log(err);
   }
