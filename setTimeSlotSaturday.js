@@ -33,7 +33,7 @@ async function createNewSlot() {
 
 let data = [];
 
-async function getStudentList() {
+async function getStudentList(slot) {
   // const slots = await TimeSlot.find({ slotNumber: { $lt: 48 } });
   // console.log(slots.length);
   // const timeSlot = await TimeSlot.findOne({ slotNumber: 101 });
@@ -72,10 +72,10 @@ async function getStudentList() {
         email: users[i].email,
         phone: users[i].phone,
       });
-      // await User.updateOne(
-      //   { _id: users[i]._id },
-      //   { slotAlloted: true, timeSlot: timeSlot._id }
-      // );
+      await User.updateOne(
+        { _id: users[i]._id },
+        { slotAlloted: true, timeSlot: slot._id }
+      );
     }
   }
   console.log('Number of students not giving the test: ', data.length);
@@ -126,7 +126,7 @@ async function generateExcel(slot) {
 async function doeveything() {
   try {
     slot = await createNewSlot();
-    await getStudentList();
+    await getStudentList(slot);
     //await sendMail();
     await generateExcel();
   } catch (err) {
@@ -134,4 +134,4 @@ async function doeveything() {
   }
 }
 
-setTimeout(getStudentList, 1000);
+setTimeout(doeveything, 1000);
