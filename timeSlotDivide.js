@@ -52,7 +52,7 @@ async function divideStudent() {
       NUMBER_OF_STUDENTS_TO_BE_ALLOTED + startFrom
     );
     console.log(users.length);
-    const slots = await TimeSlot.find({ slotNumber: { $gte: 88 } });
+    const slots = await TimeSlot.find({ slotNumber: { $gte: 88, $lte: 500 } });
     console.log(slots.length);
     let count = 0;
     for (let i = 0; i < slots.length; i++) {
