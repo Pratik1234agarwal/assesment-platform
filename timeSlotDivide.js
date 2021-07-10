@@ -6,12 +6,12 @@ const { format } = require('morgan');
 const wb = new xl.Workbook();
 const ws = wb.addWorksheet('Slot Mailing');
 
-const DATE = [20, 21];
+const DATE = [27, 28];
 const slotFrom = 10;
 const slotTo = 20;
 
 async function slotDivider() {
-  let count = 88;
+  let count = 128;
   for (let k = 0; k < DATE.length; k++) {
     let date = DATE[k];
     for (let i = slotFrom; i < slotTo; i++) {
@@ -41,25 +41,22 @@ async function slotDivider() {
 
 const NUMBER_OF_STUDENTS_TO_BE_ALLOTED = 2500;
 const startFrom = 5000;
-let NUMBER_PER_SLOT = 62;
+let NUMBER_PER_SLOT = 50;
 
 async function divideStudent() {
   try {
     let users = await User.find();
     console.log(users.length);
-    users = users.slice(
-      startFrom,
-      NUMBER_OF_STUDENTS_TO_BE_ALLOTED + startFrom
-    );
+    users = users.slice(7500);
     console.log(users.length);
-    const slots = await TimeSlot.find({ slotNumber: { $gte: 88, $lte: 500 } });
+    const slots = await TimeSlot.find({ slotNumber: { $gte: 128, $lte: 500 } });
     console.log(slots.length);
     let count = 0;
     for (let i = 0; i < slots.length; i++) {
       const slot = slots[i];
-      if (i == 20) {
-        NUMBER_PER_SLOT = 63;
-      }
+      // if (i == 20) {
+      //   NUMBER_PER_SLOT = 63;
+      // }
       for (let j = 0; j < NUMBER_PER_SLOT; j++) {
         // users[count].timeSlot = slot._id;
         // users[count].slotAlloted = true;
@@ -102,7 +99,7 @@ async function generateExcel() {
 
     // Writing the main data
     const data = [];
-    for (let i = 0; i < users.length; i++) {
+    for (let i = 7500; i < users.length; i++) {
       const user = users[i];
       const slot = await TimeSlot.findById(user.timeSlot);
       //console.log(slot);
@@ -127,7 +124,7 @@ async function generateExcel() {
       });
       rowIndex++;
     });
-    wb.write('SlotDivision20th21st.xlsx');
+    wb.write('SlotDivision27th28th.xlsx');
 
     console.log('Excel Generated');
   } catch (err) {
