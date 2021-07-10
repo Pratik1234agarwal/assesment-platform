@@ -1,17 +1,17 @@
-const User = require("./models/User");
-const TimeSlot = require("./models/timeSlot");
-require("./config/db")();
-const xl = require("excel4node");
-const { format } = require("morgan");
+const User = require('./models/User');
+const TimeSlot = require('./models/timeSlot');
+require('./config/db')();
+const xl = require('excel4node');
+const { format } = require('morgan');
 const wb = new xl.Workbook();
-const ws = wb.addWorksheet("Slot Mailing");
+const ws = wb.addWorksheet('Slot Mailing');
 
-const DATE = [13, 14];
+const DATE = [20, 21];
 const slotFrom = 10;
 const slotTo = 20;
 
 async function slotDivider() {
-  let count = 48;
+  let count = 88;
   for (let k = 0; k < DATE.length; k++) {
     let date = DATE[k];
     for (let i = slotFrom; i < slotTo; i++) {
@@ -33,14 +33,14 @@ async function slotDivider() {
         await slot2.save();
       } catch (err) {
         console.log(err);
-        console.log("Error creating slots");
+        console.log('Error creating slots');
       }
     }
   }
 }
 
 const NUMBER_OF_STUDENTS_TO_BE_ALLOTED = 2500;
-const startFrom = 2500;
+const startFrom = 5000;
 let NUMBER_PER_SLOT = 62;
 
 async function divideStudent() {
@@ -52,7 +52,7 @@ async function divideStudent() {
       NUMBER_OF_STUDENTS_TO_BE_ALLOTED + startFrom
     );
     console.log(users.length);
-    const slots = await TimeSlot.find({ slotNumber: { $gte: 48 } });
+    const slots = await TimeSlot.find({ slotNumber: { $gte: 88 } });
     console.log(slots.length);
     let count = 0;
     for (let i = 0; i < slots.length; i++) {
@@ -72,7 +72,7 @@ async function divideStudent() {
       }
       //await slot.save();
     }
-    console.log("Slot Divison Done");
+    console.log('Slot Divison Done');
   } catch (err) {
     console.log(err);
   }
@@ -88,11 +88,11 @@ async function generateExcel() {
 
     // Writing the heading column
     const headingColumnNames = [
-      "Name",
-      "Mobile",
-      "Email",
-      "Slot Date",
-      "Slot Time",
+      'Name',
+      'Mobile',
+      'Email',
+      'Slot Date',
+      'Slot Time',
     ];
     //Write Column Title in Excel file
     let headingColumnIndex = 1;
@@ -127,9 +127,9 @@ async function generateExcel() {
       });
       rowIndex++;
     });
-    wb.write("SlotDivision.xlsx");
+    wb.write('SlotDivision20th21st.xlsx');
 
-    console.log("Excel Generated");
+    console.log('Excel Generated');
   } catch (err) {
     console.log(err);
   }
@@ -154,7 +154,7 @@ async function checkSlot() {
 
 async function reset() {
   await User.updateMany({ slotAlloted: true }, { slotAlloted: false });
-  console.log("Reset done");
+  console.log('Reset done');
 }
 
 async function everything() {
