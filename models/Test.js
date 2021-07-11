@@ -1,10 +1,18 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const TestSchema = new mongoose.Schema({
   testName: {
     type: String,
     required: true,
     unique: true,
+  },
+  startTime: {
+    type: Date,
+    required: true,
+  },
+  endTime: {
+    type: Date,
+    required: true,
   },
   numberOfQuestions: {
     type: Number,
@@ -14,7 +22,7 @@ const TestSchema = new mongoose.Schema({
     {
       questionId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "questions",
+        ref: 'questions',
       },
       marks: {
         type: Number,
@@ -42,7 +50,7 @@ const TestSchema = new mongoose.Schema({
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "admins",
+    ref: 'admin',
     required: false,
   },
   displayable: {
@@ -52,4 +60,4 @@ const TestSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Test", TestSchema);
+module.exports = mongoose.model('test', TestSchema);

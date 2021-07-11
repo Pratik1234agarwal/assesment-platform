@@ -1,18 +1,18 @@
-const router = require("express").Router();
-const User = require("../../models/User");
-const auth = require("../../middleware/auth");
-const Paper = require("../../models/Paper");
-const config = require("config");
+const router = require('express').Router();
+const User = require('../../models/User');
+const auth = require('../../middleware/authAdmin');
+const Paper = require('../../models/Paper');
+const config = require('config');
 const {
   serverErrorResponse,
   failErrorResponse,
-} = require("../../helpers/responseHandles");
+} = require('../../helpers/responseHandles');
 
-router.get("/", auth, async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
-    const users = await User.find().select("-password -authenticationProvider");
+    const users = await User.find().select('-password -authenticationProvider');
     res.json({
-      status: "success",
+      status: 'success',
       data: {
         users: users,
         numberOfUserRegistered: users.length,
@@ -24,18 +24,18 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-router.get("/active", auth, async (req, res) => {
+router.get('/active', auth, async (req, res) => {
   try {
-    let papers = await Paper.find({ finished: false }).select("startedAt");
-    let p = await Paper.find({ finished: true }).select("startedAt");
+    let papers = await Paper.find({ finished: false }).select('startedAt');
+    let p = await Paper.find({ finished: true }).select('startedAt');
     papers = papers.filter(
       (paper) =>
         new Date(paper.startedAt).getTime() < Date.now() &&
         new Date(paper.startedAt).getTime() >
-          Date.now() - config.get("DsatTimeinMinutes") * 60 * 1000
+          Date.now() - config.get('DsatTimeinMinutes') * 60 * 1000
     );
     res.json({
-      status: "success",
+      status: 'success',
       data: {
         activeUser: papers.length,
         testSubmitted: p.length,
@@ -48,16 +48,16 @@ router.get("/active", auth, async (req, res) => {
 });
 
 // Option to delete the user from the database
-router.delete("/:id", auth, async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
-      return res.status(400).json(failErrorResponse("No such user found"));
+      return res.status(400).json(failErrorResponse('No such user found'));
     }
     await user.remove();
     return res.json({
-      status: "success",
-      message: "User Record Removed succesfully",
+      status: 'success',
+      message: 'User Record Removed succesfully',
     });
   } catch (err) {
     console.log(err);

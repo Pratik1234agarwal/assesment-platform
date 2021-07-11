@@ -1,41 +1,22 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const PaperSchema = mongoose.Schema({
-  questions: [
+  test: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'test',
+    required: true,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    required: true,
+  },
+  responses: [
     {
       questionId: mongoose.Schema.Types.ObjectId,
-      questionText: {
-        type: String,
-        required: true,
-      },
-      questionImage: {
+      answered: {
         type: String,
         required: false,
-      },
-      category: {
-        type: String,
-        required: false,
-      },
-      status: {
-        type: String,
-        required: true,
-        default: "not answered",
-      },
-      A: {
-        text: String,
-        imageUrl: String,
-      },
-      B: {
-        text: String,
-        imageUrl: String,
-      },
-      C: {
-        text: String,
-        imageUrl: String,
-      },
-      D: {
-        text: String,
-        imageUrl: String,
       },
       answer: {
         type: String,
@@ -47,10 +28,6 @@ const PaperSchema = mongoose.Schema({
       },
     },
   ],
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "users",
-  },
   startedAt: {
     type: Date,
     default: Date.now,
@@ -65,6 +42,22 @@ const PaperSchema = mongoose.Schema({
     type: Date,
     required: false,
   },
+  marks: {
+    type: Number,
+    required: false,
+  },
+  attempted: {
+    type: Number,
+    required: false,
+  },
+  correct: {
+    type: Number,
+    required: false,
+  },
+  incorrect: {
+    type: Number,
+    required: false,
+  },
 });
 
-module.exports = mongoose.model("paper", PaperSchema);
+module.exports = mongoose.model('paper', PaperSchema);

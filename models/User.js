@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -15,14 +15,6 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: false,
-  },
-  authenticationProvider: {
-    type: String,
-    required: true,
-    default: "custom",
-  },
-  googleId: {
-    type: String,
   },
   phone: {
     type: String,
@@ -53,25 +45,9 @@ const UserSchema = new mongoose.Schema({
     default: Date.now(),
     required: true,
   },
-  registrationMailSent: {
-    type: Boolean,
-    default: false,
-  },
-  slotAlloted: {
-    type: Boolean,
-    default: false,
-  },
-  timeSlotMailSent: {
-    type: Boolean,
-    default: false,
-  },
-  timeSlot: {
-    type: mongoose.Types.ObjectId,
-    ref: "timeslots",
-  },
 });
 
-UserSchema.pre("save", async function (next) {
+UserSchema.pre('save', async function (next) {
   let user = this;
   if (user.password) {
     try {
@@ -94,18 +70,4 @@ UserSchema.methods.comparePassword = async function (password, done) {
   }
 };
 
-async function test() {
-  const user = new User({
-    name: "Pratik",
-    email: "test@test.com",
-    phone: "9122222267",
-    category: "student",
-    university: "student",
-    password: "pratik1234",
-  });
-  console.log("user", user);
-  await user.save();
-  user.comparePassword("pratik1234", (err, isMatch) => console.log(isMatch));
-}
-
-module.exports = User = mongoose.model("User", UserSchema);
+module.exports = User = mongoose.model('user', UserSchema);

@@ -1,43 +1,47 @@
-const router = require("express").Router();
-const Admin = require("../../models/Admin");
-const { check, validationResult } = require("express-validator");
+const router = require('express').Router();
+const Admin = require('../../models/Admin');
+const { check, validationResult } = require('express-validator');
 const {
   serverErrorResponse,
   failErrorResponse,
-} = require("../../helpers/responseHandles");
-const jwt = require("jsonwebtoken");
-const config = require("config");
+} = require('../../helpers/responseHandles');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 
-router.use("/questions", require("./addQuestion"));
-router.use("/timeslots", require("./timeSlots"));
-router.use("/result", require("./results"));
-router.use("/test", require("./createNewTest"));
-router.use("/registrationStats", require("./registrationStats"));
+router.use('/questions', require('./addQuestion'));
+router.use('/timeslots', require('./timeSlots'));
+router.use('/result', require('./results'));
+router.use('/test', require('./createNewTest'));
+router.use('/registrationStats', require('./registrationStats'));
 
 router.post(
-  "/login",
+  '/login',
   [
-    check("username", "Please Provide a username").not().isEmpty(),
-    check("password", "Please Enter your password").not().isEmpty(),
+    check('username', 'Please Provide a username').not().isEmpty(),
+    check('password', 'Please Enter your password').not().isEmpty(),
   ],
-  async (req, res) => {
+  async (req, res, next) => {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res
-          .status(400)
-          .json(failErrorResponse("Please Specify all the field"));
+        const error = new Error('Please specify all the field');
+        error.status = 400;
+        throw error;
       }
-      let user = await Admin.findOne({ username: req.body.username });
+
+      const { username, password } = req.body;
+
+      let user = await Admin.findOne({ username });
       if (!user) {
-        return res.status(404).json(failErrorResponse("User Not found "));
+        throw new Error('No Such User Present');
       }
-      user.comparePassword(req.body.password, (err, isMatch) => {
+
+      user.comparePassword(password, (err, isMatch) => {
         if (err) throw err;
         if (!isMatch) {
-          res
+          return res
             .status(400)
-            .json(failErrorResponse("Credentials Provided are not correct"));
+            .json(failErrorResponse('Credentials Provided are not correct'));
         }
         const payload = {
           user: {
@@ -47,12 +51,12 @@ router.post(
 
         jwt.sign(
           payload,
-          config.get("JSONTokenSecret"),
+          config.get('JSONTokenSecretAdminUser'),
           { expiresIn: 36000 },
           (err, token) => {
             if (err) throw err;
             return res.json({
-              status: "success",
+              status: 'success',
               data: {
                 token,
               },
@@ -61,14 +65,13 @@ router.post(
         );
       });
     } catch (err) {
-      console.log(err);
-      res.status(500).json(serverErrorResponse());
+      next(err);
     }
   }
 );
 
 // TODO: This is development route and needs to be removed before pusing the code to prodution
-router.post("/admin/create/new", async (req, res) => {
+router.post('/admin/create/new', async (req, res) => {
   try {
     const { username, password } = req.body;
     let user = new Admin({
@@ -81,10 +84,10 @@ router.post("/admin/create/new", async (req, res) => {
         id: user._id,
       },
     };
-    jwt.sign(payload, config.get("JSONTokenSecret"), (err, token) => {
+    jwt.sign(payload, config.get('JSONTokenSecretAdminUser'), (err, token) => {
       if (err) throw err;
       return res.json({
-        status: "success",
+        status: 'success',
         data: {
           token,
         },
