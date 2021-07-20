@@ -9,11 +9,7 @@ const BatchSchema = mongoose.Schema({
     type: Number,
     default: 250,
   },
-  courseOutline: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'outline',
-    required: false,
-  },
+  events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'event' }],
   createdAt: {
     type: Date,
     default: Date.now,

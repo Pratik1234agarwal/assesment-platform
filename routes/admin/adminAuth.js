@@ -13,6 +13,7 @@ router.use('/timeslots', require('./timeSlots'));
 router.use('/result', require('./results'));
 router.use('/test', require('./createNewTest'));
 router.use('/registrationStats', require('./registrationStats'));
+router.use('/course', require('./createCourseOutline'));
 
 router.post(
   '/login',
