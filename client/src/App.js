@@ -27,8 +27,12 @@ import SignIn from "./pages/SignIn";
 import SlotsChecking from "./pages/SlotsChecking";
 import StudentPerSlot from "./pages/StudentPerSlot";
 import ResetPassword from "./pages/ResetPassword";
+import Admin from "./pages/TrainingProgram/Admin";
+import CreateBatch from "./pages/TrainingProgram/CreateBatch";
+import TimeTable from "./pages/TrainingProgram/TimeTable";
+import Users from "./pages/TrainingProgram/Users";
 
-axios.defaults.baseURL = "https://adsatiitropar.com";
+// axios.defaults.baseURL = "https://adsatiitropar.com";
 
 function App() {
   return (
@@ -72,8 +76,13 @@ function App() {
           path="/studentsperslot"
           render={(props) => <StudentPerSlot {...props} />}
         />
-
         <Route path="/resetpassword" component={ResetPassword} />
+
+        {/* //////////// Training Programs Route ///////////////// */}
+        <Route path="/trainingadmin" component={Admin} />
+        <Route path="/createbatch" component={CreateBatch} />
+        <Route path="/classtimetable" component={TimeTable} />
+        <Route path="/studentdashboard" component={Users} />
       </Switch>
     </>
   );
