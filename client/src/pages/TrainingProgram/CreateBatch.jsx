@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo1 from "../../images/logo.png";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "sweetalert/dist/sweetalert.css";
 import swal from "sweetalert";
@@ -16,6 +17,38 @@ const batch = [
 ];
 
 const CreateBatch = () => {
+  let history = useHistory();
+  const [studno, setstudno] = useState("");
+
+  const NewBatch = async () => {
+    var postData = {
+      totalNumberOfStudents: studno,
+    };
+
+    if (localStorage.getItem("Admin")) {
+      const config = {
+        headers: {
+          Authorization: `Admin ${localStorage.getItem("Admin")}`,
+        },
+      };
+      try {
+        const resp = await axios.get(
+          "/api/v1/admin/course/batch",
+
+          config
+        );
+        console.log(resp.data);
+      } catch (err) {
+        console.log(err.response.data.msg);
+        if (err.response && err.response.data) {
+          alert(err.response.data.message);
+        }
+      }
+    } else {
+      history.push("/admin");
+    }
+  };
+
   return (
     <>
       <div className="container-fluid admn">
@@ -44,9 +77,12 @@ const CreateBatch = () => {
                   }}
                   class="form-control"
                   placeholder="No."
+                  onChange={(e) => setstudno(e.target.value)}
                 />
               </div>
-              <button className="mt-3 btn btn-primary">Create Batch</button>
+              <button className="mt-3 btn btn-primary" onClick={NewBatch}>
+                Create Batch
+              </button>
             </div>
           </div>
         </div>
