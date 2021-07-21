@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import logo1 from "../images/logo.png";
 import { useHistory } from "react-router-dom";
 import AdminBoxes from "./AdminBoxes";
+import "sweetalert/dist/sweetalert.css";
+import swal from "sweetalert";
 
 const AdminRoutes = () => {
   let history = useHistory();
@@ -21,8 +23,59 @@ const AdminRoutes = () => {
     history.push("/A-DSAT_Registration");
   }
 
+  const getExpirationDate = (jwtToken) => {
+    if (!jwtToken) {
+      return null;
+    }
+
+    const jwt = JSON.parse(atob(jwtToken.split(".")[1]));
+
+    // multiply by 1000 to convert seconds into milliseconds
+    const expdatetime = new Date(jwt && jwt.exp && jwt.exp * 1000);
+    const time = new Date(expdatetime).toLocaleTimeString("en", {
+      timeStyle: "short",
+      hour12: true,
+      timeZone: "IST",
+    });
+
+    return expdatetime || null;
+    // const ex = isExpired(expdatetime);
+    // return expdatetime + time + ex || null;
+  };
+
+  const isExpired = (exp) => {
+    if (!exp) {
+      return false;
+    }
+
+    return Date.now() > exp;
+  };
+
   useEffect(async () => {
     if (localStorage.getItem("Admin")) {
+      // let x = getExpirationDate(localStorage.getItem("Admin"));
+      // console.log("token expp. date :", x);
+      const exp = isExpired(getExpirationDate(localStorage.getItem("Admin")));
+      console.log(exp);
+      if (exp == true) {
+        swal(
+          {
+            title: "Session Expired",
+            text: "Please Login again !!",
+            type: "warning",
+            confirmButtonColor: "#0E3B7D",
+            confirmButtonText: "Ok",
+            closeOnConfirm: true,
+            customClass: "Custom_Cancel",
+          },
+          function (isConfirm) {
+            if (isConfirm) {
+              logout();
+            } else {
+            }
+          }
+        );
+      }
     } else {
       history.push("/admin");
     }
@@ -53,7 +106,7 @@ const AdminRoutes = () => {
         {/* <h5>Choose the option</h5> */}
       </div>
 
-      <div className="container text-center mt-3 mb-4">
+      <div className="container text-center mt-5 mb-5">
         <div className="row">
           <div className="col-12 col-lg-4">
             <div class="card text-center">
@@ -71,7 +124,7 @@ const AdminRoutes = () => {
             </div>
           </div>
           {/* /////////////////////////////// */}
-          <div className="col-12 col-lg-4 mt-4 mt-lg-0 ">
+          <div className="col-12 col-lg-4 mt-5 mt-lg-0 ">
             <div class="card text-center">
               <div class="card-header">Make your own Strategy</div>
               <div class="card-body">
@@ -87,7 +140,7 @@ const AdminRoutes = () => {
             </div>
           </div>
           {/* /////////////////////////////// */}
-          <div className="col-12 col-lg-4 mt-4 mt-lg-0 mb-5 mb-lg-0">
+          <div className="col-12 col-lg-4 mt-5 mt-lg-0 mb-5 mb-lg-0">
             <div class="card text-center">
               <div class="card-header">Registrations</div>
               <div class="card-body">
@@ -103,6 +156,32 @@ const AdminRoutes = () => {
               <div class="card-footer text-muted">Admin</div>
             </div>
           </div>
+        </div>
+
+        <div className="row">
+          <div className="col-12 col-lg-4 mt-0 mt-lg-4">
+            <div class="card text-center">
+              <div class="card-header">Training Program</div>
+              <div class="card-body">
+                <h5 class="card-title">Students Classes</h5>
+                <p class="card-text" style={{ fontSize: "17px" }}>
+                  Alot time table to trainers for classes, check attendance
+                  etc..
+                </p>
+                <button
+                  className="btn btn-danger "
+                  onClick={() => {
+                    history.push("/trainingadmin");
+                  }}
+                >
+                  Check
+                </button>
+              </div>
+              <div class="card-footer text-muted">Admin</div>
+            </div>
+          </div>
+          <div className="col-12 col-lg-4"></div>
+          <div className="col-12 col-lg-4"></div>
         </div>
       </div>
     </>
