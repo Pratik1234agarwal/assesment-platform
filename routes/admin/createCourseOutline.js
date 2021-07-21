@@ -145,6 +145,7 @@ router.post(
       await event.save();
 
       outline.events.push(event._id);
+      await outline.save();
 
       res.json({
         status: "success",

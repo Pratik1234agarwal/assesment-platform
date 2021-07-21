@@ -1,6 +1,7 @@
 const Question = require("../../models/Questions");
 const Admin = require("../../models/Admin");
 const Test = require("../../models/Test");
+const Event = require("../../models/Event");
 const router = require("express").Router();
 const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/authAdmin");
@@ -8,6 +9,7 @@ const {
   serverErrorResponse,
   failErrorResponse,
 } = require("../../helpers/responseHandles");
+const ObjectId = require("mongoose").Types.ObjectId;
 
 router.get("/", auth, async (req, res) => {
   try {
@@ -53,7 +55,7 @@ router.get("/:id", auth, async (req, res) => {
 });
 
 router.post(
-  "/create",
+  "/create/:eventId",
   [
     auth,
     [
@@ -76,10 +78,17 @@ router.post(
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res
-          .status(400)
-          .json(failErrorResponse("Please Specify all the fields"));
+        return res.status(400).json(failErrorResponse(errors.errors[0].msg));
       }
+
+      // Check for Event id
+      const event = await Event.findById(req.params.eventId);
+      console.log(event);
+
+      if (!event) {
+        return res.status(400).json(failErrorResponse("Event Id is Invalid"));
+      }
+
       let test = await Test.findOne({ testName: req.body.testName });
       console.log(test);
       if (test) {
@@ -89,6 +98,7 @@ router.post(
       }
       test = new Test({ ...req.body, createdBy: req.user.id });
       await test.save();
+      await Event.updateOne({ _id: req.params.eventId }, { testId: test._id });
       res.json({
         status: "success",
         data: {

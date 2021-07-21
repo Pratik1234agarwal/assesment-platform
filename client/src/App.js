@@ -28,7 +28,7 @@ import SlotsChecking from "./pages/SlotsChecking";
 import StudentPerSlot from "./pages/StudentPerSlot";
 import ResetPassword from "./pages/ResetPassword";
 
-axios.defaults.baseURL = "https://adsatiitropar.com";
+//axios.defaults.baseURL = "https://adsatiitropar.com";
 
 function App() {
   return (
