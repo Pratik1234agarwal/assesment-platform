@@ -1,21 +1,21 @@
-const Batch = require("../../models/Batch");
-const Admin = require("../../models/Admin");
-const Event = require("../../models/Event");
-const { check, validationResult } = require("express-validator");
-const router = require("express").Router();
-const auth = require("../../middleware/authAdmin");
+const Batch = require('../../models/Batch');
+const Admin = require('../../models/Admin');
+const Event = require('../../models/Event');
+const { check, validationResult } = require('express-validator');
+const router = require('express').Router();
+const auth = require('../../middleware/authAdmin');
 const {
   serverErrorResponse,
   failErrorResponse,
-} = require("../../helpers/responseHandles");
+} = require('../../helpers/responseHandles');
 
 router.post(
-  "/batch",
+  '/batch',
   [
     [
       check(
-        "maxStudent",
-        "Please Specify Maximum number of students in the batch"
+        'maxStudent',
+        'Please Specify Maximum number of students in the batch'
       )
         .not()
         .isEmpty(),
@@ -26,7 +26,7 @@ router.post(
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        throw new Error("Please Specify all the fields");
+        throw new Error('Please Specify all the fields');
       }
 
       const batch = new Batch({
@@ -36,7 +36,7 @@ router.post(
       await batch.save();
 
       res.json({
-        status: "success",
+        status: 'success',
         data: {
           batch,
         },
@@ -47,11 +47,11 @@ router.post(
   }
 );
 
-router.get("/batch", auth, async (req, res) => {
+router.get('/batch', auth, async (req, res) => {
   try {
-    const batches = await Batch.find();
+    const batches = await Batch.find().populate('events');
     return res.json({
-      status: "success",
+      status: 'success',
       data: {
         batches,
         length: batches.length,
@@ -63,7 +63,7 @@ router.get("/batch", auth, async (req, res) => {
   }
 });
 
-router.get("/batch/:batchId", auth, async (req, res) => {
+router.get('/batch/:batchId', auth, async (req, res) => {
   try {
     console.log(req.params);
     const id = req.params.batchId;
@@ -72,12 +72,12 @@ router.get("/batch/:batchId", auth, async (req, res) => {
     if (!batch) {
       return res
         .status(400)
-        .json(failErrorResponse("No Batch found or Batch Id invalid"));
+        .json(failErrorResponse('No Batch found or Batch Id invalid'));
     }
 
     // Batch exits
     return res.json({
-      status: "success",
+      status: 'success',
       data: {
         batch,
       },
@@ -89,12 +89,12 @@ router.get("/batch/:batchId", auth, async (req, res) => {
 });
 
 router.post(
-  "/event/:batchId",
+  '/event/:batchId',
   [
     [
-      check("type", "Please specify a type").not().isEmpty(),
-      check("startTime", "Please specify a Start Date").not().isEmpty(),
-      check("endTime", "Please specify a End Date").not().isEmpty(),
+      check('type', 'Please specify a type').not().isEmpty(),
+      check('startTime', 'Please specify a Start Date').not().isEmpty(),
+      check('endTime', 'Please specify a End Date').not().isEmpty(),
     ],
     auth,
   ],
@@ -110,17 +110,17 @@ router.post(
       if (!outline) {
         return res
           .status(400)
-          .json(failErrorResponse("No Batch found or Batch ID is invalid"));
+          .json(failErrorResponse('No Batch found or Batch ID is invalid'));
       }
       const type = req.body.type;
       // Add the event by creating a Event object
       if (type) {
         if (
           !(
-            type === "test" ||
-            type === "assignment" ||
-            type === "liveClass" ||
-            type === "readingMaterial"
+            type === 'test' ||
+            type === 'assignment' ||
+            type === 'liveClass' ||
+            type === 'readingMaterial'
           )
         ) {
           return res
@@ -148,7 +148,7 @@ router.post(
       await outline.save();
 
       res.json({
-        status: "success",
+        status: 'success',
         data: {
           event,
         },
