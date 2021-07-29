@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Admin = require('../../models/Admin');
 const Question = require('../../models/Questions');
+const Test = require('../../models/Test');
 const auth = require('../../middleware/authAdmin');
 const { check, validationResult } = require('express-validator');
 const {
@@ -15,7 +16,7 @@ var upload = multer({ storage: storage });
 
 // Route to add the question, required admin user sign In
 router.post(
-  '/add',
+  '/add/:testId',
   [
     auth,
     [
@@ -26,9 +27,6 @@ router.post(
       check('answer', 'Please Enter the answer for the question')
         .not()
         .isEmpty(),
-      check('category', 'Please provide the category of the question')
-        .not()
-        .isEmpty(),
       check('difficulty', 'Please provide the diffivulty level of the question')
         .not()
         .isEmpty(),
@@ -36,11 +34,17 @@ router.post(
   ],
   async (req, res) => {
     try {
-      const user = await Admin.findById(req.user.id);
-      if (!user) {
-        console.log('Admin User not found');
-        return res.status(401).json(failErrorResponse('UnAuthorised'));
+      const test = await Test.findById(req.params.testId);
+      if (!test) {
+        return res.status(400).json(failErrorResponse('Test Id Invalid'));
       }
+
+      if (test.questionBank.length === test.numberOfQuestions) {
+        return res
+          .status(400)
+          .json(failErrorResponse('You have already added enough question'));
+      }
+
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         console.log('Some field missing');
@@ -68,6 +72,16 @@ router.post(
         question.questionImage = req.body.questionImage;
       }
       await question.save();
+
+      await Test.updateOne(
+        { _id: req.params.testId },
+        {
+          $push: {
+            questionBank: question._id,
+          },
+        }
+      );
+
       return res.json({
         status: 'success',
         data: {

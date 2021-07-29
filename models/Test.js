@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const TestSchema = new mongoose.Schema({
   testName: {
@@ -12,18 +12,8 @@ const TestSchema = new mongoose.Schema({
   },
   questionBank: [
     {
-      questionId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "questions",
-      },
-      marks: {
-        type: Number,
-        required: false,
-      },
-      negativeMarks: {
-        type: Number,
-        required: false,
-      },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'questions',
     },
   ],
   marksPerQuestions: {
@@ -42,7 +32,7 @@ const TestSchema = new mongoose.Schema({
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "admin",
+    ref: 'admin',
     required: false,
   },
   displayable: {
@@ -52,4 +42,4 @@ const TestSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("test", TestSchema);
+module.exports = mongoose.model('test', TestSchema);
