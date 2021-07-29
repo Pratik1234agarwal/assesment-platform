@@ -68,7 +68,7 @@ router.get('/batch/:batchId', auth, async (req, res) => {
     console.log(req.params);
     const id = req.params.batchId;
     console.log(id);
-    const batch = await Batch.findById(id);
+    const batch = await Batch.findById(id).populate('events');
     if (!batch) {
       return res
         .status(400)
