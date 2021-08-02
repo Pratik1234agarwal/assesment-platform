@@ -5,12 +5,6 @@ import "react-datetime/css/react-datetime.css";
 import moment from "moment";
 import "moment/locale/en-in";
 const TimeTable = () => {
-  let inputProps = {
-    placeholder: "N/A",
-    disabled: true,
-    onMouseLeave: () => alert("You went to the input but it was disabled"),
-  };
-
   return (
     <>
       <div className="container-fluid admn">

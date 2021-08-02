@@ -31,22 +31,16 @@ import Admin from "./pages/TrainingProgram/Admin";
 import CreateBatch from "./pages/TrainingProgram/CreateBatch";
 import TimeTable from "./pages/TrainingProgram/TimeTable";
 import Users from "./pages/TrainingProgram/Users";
+import Batches from "./pages/TrainingProgram/Batches";
+import TestDetails from "./pages/TrainingProgram/TestDetails";
+import AddQuestion from "./pages/TrainingProgram/AddQuestion";
+import TestQuestionsDatabase from "./pages/TrainingProgram/TestQuestionsDatabase";
 
 // axios.defaults.baseURL = "https://adsatiitropar.com";
 
 function App() {
   return (
     <>
-      {/* <a
-        href=""
-        class="whatsapp_float"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <i class="whatsapp-icon">
-          <img src={logos} />
-        </i>
-      </a> */}
       <Switch>
         <Route exact path="/" component={Loginout} />
         <Route path="/sidepanel" component={Sidepanel} />
@@ -83,6 +77,13 @@ function App() {
         <Route path="/createbatch" component={CreateBatch} />
         <Route path="/classtimetable" component={TimeTable} />
         <Route path="/studentdashboard" component={Users} />
+        <Route path="/batches/:_id" component={Batches} />
+        <Route path="/testdetails/:id" component={TestDetails} />
+        <Route path="/addquestionstest/:id" component={AddQuestion} />
+        <Route
+          path="/testquestiondatabase/:id"
+          component={TestQuestionsDatabase}
+        />
       </Switch>
     </>
   );
