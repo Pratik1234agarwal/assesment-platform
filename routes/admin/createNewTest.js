@@ -1,22 +1,22 @@
-const Question = require("../../models/Questions");
-const Admin = require("../../models/Admin");
-const Test = require("../../models/Test");
-const Event = require("../../models/Event");
-const router = require("express").Router();
-const { check, validationResult } = require("express-validator");
-const auth = require("../../middleware/authAdmin");
+const Question = require('../../models/Questions');
+const Admin = require('../../models/Admin');
+const Test = require('../../models/Test');
+const Event = require('../../models/Event');
+const router = require('express').Router();
+const { check, validationResult } = require('express-validator');
+const auth = require('../../middleware/authAdmin');
 const {
   serverErrorResponse,
   failErrorResponse,
-} = require("../../helpers/responseHandles");
-const ObjectId = require("mongoose").Types.ObjectId;
+} = require('../../helpers/responseHandles');
+const ObjectId = require('mongoose').Types.ObjectId;
 
-router.get("/", auth, async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
-    const tests = await Test.find();
+    const tests = await Test.find().populate('questionBank');
     if (!tests) {
       return res.json({
-        status: "success",
+        status: 'success',
         data: {
           length: 0,
           test: [],
@@ -24,7 +24,7 @@ router.get("/", auth, async (req, res) => {
       });
     }
     res.json({
-      status: "success",
+      status: 'success',
       data: {
         length: tests.length,
         test: tests,
@@ -36,14 +36,14 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-router.get("/:id", auth, async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
   try {
-    const test = await Test.findById(req.params.id);
+    const test = await Test.findById(req.params.id).populate('questionBank');
     if (!test) {
-      return res.status(400).json(failErrorResponse("No such Test exist"));
+      return res.status(400).json(failErrorResponse('No such Test exist'));
     }
     return res.json({
-      status: "success",
+      status: 'success',
       data: {
         test,
       },
@@ -55,20 +55,20 @@ router.get("/:id", auth, async (req, res) => {
 });
 
 router.post(
-  "/create/:eventId",
+  '/create/:eventId',
   [
     auth,
     [
-      check("testName", "Please Enter a valid Test Name").not().isEmpty(),
-      check("numberOfQuestions", "Please Enter Number of Questions")
+      check('testName', 'Please Enter a valid Test Name').not().isEmpty(),
+      check('numberOfQuestions', 'Please Enter Number of Questions')
         .not()
         .isEmpty(),
-      check("marksPerQuestion", "Marks Per Questio is required")
+      check('marksPerQuestion', 'Marks Per Questio is required')
         .not()
         .isEmpty(),
       check(
-        "negativeMarksPerQuestion",
-        "Negative Marks Per Question is required"
+        'negativeMarksPerQuestion',
+        'Negative Marks Per Question is required'
       )
         .not()
         .isEmpty(),
@@ -86,7 +86,7 @@ router.post(
       console.log(event);
 
       if (!event) {
-        return res.status(400).json(failErrorResponse("Event Id is Invalid"));
+        return res.status(400).json(failErrorResponse('Event Id is Invalid'));
       }
 
       let test = await Test.findOne({ testName: req.body.testName });
@@ -94,13 +94,13 @@ router.post(
       if (test) {
         return res
           .status(400)
-          .json(failErrorResponse("A Test with the same name already exists"));
+          .json(failErrorResponse('A Test with the same name already exists'));
       }
       test = new Test({ ...req.body, createdBy: req.user.id });
       await test.save();
       await Event.updateOne({ _id: req.params.eventId }, { testId: test._id });
       res.json({
-        status: "success",
+        status: 'success',
         data: {
           test,
         },
@@ -112,14 +112,14 @@ router.post(
   }
 );
 
-router.delete("/delete/:id", auth, async (req, res) => {
+router.delete('/delete/:id', auth, async (req, res) => {
   try {
     const id = req.params.id;
     let test = await Test.findById(id);
     await test.remove();
     res.json({
-      status: "success",
-      message: "Test removed successfully",
+      status: 'success',
+      message: 'Test removed successfully',
     });
   } catch (err) {
     console.log(err);
@@ -128,7 +128,7 @@ router.delete("/delete/:id", auth, async (req, res) => {
 });
 
 // TODO: Add check test for the body of the request
-router.post("/addQuestion/:testId", auth, async (req, res) => {
+router.post('/addQuestion/:testId', auth, async (req, res) => {
   try {
     const { questionId, marks, negativeMarks } = req.body;
     const question = await Question.findById(questionId);
@@ -138,7 +138,7 @@ router.post("/addQuestion/:testId", auth, async (req, res) => {
         .status(400)
         .json(
           failErrorResponse(
-            "Either the test or the quesiton with the specified id does not exist"
+            'Either the test or the quesiton with the specified id does not exist'
           )
         );
     }
@@ -146,14 +146,14 @@ router.post("/addQuestion/:testId", auth, async (req, res) => {
       return res
         .status(400)
         .json(
-          failErrorResponse("The Number of question for the test has exceeded")
+          failErrorResponse('The Number of question for the test has exceeded')
         );
     }
     const find = test.questionBank.find((q) => q.questionId === questionId);
     if (find) {
       return res
         .status(400)
-        .json(failErrorResponse("The Question has already been added"));
+        .json(failErrorResponse('The Question has already been added'));
     }
     test.questionBank.push({
       questionId,
@@ -162,7 +162,7 @@ router.post("/addQuestion/:testId", auth, async (req, res) => {
     });
     await test.save();
     res.json({
-      status: "success",
+      status: 'success',
       data: {
         test,
       },
