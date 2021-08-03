@@ -19,6 +19,7 @@
     "react-chartjs-2": "^3.0.2",
     "react-countdown": "^2.3.1",
     "react-data-table-component": "^7.0.0-rc2",
+    "react-datepicker": "^4.1.1",
     "react-datetime": "^3.0.4",
     "react-dom": "^17.0.2",
     "react-filter-search": "^1.0.11",
@@ -66,7 +67,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http:localhost:5000",
+  "proxy": "http://localhost:5000",
   "devDependencies": {
     "gh-pages": "^3.1.0"
   }

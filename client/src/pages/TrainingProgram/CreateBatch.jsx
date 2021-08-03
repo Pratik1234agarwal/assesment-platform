@@ -5,26 +5,25 @@ import { useHistory } from "react-router-dom";
 import "sweetalert/dist/sweetalert.css";
 import swal from "sweetalert";
 
-const batch = [
-  { Students: "50" },
-  { Students: "40" },
-  { Students: "30" },
-  { Students: "20" },
-  { Students: "20" },
-  { Students: "40" },
-  { Students: "30" },
-  { Students: "20" },
-];
+// const batch = [
+//   { Students: "50" },
+//   { Students: "40" },
+//   { Students: "30" },
+//   { Students: "20" },
+//   { Students: "20" },
+//   { Students: "40" },
+//   { Students: "30" },
+//   { Students: "20" },
+// ];
 
 const CreateBatch = () => {
   let history = useHistory();
   const [studno, setstudno] = useState("");
+  const [batch, setbatch] = useState([]);
+  const [flag, setflag] = useState(1);
 
-  const NewBatch = async () => {
-    var postData = {
-      totalNumberOfStudents: studno,
-    };
-
+  useEffect(async () => {
+    setflag(0);
     if (localStorage.getItem("Admin")) {
       const config = {
         headers: {
@@ -32,16 +31,61 @@ const CreateBatch = () => {
         },
       };
       try {
-        const resp = await axios.get(
-          "/api/v1/admin/course/batch",
+        const res = await axios.get("/api/v1/admin/course/batch", config);
+        setbatch(res.data.data.batches);
+        console.log(res);
+      } catch (err) {
+        if (err.response && err.response.data) {
+          alert(err.response.data.message);
+        }
+      }
+    } else {
+      history.push("/admin");
+    }
+  }, [flag]);
 
-          config
-        );
+  const NewBatch = async () => {
+    let postData = {
+      maxStudent: studno,
+      // totalNumberOfStudents: studno,
+    };
+    console.log(postData);
+    if (localStorage.getItem("Admin")) {
+      // const config = {
+      //   headers: {
+      //     Authorization: `Admin ${localStorage.getItem("Admin")}`,
+      //   },
+      // };
+      try {
+        const resp = await axios.post("/api/v1/admin/course/batch", postData, {
+          headers: {
+            Authorization: `Admin ${localStorage.getItem("Admin")}`,
+          },
+        });
         console.log(resp.data);
+        swal(
+          {
+            title: "Batch created Succesfully",
+            text: "Successfully created new batch",
+            type: "success",
+            confirmButtonColor: "#0E3B7D",
+            confirmButtonText: "Ok",
+            closeOnConfirm: true,
+            customClass: "Custom_Cancel",
+          },
+          function (isConfirm) {
+            if (isConfirm) {
+              // window.location.reload();
+            } else {
+              // window.location.reload();
+            }
+          }
+        );
+        setflag("");
       } catch (err) {
         console.log(err.response.data.msg);
         if (err.response && err.response.data) {
-          alert(err.response.data.message);
+          console.log(err.response.data);
         }
       }
     } else {
@@ -63,15 +107,15 @@ const CreateBatch = () => {
           <div class="card shadow-sm " style={{ width: "auto" }}>
             <div class="card-body">
               <h5 class="card-title ">Create New Batch</h5>
-              <h6 class="card-subtitle mb-2 text-muted pt-3 pb-3">
+              {/* <h6 class="card-subtitle mb-2 text-muted pt-3 pb-3">
                 Students Left :
-              </h6>
+              </h6> */}
               Enter No. of Students for new Batch :
               <div className="d-flex justify-content-center mt-3">
                 <input
                   type="number"
                   style={{
-                    width: "68px",
+                    width: "73px",
                     border: "2px solid red",
                     borderRadius: "15px",
                   }}
@@ -102,23 +146,32 @@ const CreateBatch = () => {
 
       <div className="container-fluid mb-4">
         <div className="row d-flex justify-content-center">
-          {batch.map((stp, index) => (
-            <div
-              class="card text-center ml-0 ml-lg-4 mt-4 shadow rounded-lg border-0"
-              //   style={{
-              //     border: "2px solid red",
-              //     borderRadius: "15px",
-              //   }}
-            >
-              <div class="card-body mt-4 mb-4">
-                <h5 class="card-title">Batch {index + 1}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">L2 - Program</h6>
-                <p class="card-text">
-                  <h6>Number of Students :{stp.Students}</h6>
-                </p>
+          {batch &&
+            batch.map((stp, index) => (
+              <div
+                class="card text-center ml-0 ml-lg-4 mt-4 shadow rounded-lg border-0"
+                //   style={{
+                //     border: "2px solid red",
+                //     borderRadius: "15px",
+                //   }}
+              >
+                <div class="card-body mt-4 mb-4">
+                  <h5 class="card-title">Batch {index + 1}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">L2 - Program</h6>
+                  <p class="card-text">
+                    <h6>Number of Students :{stp.maxNumberOfStudent}</h6>
+                  </p>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => {
+                      history.push("/batches/" + stp._id);
+                    }}
+                  >
+                    Check Details
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
     </>
