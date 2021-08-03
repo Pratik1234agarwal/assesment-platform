@@ -40,7 +40,7 @@ router.post(
     check('university', 'Please provide Designation/University details')
       .not()
       .isEmpty(),
-    check('branch', 'Please provide user category').not().isEmpty(),
+    check('branch', 'Please provide user branch').not().isEmpty(),
   ],
 
   async (req, res) => {
