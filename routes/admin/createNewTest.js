@@ -72,6 +72,7 @@ router.post(
       )
         .not()
         .isEmpty(),
+      check('durationOfTest', 'Duration Of Test is required').not().isEmpty(),
     ],
   ],
   async (req, res) => {

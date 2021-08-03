@@ -6,6 +6,11 @@ const TestSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  durationOfTest: {
+    type: Number,
+    required: true,
+    default: 10,
+  },
   numberOfQuestions: {
     type: Number,
     required: true,

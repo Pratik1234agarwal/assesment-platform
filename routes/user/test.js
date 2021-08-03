@@ -35,7 +35,9 @@ router.get('/', auth, async (req, res) => {
 
 router.get('/:testId', auth, async (req, res) => {
   try {
-    const test = await Test.findById(req.params.testId).populate('questionBank');
+    const test = await Test.findById(req.params.testId).populate(
+      'questionBank'
+    );
     if (!test) {
       return res.status(400).json(failErrorResponse('Invalid Test Id'));
     }
@@ -51,6 +53,8 @@ router.get('/:testId', auth, async (req, res) => {
 
       await paper.save();
     }
+
+    paper.test = test;
 
     return res.json({
       status: 'success',
