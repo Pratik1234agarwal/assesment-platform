@@ -12,6 +12,7 @@ const connectDB = async () => {
       useCreateIndex: true,
       useFindAndModify: false,
     });
+  
     return mongoConnection;
   } catch (err) {
     console.log(err.message);

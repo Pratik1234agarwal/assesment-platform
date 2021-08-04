@@ -14,7 +14,7 @@ const PaperSchema = mongoose.Schema({
   responses: [
     {
       questionId: mongoose.Schema.Types.ObjectId,
-      answered: {
+      status: {
         type: String,
         required: false,
       },
