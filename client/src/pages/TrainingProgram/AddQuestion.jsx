@@ -173,7 +173,6 @@ const AddQuestion = (props) => {
       setcount(count + 1);
     } catch (err) {
       console.log(err.response.data);
-      alert("api error");
       if (err.response.data && err.response.data.message) {
         alert(err.response.data.message);
       }
