@@ -45,7 +45,7 @@ router.get('/:testId', auth, async (req, res) => {
     }
 
     // Check if already started an attempt
-    let paper = await Paper.findOne({ user: req.user.id });
+    let paper = await Paper.findOne({ user: req.user.id, test: test._id });
     if (!paper) {
       // Create a paper to mark attempt start
       paper = new Paper({
