@@ -35,6 +35,11 @@ import Batches from "./pages/TrainingProgram/Batches";
 import TestDetails from "./pages/TrainingProgram/TestDetails";
 import AddQuestion from "./pages/TrainingProgram/AddQuestion";
 import TestQuestionsDatabase from "./pages/TrainingProgram/TestQuestionsDatabase";
+import UserDashboard from "./pages/TrainingProgram/User/UserDashboard";
+import AllTest from "./pages/TrainingProgram/User/AllTest";
+import UserSignup from "./pages/TrainingProgram/User/UserSignup";
+import TestInstructions from "./pages/TrainingProgram/User/TestInstructions";
+import TestPanel from "./pages/TrainingProgram/User/TestPanel";
 
 // axios.defaults.baseURL = "https://adsatiitropar.com";
 
@@ -72,7 +77,7 @@ function App() {
         />
         <Route path="/resetpassword" component={ResetPassword} />
 
-        {/* //////////// Training Programs Route ///////////////// */}
+        {/* //////////// Training Programs Admin Route ///////////////// */}
         <Route path="/trainingadmin" component={Admin} />
         <Route path="/createbatch" component={CreateBatch} />
         <Route path="/classtimetable" component={TimeTable} />
@@ -84,6 +89,13 @@ function App() {
           path="/testquestiondatabase/:id"
           component={TestQuestionsDatabase}
         />
+        {/* //////////// Training Programs User Route ///////////////// */}
+        <Route path="/studentsignup" component={UserSignup} />
+        <Route path="/userdashboard" component={UserDashboard} />
+        <Route path="/alltest" component={AllTest} />
+        {/* //////////// Training Programs User Test Route ///////////////// */}
+        <Route path="/testinstructions/:id" component={TestInstructions} />
+        <Route path="/test/:id" component={TestPanel} />
       </Switch>
     </>
   );

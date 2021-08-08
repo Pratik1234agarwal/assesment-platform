@@ -20,6 +20,7 @@ const Batches = (props) => {
   const [marksPerQuestion, setmarksPerQuestion] = useState("");
   const [numberOfQuestions, setnumberOfQuestions] = useState("");
   const [negativeMarksPerQuestion, setnegativeMarksPerQuestion] = useState("");
+  const [testduration, settestduration] = useState("");
 
   const eventtest = (event, id, testid) => {
     if (event == "test") {
@@ -126,6 +127,7 @@ const Batches = (props) => {
       numberOfQuestions,
       marksPerQuestion,
       negativeMarksPerQuestion,
+      durationOfTest: testduration,
     };
     console.log(data);
 
@@ -405,6 +407,18 @@ const Batches = (props) => {
                     onChange={(e) =>
                       setnegativeMarksPerQuestion(e.target.value)
                     }
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="testduration">
+                    Enter Test Duration (in minutes) :
+                  </label>
+                  <input
+                    class="form-control"
+                    id="testduration"
+                    value={testduration}
+                    onChange={(e) => settestduration(e.target.value)}
                     required
                   />
                 </div>
