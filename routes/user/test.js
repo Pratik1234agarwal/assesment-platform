@@ -6,6 +6,7 @@ const {
   failErrorResponse,
 } = require('../../helpers/responseHandles');
 const User = require('../../models/User');
+const Event = require('../../models/Event');
 const Question = require('../../models/Questions');
 const Test = require('../../models/Test');
 const Paper = require('../../models/Paper');
@@ -15,16 +16,19 @@ const scheduleEvent = require('../../agenda/agenda');
 
 router.get('/', auth, async (req, res) => {
   try {
+    let events = await Event.find({ eventType: 'test' }).populate('testId');
+    console.log(events);
     let tests = await Test.find().select('-displayable -createdBy');
-    tests = tests.filter(
-      (test) => test.questionBank.length === test.numberOfQuestions
+    events = events.filter(
+      (event) =>
+        event.testId.questionBank.length === event.testId.numberOfQuestions
     );
 
     return res.json({
       status: 'success',
       data: {
-        tests,
-        length: tests.length,
+        events,
+        length: events.length,
       },
     });
   } catch (err) {
