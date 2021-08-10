@@ -60,9 +60,10 @@ router.get('/info/:testId', auth, async (req, res) => {
 
 router.get('/:testId', auth, async (req, res) => {
   try {
-    const test = await Test.findById(req.params.testId).populate(
-      'questionBank'
-    );
+    const test = await Test.findById(req.params.testId).populate({
+      path: 'questionBank',
+      select: '-answer',
+    });
     if (!test) {
       return res.status(400).json(failErrorResponse('Invalid Test Id'));
     }
