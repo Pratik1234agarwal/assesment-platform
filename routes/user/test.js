@@ -37,6 +37,25 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
+router.get('/info/:testId', auth, async (req, res) => {
+  try {
+    const test = await Test.findById(req.params.testId);
+
+    if (!test) {
+      return res.status(400).json(failErrorResponse('Invalid Test Id'));
+    }
+
+    return res.json({
+      status: 'success',
+      data: {
+        test,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 // TODO: Make sure that the event has the time limit in it.
 
 router.get('/:testId', auth, async (req, res) => {
