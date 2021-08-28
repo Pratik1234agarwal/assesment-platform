@@ -1,4 +1,5 @@
 const Batch = require('../../models/Batch');
+const Subtopic = require('../../models/SubTopic');
 const Admin = require('../../models/Admin');
 const Event = require('../../models/Event');
 const { check, validationResult } = require('express-validator');
@@ -88,8 +89,77 @@ router.get('/batch/:batchId', auth, async (req, res) => {
   }
 });
 
+// Get all subtopics
+router.get('/subtopic', auth, async (req, res) => {
+  try {
+    const subtopics = await Subtopic.find();
+    return res.json({
+      status: 'success',
+      data: {
+        subtopics,
+        length: subtopics.length,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(serverErrorResponse());
+  }
+});
+
+// Get a particular Subtopic
+router.get('/subtopic/:id', auth, async (req, res) => {
+  try {
+    const subtopic = await Subtopic.findById(req.params.id).populate({
+      path: 'events',
+      populate: {
+        path: 'testId',
+      },
+    });
+    if (!subtopic) {
+      return res.status(400).json(failErrorResponse('Invalid Id'));
+    }
+    return res.json({
+      status: 'success',
+      data: { subtopic },
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(serverErrorResponse());
+  }
+});
+
+// Add a Subtopic
+router.post('/subtopic/:batchId', auth, async (req, res) => {
+  try {
+    const id = req.params.batchId;
+    const outline = await Batch.findById(id);
+    if (!outline) {
+      return res
+        .status(400)
+        .json(failErrorResponse('No Batch found or Batch ID is invalid'));
+    }
+    console.log(req.body.name);
+    if (!req.body.name) {
+      return res
+        .status(401)
+        .json(failErrorResponse('Please Specify a valid Subtopic name'));
+    }
+
+    const subtopic = new Subtopic({
+      name: req.body.name,
+    });
+
+    await subtopic.save();
+    return res.json({ status: 'success', data: { subtopic } });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(serverErrorResponse());
+  }
+});
+
+// Add a Event
 router.post(
-  '/event/:batchId',
+  '/event/:subTopicId',
   [
     [
       check('type', 'Please specify a type').not().isEmpty(),
@@ -100,17 +170,19 @@ router.post(
   ],
   async (req, res) => {
     const errors = validationResult(req);
-    const id = req.params.batchId;
+    const id = req.params.subTopicId;
     if (!errors.isEmpty()) {
       return res.status(400).json(failErrorResponse(errors.errors[0].msg));
     }
     try {
       // Check if batch exits.
-      const outline = await Batch.findById(id);
-      if (!outline) {
+      const subtopic = await Subtopic.findById(id);
+      if (!subtopic) {
         return res
           .status(400)
-          .json(failErrorResponse('No Batch found or Batch ID is invalid'));
+          .json(
+            failErrorResponse('No Subtopic found or Subtopic ID is invalid')
+          );
       }
       const type = req.body.type;
       // Add the event by creating a Event object
@@ -144,8 +216,8 @@ router.post(
 
       await event.save();
 
-      outline.events.push(event._id);
-      await outline.save();
+      subtopic.events.push(event._id);
+      await subtopic.save();
 
       res.json({
         status: 'success',

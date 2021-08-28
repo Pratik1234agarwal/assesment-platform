@@ -10,6 +10,7 @@ const BatchSchema = mongoose.Schema({
     default: 250,
   },
   events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'event' }],
+  subtopic: [{ type: mongoose.Schema.Types.ObjectId, ref: 'subtopic' }],
   createdAt: {
     type: Date,
     default: Date.now,

@@ -1,13 +1,17 @@
 const mongoose = require('mongoose');
 
-const OutlineSchema = mongoose.Schema({
+const SubTopicSchema = mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
     required: true,
   },
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'event' }],
-  subtopic: [{ type: mongoose.Schema.Types.ObjectId, ref: 'subtopic' }],
 });
 
-module.exports = mongoose.model('outline', OutlineSchema);
+module.exports = mongoose.model('subtopic', SubTopicSchema);
