@@ -7,12 +7,54 @@ const {
 } = require('../../helpers/responseHandles');
 const User = require('../../models/User');
 const Event = require('../../models/Event');
+const Subtopic = require('../../models/SubTopic');
 const Question = require('../../models/Questions');
 const Test = require('../../models/Test');
 const Paper = require('../../models/Paper');
 const { check, validationResult } = require('express-validator');
 
 const scheduleEvent = require('../../agenda/agenda');
+
+router.get('/subtopics', auth, async (req, res) => {
+  try {
+    const topics = await Subtopic.find().populate({
+      path: 'events',
+    });
+    return res.json({
+      status: 'success',
+      data: {
+        subtopics: topics,
+        length: topics.length,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(serverErrorResponse());
+  }
+});
+
+router.get('/subtopics/:id', auth, async (req, res) => {
+  try {
+    const topics = await Subtopic.findById(req.params.id).populate({
+      path: 'events',
+      populate: {
+        path: 'testId',
+      },
+    });
+    if (!topics) {
+      return res.status(404).json(failErrorResponse('No Such Subtopic found'));
+    }
+    return res.json({
+      status: 'success',
+      data: {
+        subtopic: topics,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(serverErrorResponse());
+  }
+});
 
 router.get('/', auth, async (req, res) => {
   try {
