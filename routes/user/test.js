@@ -33,6 +33,24 @@ router.get('/subtopics', auth, async (req, res) => {
   }
 });
 
+router.get('/completed', auth, (req, res) => {
+  try {
+    const paper = await Paper.find({ user: req.user.id });
+    const test = await Test.find();
+    return res.json({
+      status: 'success',
+      data: {
+        totalAttempted: paper.length,
+        totalTest: test.length,
+        precentageCompleted: paper.length / test.length,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(serverErrorResponse());
+  }
+});
+
 router.get('/subtopics/:id', auth, async (req, res) => {
   try {
     const topics = await Subtopic.findById(req.params.id).populate({
