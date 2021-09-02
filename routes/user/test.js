@@ -33,7 +33,7 @@ router.get('/subtopics', auth, async (req, res) => {
   }
 });
 
-router.get('/completed', auth, (req, res) => {
+router.get('/completed', auth, async(req, res) => {
   try {
     const paper = await Paper.find({ user: req.user.id });
     const test = await Test.find();
