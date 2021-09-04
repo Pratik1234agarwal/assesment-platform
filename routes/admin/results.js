@@ -4,159 +4,78 @@ const Questions = require('../../models/Questions');
 const Admin = require('../../models/Admin');
 const Paper = require('../../models/Paper');
 const Result = require('../../models/Result');
+const Test = require('../../models/Test');
 const auth = require('../../middleware/authAdmin');
-const mailer = require('../../Nodemailer/mailer');
-const configureMessage = require('../../Nodemailer/configureMessage');
 
-const { serverErrorResponse } = require('../../helpers/responseHandles');
+const {
+  serverErrorResponse,
+  failErrorResponse,
+} = require('../../helpers/responseHandles');
+const { json } = require('body-parser');
 
-router.get('/dsat', auth, async (req, res) => {
+router.get('/:testId', auth, async (req, res) => {
   try {
-    const results = await Result.find().populate('user', ['name', 'email']);
-    res.json({
-      status: 'success',
-      data: {
-        results,
-      },
+    const id = req.params.testId;
+    const test = await Test.findById(id).populate({ path: 'questionBank' });
+    const papers = await Paper.find({ test: id }).populate({
+      path: 'user',
+      select: 'name email',
     });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(serverErrorResponse());
-  }
-});
-
-router.get('/dsat/generateResult', auth, async (req, res) => {
-  try {
-    let results = [];
-    const papers = await Paper.find({ finished: true });
+    console.log(papers);
+    // Filter the paper based on the time they have finished upon.
     for (let i = 0; i < papers.length; i++) {
-      const paper = papers[i];
-      let result = await Result.findOne({ user: paper.user }).populate('user', [
-        'name',
-        'email',
-        'phone',
-      ]);
-      if (result) {
-        results.push(result);
-      } else {
-        result = await calculate(paper);
-        await result.save();
-        results.push(result);
-      }
+      const metric = generateResult(papers[i], test.questionBank);
+      console.log(metric);
+      metric.marks =
+        metric.correct * test.marksPerQuestions +
+        metric.incorrect * test.negativeMarksPerQuestion;
+      console.log(metric);
+      await Paper.updateOne(
+        { _id: papers[i]._id },
+        {
+          ...metric,
+        }
+      );
+      //papers[i] = { ...papers[i], ...metric };
+      papers[i].attempted = metric.attempted;
+      papers[i].marks = metric.marks;
+      papers[i].correct = metric.correct;
+      papers[i].incorrect = metric.incorrect;
     }
     res.json({
       status: 'success',
       data: {
-        results,
-        length: results.length,
+        papers,
       },
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json(serverErrorResponse());
+    return res.status(500).json(serverErrorResponse());
   }
 });
 
-async function calculate(paper) {
-  let attempted = 0,
-    notAttempted = 0,
-    correct = 0,
-    incorrect = 0,
-    marks = 0;
-  let category = {};
-  for (let i = 0; i < paper.questions.length; i++) {
-    let question = paper.questions[i];
-    let questionFromDatabase = await Questions.findById(question.questionId);
-    if (!questionFromDatabase) continue;
-    resultCategoryWise(category, question.category, 'totalQuestion');
-    if (question.status === 'answered') {
-      attempted++;
-      resultCategoryWise(category, question.category, 'questionAttempted');
-      if (questionFromDatabase.answer === question.answer) {
-        correct++;
-        marks += 4;
-        resultCategoryWise(category, question.category, 'correct');
-      } else {
-        incorrect++;
-        marks -= 1;
+function generateResult(paper, questionBank) {
+  let metrics = {
+    correct: 0,
+    incorrect: 0,
+    attempted: paper.responses.length,
+    marks: 0,
+  };
+  for (let i = 0; i < paper.responses.length; i++) {
+    const response = paper.responses[i];
+    let question = {};
+    for (let j = 0; j < questionBank.length; j++) {
+      if (questionBank[j]._id.toString() === response.questionId) {
+        question = questionBank[j];
       }
-    } else if (question.status === 'not answered') {
-      notAttempted++;
     }
-  }
-
-  let categoryWise = Object.values(category);
-
-  console.log(categoryWise);
-  let timeTaken = 0;
-  if (paper.finishedAt) {
-    timeTaken =
-      new Date(paper.finishedAt.getTime()) -
-      new Date(paper.startedAt.getTime());
-  }
-  report = new Result({
-    paperId: paper._id,
-    user: paper.user,
-    marks,
-    totalMarks: paper.questions.length * 1.0,
-    attempted,
-    correct,
-    incorrect,
-    notAttempted,
-    totalQuestion: paper.questions.length,
-    categoryWise,
-    timeTaken,
-  });
-
-  return report;
-}
-
-function resultCategoryWise(category, categoryName = 'other', field) {
-  if (category[categoryName]) {
-    if (!category[categoryName][field]) {
-      category[categoryName][field] = 1;
+    if (question.answer === response.answer) {
+      metrics.correct += 1;
     } else {
-      category[categoryName][field] += 1;
+      metrics.incorrect += 1;
     }
-  } else {
-    category[categoryName] = {};
-    category[categoryName].categoryName = categoryName;
-    category[categoryName][field] = 1;
   }
-}
-
-// Mail the result of the student with result pdf attached
-// TODO: Make it general for all test
-router.get('/sendMail', auth, async (req, res) => {
-  try {
-    const results = await Result.find().populate('user', ['name', 'email']);
-    handleEmailSent(results);
-    return res.json({
-      status: 'success',
-      message: 'Mail have been sent to the students.',
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(serverErrorResponse());
-  }
-});
-
-async function handleEmailSent(results) {
-  for (let i = 0; i < results.length; i++) {
-    const result = results[i];
-    const data = {
-      email: result.user.email,
-      subject: 'Result for the DSAT',
-      text:
-        result.marks >= 2
-          ? 'Congrats you have cleared DSAT'
-          : 'You could not clear DSAT, do try again',
-    };
-    // if (i % 2 == 0) {
-    //   await new Promise(async (resolve) => setTimeout(resolve, 1000));
-    // }
-    await mailer(configureMessage(data));
-  }
+  return metrics;
 }
 
 module.exports = router;

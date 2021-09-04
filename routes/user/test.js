@@ -13,7 +13,7 @@ const Test = require('../../models/Test');
 const Paper = require('../../models/Paper');
 const { check, validationResult } = require('express-validator');
 
-const scheduleEvent = require('../../agenda/agenda');
+//const scheduleEvent = require('../../agenda/agenda');
 
 router.get('/subtopics', auth, async (req, res) => {
   try {
@@ -33,7 +33,7 @@ router.get('/subtopics', auth, async (req, res) => {
   }
 });
 
-router.get('/completed', auth, async(req, res) => {
+router.get('/completed', auth, async (req, res) => {
   try {
     const paper = await Paper.find({ user: req.user.id });
     const test = await Test.find();
@@ -140,7 +140,7 @@ router.get('/:testId', auth, async (req, res) => {
       await paper.save();
 
       // Schedule automatic Paper Submit
-      scheduleEvent(test.durationOfTest, paper);
+      // scheduleEvent(test.durationOfTest, paper);
     }
 
     paper.test = test;
