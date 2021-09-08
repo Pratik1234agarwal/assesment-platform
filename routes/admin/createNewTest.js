@@ -113,6 +113,24 @@ router.post(
   }
 );
 
+router.delete('/:testId', auth, async (req, res) => {
+  try {
+    const test = await Test.findById(req.params.testId);
+    if (!test) {
+      return res.status(400).json(failErrorResponse('Test Id invalid'));
+    }
+    await test.remove();
+    return res.json({
+      status: 'success',
+      data: {
+        test,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 router.delete('/delete/:id', auth, async (req, res) => {
   try {
     const id = req.params.id;

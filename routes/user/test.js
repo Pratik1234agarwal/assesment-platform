@@ -12,6 +12,7 @@ const Question = require('../../models/Questions');
 const Test = require('../../models/Test');
 const Paper = require('../../models/Paper');
 const { check, validationResult } = require('express-validator');
+const { response } = require('express');
 
 //const scheduleEvent = require('../../agenda/agenda');
 
@@ -113,6 +114,57 @@ router.get('/info/:testId', auth, async (req, res) => {
     });
   } catch (err) {
     console.log(err);
+  }
+});
+
+// Route to get all the answers sheet after test submission
+router.get('/result/:testId', auth, async (req, res) => {
+  try {
+    const id = req.params.testId;
+    const test = await Test.findById(id).populate({
+      path: 'questionBank',
+    });
+    if (!test) {
+      return res.status(404).json(failErrorResponse('Invalid Test id'));
+    }
+    const paper = await Paper.findOne({ test: id, user: req.user.id });
+    if (!paper) {
+      return res.status(404).json('No Attempt for the user has been made');
+    }
+
+    // Paper validated. Now form the solution pdf.
+    const questionResponses = [];
+    for (let i = 0; i < test.questionBank.length; i++) {
+      const question = test.questionBank[i];
+      let temp;
+      for (let j = 0; j < paper.responses.length; j++) {
+        const response = paper.responses[j];
+        if (response.questionId.toString() === question._id.toString()) {
+          temp = response.answer;
+        }
+      }
+      questionResponses.push({
+        A: question.A,
+        B: question.B,
+        C: question.C,
+        D: question.D,
+        text: question.text,
+        answer: question.answer,
+        category: question.category,
+        answeredByUser: temp ? temp : 'Not Answered',
+      });
+    }
+
+    return res.json({
+      status: 'success',
+      data: {
+        questionResponses,
+        test,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(serverErrorResponse());
   }
 });
 
