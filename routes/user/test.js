@@ -168,6 +168,17 @@ router.get('/result/:testId', auth, async (req, res) => {
   }
 });
 
+// Get the marks in all the test if test evalutaion done
+router.get('/resultAll', auth, async (req, res) => {
+  try {
+    const paper = await Paper.find({ user: req.user.id }).select('marks test');
+    return res.json({ status: 'sucess', data: { paper } });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(serverErrorResponse());
+  }
+});
+
 // TODO: Make sure that the event has the time limit in it.
 
 router.get('/:testId', auth, async (req, res) => {

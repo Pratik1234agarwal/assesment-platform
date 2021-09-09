@@ -134,11 +134,15 @@ router.delete('/:testId', auth, async (req, res) => {
 router.delete('/delete/:id', auth, async (req, res) => {
   try {
     const id = req.params.id;
-    let test = await Test.findById(id);
-    await test.remove();
+    let event = await Event.findById(id);
+    if (event.testId) {
+      let test = await Test.findById(id);
+      await test.remove();
+    }
+    await event.remove();
     res.json({
       status: 'success',
-      message: 'Test removed successfully',
+      message: 'Event removed successfully',
     });
   } catch (err) {
     console.log(err);
