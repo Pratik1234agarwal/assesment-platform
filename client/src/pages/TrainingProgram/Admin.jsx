@@ -34,12 +34,11 @@ const Admin = () => {
         <div className="row align-items-center">
           <div className="col">
             <div class="card text-center">
-              <div class="card-header">Students Division</div>
-              <div class="card-body pb-5 pt-5">
-                <h5 class="card-title">Create Batches/ Add Events</h5>
+              <div class="card-header">Test Creation</div>
+              <div class="card-body ">
+                <h5 class="card-title">Create Tests/ Add Events</h5>
                 <p class="card-text" style={{ fontSize: "17px" }}>
-                  Divide Students in Batches, Add all batch details and add
-                  test, assignment etc. according to batches
+                  Add Test And Test Details Modulewise
                 </p>
                 <button
                   className="btn btn-danger "
@@ -53,25 +52,26 @@ const Admin = () => {
               <div class="card-footer text-muted">Admin</div>
             </div>
           </div>
-          {/* /////////////////////////////// */}
-          {/* <div className="col-12 col-lg-4 mt-5 mt-lg-0 ">
+          <div className="col ">
             <div class="card text-center">
-              <div class="card-header">Make your own Strategy</div>
+              <div class="card-header">Students Outcome</div>
               <div class="card-body">
-                <h5 class="card-title">Create Time-Table</h5>
+                <h5 class="card-title">Check Modulewise Results</h5>
                 <p class="card-text" style={{ fontSize: "17px" }}>
-                  Create timetable for Batches
+                  Check Moduleweise Results of all the students
                 </p>
                 <button
                   className="btn btn-danger "
-                  // onClick={slotcheck}
+                  onClick={() => {
+                    history.push("/modulewiseresult");
+                  }}
                 >
-                  Create
+                  Check
                 </button>
               </div>
               <div class="card-footer text-muted">Admin</div>
             </div>
-          </div> */}
+          </div>
           {/* /////////////////////////////// */}
           {/* <div className="col-12 col-lg-4 mt-5 mt-lg-0 mb-5 mb-lg-0">
             <div class="card text-center">

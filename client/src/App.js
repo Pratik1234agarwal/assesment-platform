@@ -31,15 +31,23 @@ import Admin from "./pages/TrainingProgram/Admin";
 import CreateBatch from "./pages/TrainingProgram/CreateBatch";
 import TimeTable from "./pages/TrainingProgram/TimeTable";
 import Users from "./pages/TrainingProgram/Users";
-import Batches from "./pages/TrainingProgram/Batches";
+import ModulesTest from "./pages/TrainingProgram/ModulesTest";
 import TestDetails from "./pages/TrainingProgram/TestDetails";
 import AddQuestion from "./pages/TrainingProgram/AddQuestion";
 import TestQuestionsDatabase from "./pages/TrainingProgram/TestQuestionsDatabase";
-import UserDashboard from "./pages/TrainingProgram/User/UserDashboard";
 import AllTest from "./pages/TrainingProgram/User/AllTest";
 import UserSignup from "./pages/TrainingProgram/User/UserSignup";
 import TestInstructions from "./pages/TrainingProgram/User/TestInstructions";
 import TestPanel from "./pages/TrainingProgram/User/TestPanel";
+import TestEnded from "./pages/TrainingProgram/User/TestEnded";
+import UserSignin from "./pages/TrainingProgram/User/UserSignin";
+import AllTestResults from "./pages/TrainingProgram/User/AllTestResults";
+import DetailResult from "./pages/TrainingProgram/User/DetailResult";
+import ModuleTest from "./pages/TrainingProgram/User/ModuleTest";
+import AdminModules from "./pages/TrainingProgram/AdminModules";
+import L2Result from "./pages/TrainingProgram/L2Result";
+import L2ResultTable from "./pages/TrainingProgram/L2ResultTable";
+import ResultWithQuestions from "./pages/TrainingProgram/User/ResultWithQuestions";
 
 // axios.defaults.baseURL = "https://adsatiitropar.com";
 
@@ -82,20 +90,29 @@ function App() {
         <Route path="/createbatch" component={CreateBatch} />
         <Route path="/classtimetable" component={TimeTable} />
         <Route path="/studentdashboard" component={Users} />
-        <Route path="/batches/:_id" component={Batches} />
+        <Route path="/ModulesTest/:id" component={ModulesTest} />
         <Route path="/testdetails/:id" component={TestDetails} />
         <Route path="/addquestionstest/:id" component={AddQuestion} />
         <Route
           path="/testquestiondatabase/:id"
           component={TestQuestionsDatabase}
         />
+        <Route path="/modulewiseresult" component={L2Result} />
+        <Route path="/resulttable/:id/:type" component={L2ResultTable} />
+        <Route path="/testresult/:id" component={ResultWithQuestions} />
+
         {/* //////////// Training Programs User Route ///////////////// */}
         <Route path="/studentsignup" component={UserSignup} />
-        <Route path="/userdashboard" component={UserDashboard} />
         <Route path="/alltest" component={AllTest} />
         {/* //////////// Training Programs User Test Route ///////////////// */}
         <Route path="/testinstructions/:id" component={TestInstructions} />
         <Route path="/test/:id" component={TestPanel} />
+        <Route path="/testended" component={TestEnded} />
+        <Route path="/studentsignin" component={UserSignin} />
+        <Route path="/alltestresults" component={AllTestResults} />
+        <Route path="/detailedresult" component={DetailResult} />
+        <Route path="/moduletest/:id" component={ModuleTest} />
+        <Route path="/adminmodule/:id" component={AdminModules} />
       </Switch>
     </>
   );

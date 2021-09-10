@@ -8,8 +8,10 @@ const SidePaneTestQuestion = ({
   setCurrentQuestion,
   startedAt,
   statusans,
+  questions,
   setstatusans,
   id,
+  testduration,
 }) => {
   let history = useHistory();
 
@@ -17,18 +19,28 @@ const SidePaneTestQuestion = ({
     // console.log("pol");
   }, []);
 
+  const colourt = (p) => {
+    let x = "btn-danger";
+    console.log(questions[p]._id);
+    if (statusans.length != 0) {
+      for (let j = 0; j < statusans.length; j++) {
+        if (questions[p]._id === statusans[j].questionId) {
+          x = "btn-success";
+        }
+      }
+    }
+    return x;
+  };
+
   const quest = () => {
     return (
       <>
-        {_.times(statusans.length, (i) => (
+        {_.times(questions.length, (i) => (
           <button
             onClick={onClick}
             value={i + 1}
             type="button"
-            // className="btn btn-secondary ml-5 mt-2 butsty"
-            className={`btn ${
-              statusans[i].status === "answered" ? "btn-success" : "btn-danger"
-            } ml-5 mt-2 butsty`}
+            className={`btn ${colourt(i)} ml-5 mt-2 butsty`}
           >
             {i + 1}
           </button>
@@ -48,7 +60,7 @@ const SidePaneTestQuestion = ({
       axios
         .get("/api/v1/test/" + id, config)
         .then(function (res) {
-          setstatusans(res.data.data.paper.test.questionBank);
+          setstatusans(res.data.data.paper.responses);
         })
         .catch(function (error) {
           // handle error
@@ -57,8 +69,7 @@ const SidePaneTestQuestion = ({
     }
   };
   const onComplete = () => {
-    alert("Test has ended");
-    // history.push("/finish");
+    history.push("/testended");
   };
 
   const renderer = ({ hours, minutes, seconds }) => {
@@ -82,7 +93,7 @@ const SidePaneTestQuestion = ({
       );
     }
   };
-  const date = new Date(startedAt).getTime() + 30 * 60 * 1000;
+  const date = new Date(startedAt).getTime() + testduration * 60 * 1000;
 
   return (
     <>

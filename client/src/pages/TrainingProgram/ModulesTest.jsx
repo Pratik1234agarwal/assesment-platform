@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo1 from "../../images/logo.png";
+import l2prog from "../../images/module.png";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import DatePicker from "react-datepicker";
@@ -11,7 +12,7 @@ import setHours from "date-fns/setHours";
 import setMinutes from "date-fns/setMinutes";
 import TestDetails from "./TestDetails";
 
-const Batches = (props) => {
+const ModulesTest = (props) => {
   let history = useHistory();
   const [events, setevents] = useState([]);
   const [batch, setbatch] = useState([]);
@@ -22,6 +23,17 @@ const Batches = (props) => {
   const [negativeMarksPerQuestion, setnegativeMarksPerQuestion] = useState("");
   const [testduration, settestduration] = useState("");
 
+  const [subtopicname, setsubtopicname] = useState([]);
+
+  const eventtestcheck = (stp) => {
+    console.log(stp);
+    if (!stp.testId) {
+      return eventtest(stp.eventType, stp._id);
+    } else {
+      return eventtest(stp.eventType, stp._id, stp.testId._id);
+    }
+  };
+
   const eventtest = (event, id, testid) => {
     if (event == "test") {
       if (testid != null) {
@@ -29,6 +41,7 @@ const Batches = (props) => {
           <button
             className="btn btn-success"
             onClick={() => {
+              // alert(testid);
               history.push("/testdetails/" + testid);
             }}
           >
@@ -47,6 +60,7 @@ const Batches = (props) => {
                 seteventid(id);
                 console.log("event id set", eventid);
               }}
+              style={{ backgroundColor: "#180D5B" }}
             >
               Add Test Details
             </button>
@@ -91,11 +105,23 @@ const Batches = (props) => {
   );
   const [eventType, seteventType] = useState("");
 
-  const timed = (lp) => {
+  function timed(lp) {
+    var date = new Date(lp);
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? "pm" : "am";
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    var strTime = hours + ":" + minutes + " " + ampm;
+    return date.toString().slice(4, 16) + strTime;
+  }
+
+  const timedline = (lp) => {
     var utcDate = new Date(lp);
 
-    // console.log(utcDate.toUTCString());
-    return utcDate.toString().slice(0, 21);
+    console.log(utcDate.toString());
+    return utcDate.toString().slice(4, 16);
   };
 
   const getalltestdetails = async () => {
@@ -173,6 +199,92 @@ const Batches = (props) => {
     }
   };
 
+  async function onDelete(id) {
+    swal(
+      {
+        title: "Are you Sure",
+        text: "You want to delete the test",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#0E3B7D",
+        confirmButtonText: "Yes",
+        closeOnConfirm: true,
+        allowEscapeKey: false,
+        customClass: "Custom_Cancel",
+      },
+      async function (isConfirm) {
+        if (isConfirm) {
+          try {
+            const config = {
+              headers: {
+                Authorization: `Admin ${localStorage.getItem("Admin")}`,
+              },
+            };
+            await axios.delete(`/api/v1/admin/test/delete/${id}`, config);
+            swal(
+              {
+                title: "Test Deleted",
+                text: "Successfully deleted the Test",
+                type: "success",
+                confirmButtonColor: "#0E3B7D",
+                confirmButtonText: "Ok",
+                closeOnConfirm: false,
+                customClass: "Custom_Cancel",
+              },
+              function (isConfirm) {
+                if (isConfirm) {
+                  window.location.reload();
+                } else {
+                  window.location.reload();
+                }
+              }
+            );
+          } catch (err) {
+            console.log(err.response.data);
+            if (err.response.data && err.response.data.message) {
+              alert(err.response.data.message);
+            }
+          }
+        } else {
+        }
+      }
+    );
+
+    // const config = {
+    //   headers: {
+    //     Authorization: `Admin ${localStorage.getItem("Admin")}`,
+    //   },
+    // };
+
+    // try {
+    //   const res = await axios.delete(`/api/v1/admin/test/delete/${id}`, config);
+    //   console.log(res);
+    //   swal(
+    //     {
+    //       title: "Test Deleted",
+    //       text: "Successfully deleted the Test",
+    //       type: "success",
+    //       confirmButtonColor: "#0E3B7D",
+    //       confirmButtonText: "Ok",
+    //       closeOnConfirm: false,
+    //       customClass: "Custom_Cancel",
+    //     },
+    //     function (isConfirm) {
+    //       if (isConfirm) {
+    //         window.location.reload();
+    //       } else {
+    //         window.location.reload();
+    //       }
+    //     }
+    //   );
+    // } catch (err) {
+    //   console.log(err.response.data);
+    //   if (err.response.data && err.response.data.message) {
+    //     alert(err.response.data.message);
+    //   }
+    // }
+  }
+
   const AddEvent = async (event) => {
     if (event) {
       event.preventDefault();
@@ -204,7 +316,7 @@ const Batches = (props) => {
       };
       try {
         const res = await axios.post(
-          "/api/v1/admin/course/event/" + props.match.params._id,
+          "/api/v1/admin/course/event/" + props.match.params.id,
           data,
           config
         );
@@ -246,11 +358,12 @@ const Batches = (props) => {
       };
       try {
         const res = await axios.get(
-          "/api/v1/admin/course/batch/" + props.match.params._id,
+          "/api/v1/admin/course/subtopic/" + props.match.params.id,
           config
         );
-        setbatch(res.data.data.batch);
-        setevents(res.data.data.batch.events);
+        // setbatch(res.data.data.batch);
+        setsubtopicname(res.data.data.subtopic.name);
+        setevents(res.data.data.subtopic.events);
         console.log(res);
       } catch (err) {
         if (err.response && err.response.data) {
@@ -299,10 +412,10 @@ const Batches = (props) => {
                     required
                   >
                     <option selected>Choose...</option>
-                    <option value="test">test</option>
-                    <option value="assignment">assignment</option>
+                    <option value="test">Test</option>
+                    {/* <option value="assignment">assignment</option>
                     <option value="liveClass">liveClass</option>
-                    <option value="readingMaterial">readingMaterial</option>
+                    <option value="readingMaterial">readingMaterial</option> */}
                   </select>
                 </div>
                 <div class="form-group">
@@ -446,12 +559,121 @@ const Batches = (props) => {
         </div>
       </div>
 
-      <div className="container bg-dark text-white text-center mt-3 rounded py-2">
-        <h3>Total No. of Students :{batch && batch.maxNumberOfStudent}</h3>
+      <div className="container mt-3">
+        <div
+          class="card w-100"
+          style={{
+            backgroundColor: "#180D5B",
+            color: "white",
+            border: "2px solid #180D5B",
+            borderRadius: "10px",
+          }}
+        >
+          <div class="card-body">
+            <div className="row">
+              <div className="col d-flex align-items-center justify-content-center">
+                <h3>{subtopicname}</h3>
+              </div>
+              <div className="col d-flex justify-content-end">
+                <img
+                  src={l2prog}
+                  alt="program Image"
+                  height="190px"
+                  width="290px"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="mt-4 text-center">
-        <h3>Events</h3>
+      <div className="mt-4 container">
+        <div className="row">
+          <div className="col-lg-2 col-12 d-flex align-items-center ">
+            <h4 className="text-white bg-dark rounded px-3 py-3">
+              Create Test
+            </h4>
+          </div>
+          <div className="col-lg-10 col-12">
+            <div class="card  shadow rounded-lg border-0 ">
+              <div class="row card-body">
+                <div className="col d-flex align-items-center">
+                  <h5> Add New Test</h5>
+                </div>
+                <div className="col d-flex justify-content-end">
+                  <button
+                    type="button"
+                    class="btn btn-danger mt-2 "
+                    data-toggle="modal"
+                    data-target="#exampleModalCenter"
+                  >
+                    Add Test
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-4 mb-4 container">
+        <div className="row">
+          <div className="col-lg-2 col-12 ">
+            <h4 className="mt-4 text-white bg-dark rounded px-3 py-3">
+              All Tests
+            </h4>
+          </div>
+          <div className="col-lg-10 col-12">
+            {events &&
+              events.map((stp, index) => (
+                <div>
+                  <br />
+                  <br />
+                  {timedline(stp.createdAt)}
+                  <div className="row">
+                    <div className="col-11">
+                      <div class="card mt-4 shadow rounded-lg border-0">
+                        <div class="card-body row">
+                          <div className="col">
+                            <h5 class="card-title ">Quiz : {index + 1}</h5>
+                            <h5 class="card-subtitle mb-2 text-danger text-capitalize">
+                              {stp.eventType}
+                            </h5>
+                            {/* {stp.testId} */}
+                            <h6 class="card-subtitle mb-2 text-muted">
+                              L2 - Program
+                            </h6>
+                          </div>
+                          <div className="col d-flex justify-content-end">
+                            <p class="card-text text-info">
+                              <h6>Start Date : {timed(stp.startTime)}</h6>
+                              <h6>End Date : {timed(stp.endTime)}</h6>
+                            </p>
+                          </div>
+                        </div>
+                        <div className="d-flex justify-content-end mb-3 px-3">
+                          {/* {eventtest(stp.eventType, stp._id)} */}
+                          {eventtestcheck(stp)}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-1 d-flex justify-content-end align-items-center">
+                      <div
+                        onClick={() => {
+                          onDelete(stp._id);
+                        }}
+                      >
+                        <i
+                          class="fas fa-trash-alt"
+                          style={{ color: "red", cursor: "pointer" }}
+                        ></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
       </div>
 
       {/* <div className="mt-4 text-center">
@@ -459,57 +681,8 @@ const Batches = (props) => {
           All Test
         </button>
       </div> */}
-
-      <div className="container-fluid mb-4">
-        <div className="row d-flex justify-content-center">
-          <div
-            class="card text-center ml-0 ml-lg-4 mt-4 shadow rounded-lg border-0 px-4"
-            //   style={{
-            //     border: "2px solid red",
-            //     borderRadius: "15px",
-            //   }}
-          >
-            <div class="card-body mt-4 mb-4">
-              <h5 class="card-title">Adding Events </h5>
-              <h6 class="card-subtitle mb-2 text-muted pt-3">L2 - Program</h6>
-              <button
-                type="button"
-                class="btn btn-danger mt-2"
-                data-toggle="modal"
-                data-target="#exampleModalCenter"
-              >
-                Add Event
-              </button>
-            </div>
-          </div>
-          {events &&
-            events.map((stp, index) => (
-              <div
-                class="card text-center ml-0 ml-lg-4 mt-4 shadow rounded-lg border-0"
-                //   style={{
-                //     border: "2px solid red",
-                //     borderRadius: "15px",
-                //   }}
-              >
-                <div class="card-body mt-4 mb-4">
-                  <h5 class="card-title">Event No. : {index + 1}</h5>
-                  <h5 class="card-subtitle mb-2 text-danger text-capitalize">
-                    {stp.eventType}
-                  </h5>
-                  {/* {stp.testId} */}
-                  <h6 class="card-subtitle mb-2 text-muted">L2 - Program</h6>
-                  <p class="card-text">
-                    <h6>Start Date : {timed(stp.startTime)}</h6>
-                    <h6>End Date : {timed(stp.endTime)}</h6>
-                  </p>
-                  {eventtest(stp.eventType, stp._id, stp.testId)}
-                </div>
-              </div>
-            ))}
-        </div>
-      </div>
     </>
   );
 };
 
-export default Batches;
+export default ModulesTest;

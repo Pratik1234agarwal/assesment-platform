@@ -26,6 +26,7 @@ const TestPanel = (props) => {
   const [questions, setQuestions] = useState([]);
   const [paper, setPaper] = useState({});
   const [currentQuestion, setCurrentQuestion] = useState(1);
+  const [testduration, settestduration] = useState();
 
   const toggleFullScreen = () => {
     if (screenfull.isEnabled) {
@@ -98,16 +99,23 @@ const TestPanel = (props) => {
         console.log(res);
 
         console.log(res.data.data.paper.test.questionBank);
-        const startedAt = new Date(res.data.data.paper.startedAt).getTime();
-        // console.log(startedAt);
 
-        // if (startedAt + 30 * 60 * 1000 < Date.now()) {
-        //   alert("Your time limit for the test has already exceeded");
-        //   history.push("/finish");
-        // }
+        settestduration(res.data.data.paper.test.durationOfTest);
+
+        const startedAt = new Date(res.data.data.paper.startedAt).getTime();
+        console.log(startedAt);
+
+        if (
+          startedAt + res.data.data.paper.test.durationOfTest * 60 * 1000 <
+          Date.now()
+        ) {
+          alert("Your time limit for the test has already exceeded");
+          history.push("/testended");
+        }
+
         setQuestions(res.data.data.paper.test.questionBank);
         //// new addition
-        setstatusans(res.data.data.paper.test.questionBank);
+        setstatusans(res.data.data.paper.responses);
         /////
 
         setPaper(res.data.data.paper);
@@ -169,7 +177,7 @@ const TestPanel = (props) => {
               customClass: "Custom_Cancel",
             });
 
-            history.push("/finish");
+            history.push("/testended");
           } catch (err) {
             console.log(err);
             if (err.response && err.response.data)
@@ -197,7 +205,7 @@ const TestPanel = (props) => {
         .then(function (res) {
           // console.log(res.data);
           // setQuestionsop(res.data.data.paper.questions);
-          setstatusans(res.data.data.paper.test.questionBank);
+          setstatusans(res.data.data.paper.responses);
         })
         .catch(function (error) {
           // handle error
@@ -222,7 +230,7 @@ const TestPanel = (props) => {
         .then(function (res) {
           // console.log(res.data);
           // setQuestionsop(res.data.data.paper.questions);
-          setstatusans(res.data.data.paper.test.questionBank);
+          setstatusans(res.data.data.paper.responses);
         })
         .catch(function (error) {
           // handle error
@@ -419,7 +427,9 @@ const TestPanel = (props) => {
                 startedAt={paper.startedAt}
                 statusans={statusans}
                 setstatusans={setstatusans}
+                questions={questions}
                 id={props.match.params.id}
+                testduration={testduration}
               />
             </div>
           </div>

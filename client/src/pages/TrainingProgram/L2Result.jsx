@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from "react";
-import logo1 from "../../../images/logo.png";
+import logo1 from "../../images/logo.png";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import l2prog from "../../../images/l2prog.jpg";
+import l2prog from "../../images/l2prog.jpg";
 import SweetAlert from "sweetalert-react";
 import "sweetalert/dist/sweetalert.css";
 import swal from "sweetalert";
-import "./AllTest.css";
 import Avatar from "react-avatar";
 import Faq from "react-faq-component";
-import NewModule from "./NewModule";
+import NewModule from "./User/NewModule";
+import L2NewModule from "./User/L2NewModule";
 
-const AllTest = () => {
+const L2Result = () => {
   let history = useHistory();
-  const [events, setevents] = useState([]);
 
   function SubEvent(id) {
     console.log("hey");
     return (
       <>
-        <NewModule id={id} />
+        <L2NewModule id={id} />
       </>
     );
   }
@@ -90,15 +89,13 @@ const AllTest = () => {
   };
 
   const logout = () => {
-    localStorage.removeItem("studtoken");
+    localStorage.removeItem("Admin");
     history.push("/studentsignin");
   };
 
   useEffect(async () => {
-    if (localStorage.getItem("studtoken")) {
-      const exp = isExpired(
-        getExpirationDate(localStorage.getItem("studtoken"))
-      );
+    if (localStorage.getItem("Admin")) {
+      const exp = isExpired(getExpirationDate(localStorage.getItem("Admin")));
       console.log(exp);
       if (exp == true) {
         swal(
@@ -118,25 +115,23 @@ const AllTest = () => {
             }
           }
         );
-      } else {
-        profile();
-        const config = {
-          headers: {
-            Authorization: `studtoken ${localStorage.getItem("studtoken")}`,
-          },
-        };
-        try {
-          const res = await axios.get("/api/v1/test/subtopics", config);
-          console.log(res);
-          setsubtopicname(res.data.data.subtopics);
-        } catch (err) {
-          if (err.response && err.response.data) {
-            alert(err.response.data.message);
-          }
+      }
+      const config = {
+        headers: {
+          Authorization: `Admin ${localStorage.getItem("Admin")}`,
+        },
+      };
+      try {
+        const res = await axios.get("/api/v1/admin/course/subtopic", config);
+        console.log(res);
+        setsubtopicname(res.data.data.subtopics);
+      } catch (err) {
+        if (err.response && err.response.data) {
+          alert(err.response.data.message);
         }
       }
     } else {
-      history.push("/studentsignup");
+      history.push("/admin");
     }
   }, []);
 
@@ -159,20 +154,6 @@ const AllTest = () => {
     return utcDate.toString().slice(4, 16);
   };
 
-  function profile() {
-    axios
-      .get("/api/v1/auth", {
-        headers: {
-          Authorization: `studtoken ${localStorage.getItem("studtoken")}`,
-        },
-      })
-      .then((res) => {
-        setusername(res.data.data.user.name);
-        console.log(res);
-      })
-      .catch((err) => console.error(err));
-  }
-
   return (
     <>
       <div className="d-block d-sm-none">
@@ -183,7 +164,7 @@ const AllTest = () => {
           <div className="col text-right">
             <div className=" pt-2">
               <i class="text-right fas fa-user-circle fa-3x"></i>
-              <div className=" text-right pt-2"> {username}</div>
+              <div className=" text-right pt-2"> </div>
               <div
                 onClick={logout}
                 style={{ cursor: "pointer", color: "blue" }}
@@ -194,7 +175,7 @@ const AllTest = () => {
           </div>
         </div>
         <div className="container text-center">
-          <h4 className="pt-3">Student Dashboard</h4>
+          <h4 className="pt-3">Students Result</h4>
         </div>
       </div>
 
@@ -204,12 +185,12 @@ const AllTest = () => {
             <img src={logo1} />
           </div>
           <div className="col-4 text-center">
-            <h4 className="pt-3 pl-5">Student Dashboard</h4>
+            <h4 className="pt-3 pl-5">Students Result</h4>
             {/* <Cameraweb /> */}
           </div>
           <div className="col float-right">
             <div className="row pt-2">
-              <div className="col text-right pt-2"> {username}</div>
+              <div className="col text-right pt-2"> </div>
               <div className="col-2 text-right">
                 <i class="fas fa-user-circle fa-3x"></i>
                 <div
@@ -267,87 +248,6 @@ const AllTest = () => {
         </div>
       </div>
 
-      {/* <div className="container-fluid d-none d-sm-block pb-5 ">
-        <div className="pt-3 container">
-          All Modules {"("}
-          {subtopicname && subtopicname.length}
-          {")"}
-        </div>
-        <div className="row d-flex justify-content-center">
-          {subtopicname &&
-            subtopicname.map((stp, index) => (
-              <>
-                <div
-                  class="card mt-4  shadow  w-25 m-2"
-                  style={{
-                    border: "2px solid white",
-                    borderRadius: "20px",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => {
-                    history.push("/moduletest/" + stp._id);
-                  }}
-                >
-                  <div class="position-absolute badge badge-secondary  px-2 m-2">
-                    Module - {index + 1}
-                  </div>
-                  <div class="card-body ">
-                    <br />
-                    <h5
-                      class="card-title bg-primary  text-white px-2 py-2"
-                      style={{ border: "2px solid ", borderRadius: "20px" }}
-                    >
-                      {stp.name}
-                    </h5>
-
-                    <h6 class="card-text px-2 mb-3 text-danger">
-                      0/{stp.events.length} Test Completed
-                    </h6>
-                  </div>
-                </div>
-              </>
-            ))}
-        </div>
-      </div> */}
-
-      {/* for mobile */}
-
-      {/* <div className="container-fluid d-block d-sm-none mb-5">
-        <div className="row d-flex justify-content-center">
-          {subtopicname &&
-            subtopicname.map((stp, index) => (
-              <div
-                class="card mt-4  shadow w-100 m-2"
-                style={{
-                  border: "2px solid white",
-                  borderRadius: "20px",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  history.push("/ModulesTest/" + stp._id);
-                }}
-              >
-                <div class="position-absolute badge badge-secondary  px-2 m-2">
-                  Module - {index + 1}
-                </div>
-                <div class="card-body ">
-                  <br />
-                  <h5
-                    class="card-title bg-primary  text-white px-2 py-2"
-                    style={{ border: "2px solid ", borderRadius: "20px" }}
-                  >
-                    {stp.name}
-                  </h5>
-
-                  <h6 class="card-text px-2 mb-3 text-danger">
-                    Test Added : {stp.events.length}
-                  </h6>
-                </div>
-              </div>
-            ))}
-        </div>
-      </div> */}
-
       <div className="pt-3 pb-4 mb-5 rounded bg-white container ">
         {subtopicname &&
           subtopicname.map((stp, index) => (
@@ -375,4 +275,4 @@ const AllTest = () => {
   );
 };
 
-export default AllTest;
+export default L2Result;

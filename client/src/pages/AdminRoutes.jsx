@@ -112,9 +112,9 @@ const AdminRoutes = () => {
             <div class="card text-center">
               <div class="card-header">Students Outcome</div>
               <div class="card-body">
-                <h5 class="card-title">Result</h5>
+                <h5 class="card-title">A-DSAT Result</h5>
                 <p class="card-text" style={{ fontSize: "17px" }}>
-                  Check the results of all the student and also mail them.
+                  Check the results of all the A-DSAT student and ......
                 </p>
                 <button className="btn btn-danger " onClick={result}>
                   See Result
@@ -123,8 +123,32 @@ const AdminRoutes = () => {
               <div class="card-footer text-muted">Admin</div>
             </div>
           </div>
-          {/* /////////////////////////////// */}
-          <div className="col-12 col-lg-4 mt-5 mt-lg-0 ">
+
+          {/* //// */}
+          <div className="col-12 col-lg-4 mt-5 mt-lg-0">
+            <div class="card text-center">
+              <div class="card-header">Training Program</div>
+              <div class="card-body">
+                <h5 class="card-title">L2 Program</h5>
+                <p class="card-text" style={{ fontSize: "17px" }}>
+                  Add tests and all details according to the module
+                  availables...
+                </p>
+                <button
+                  className="btn btn-danger "
+                  onClick={() => {
+                    history.push("/trainingadmin");
+                  }}
+                >
+                  Check
+                </button>
+              </div>
+              <div class="card-footer text-muted">Admin</div>
+            </div>
+          </div>
+          {/* //// */}
+          {/* Slot Checking /////////////////////////////// */}
+          {/* <div className="col-12 col-lg-4 mt-5 mt-lg-0 ">
             <div class="card text-center">
               <div class="card-header">Make your own Strategy</div>
               <div class="card-body">
@@ -138,7 +162,7 @@ const AdminRoutes = () => {
               </div>
               <div class="card-footer text-muted">Admin</div>
             </div>
-          </div>
+          </div> */}
           {/* /////////////////////////////// */}
           <div className="col-12 col-lg-4 mt-5 mt-lg-0 mb-5 mb-lg-0">
             <div class="card text-center">
@@ -158,7 +182,7 @@ const AdminRoutes = () => {
           </div>
         </div>
 
-        <div className="row">
+        {/* <div className="row">
           <div className="col-12 col-lg-4 mt-0 mt-lg-4">
             <div class="card text-center">
               <div class="card-header">Training Program</div>
@@ -182,7 +206,7 @@ const AdminRoutes = () => {
           </div>
           <div className="col-12 col-lg-4"></div>
           <div className="col-12 col-lg-4"></div>
-        </div>
+        </div> */}
       </div>
     </>
   );

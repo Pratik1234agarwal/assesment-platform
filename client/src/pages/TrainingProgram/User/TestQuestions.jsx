@@ -65,7 +65,7 @@ const TestQuestions = ({ question, onAnswer, paperId }) => {
         <div className="row">
           <div className="col-12 col-lg-12 col-md-12">
             <div className="question-text">
-              <h5> {question && question.questionText}</h5>
+              <h5> {question && question.text}</h5>
             </div>
           </div>
           <div className="col-12 col-lg-12 col-md-12">

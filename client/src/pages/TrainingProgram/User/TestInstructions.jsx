@@ -16,11 +16,12 @@ const TestInstructions = (props) => {
       };
       try {
         const res = await axios.get(
-          "/api/v1/test/" + props.match.params.id,
+          "/api/v1/test/info/" + props.match.params.id,
           config
         );
-        settestdetail(res.data.data.paper.test);
+
         console.log(res);
+        settestdetail(res.data.data.test);
       } catch (err) {
         if (err.response && err.response.data) {
           alert(err.response.data.message);
