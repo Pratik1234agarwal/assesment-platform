@@ -11,6 +11,7 @@ const {
 } = require('../../helpers/responseHandles');
 const resetPassword = require('./resetPassword');
 const sendMailAfterRegistration = require('../../Nodemailer/mailTemplates/mailSendOnRegistration');
+const users = require('../../helpers/emailArray');
 
 // Routes for reset password
 router.use('/reset', resetPassword);
@@ -113,6 +114,7 @@ router.post(
     check('password', 'Please provide a valid password').not().isEmpty(),
   ],
   async (req, res) => {
+    console.log('Hello');
     try {
       const errors = validationResult(req);
       console.log(errors);
@@ -124,6 +126,14 @@ router.post(
           },
         });
       }
+
+      // Checking email for the ones in the array.
+      console.log(users.includes('pratik12aga@gmail.com'));
+      if (!users.includes(req.body.email.toLocaleLowerCase())) {
+        console.log("Email doesn't exists");
+        return res.status(400).json(failErrorResponse('User Not present'));
+      }
+
       let user = await User.findOne({ email: req.body.email });
       if (!user) {
         return res.status(404).json({
