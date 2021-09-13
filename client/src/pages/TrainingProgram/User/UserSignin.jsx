@@ -338,8 +338,8 @@ const UserSignin = () => {
               </div>
               <div class="overlay-panel overlay-right">
                 <h2>Hello Students!</h2>
-                <p>Don't have an account</p>
-                <button
+                <p>Sign In to your account</p>
+                {/* <button
                   class="ghost but"
                   id="signIn"
                   onClick={() => {
@@ -347,7 +347,7 @@ const UserSignin = () => {
                   }}
                 >
                   Sign Up
-                </button>
+                </button> */}
               </div>
             </div>
           </div>

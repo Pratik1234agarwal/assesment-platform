@@ -55,7 +55,7 @@ function App() {
   return (
     <>
       <Switch>
-        <Route exact path="/" component={Loginout} />
+        <Route path="/adsatlogin" component={Loginout} />
         <Route path="/sidepanel" component={Sidepanel} />
         <Route path="/instdsat" component={Instdsat} />
         <Route path="/finish" component={EndTest} />
@@ -102,13 +102,13 @@ function App() {
         <Route path="/testresult/:id" component={ResultWithQuestions} />
 
         {/* //////////// Training Programs User Route ///////////////// */}
-        <Route path="/studentsignup" component={UserSignup} />
+        {/* <Route path="/studentsignup" component={UserSignup} /> */}
         <Route path="/alltest" component={AllTest} />
         {/* //////////// Training Programs User Test Route ///////////////// */}
         <Route path="/testinstructions/:id" component={TestInstructions} />
         <Route path="/test/:id" component={TestPanel} />
         <Route path="/testended" component={TestEnded} />
-        <Route path="/studentsignin" component={UserSignin} />
+        <Route exact path="/" component={UserSignin} />
         <Route path="/alltestresults" component={AllTestResults} />
         <Route path="/detailedresult" component={DetailResult} />
         <Route path="/moduletest/:id" component={ModuleTest} />

@@ -32,7 +32,7 @@ const Admin = () => {
 
       <div className="container text-center mt-5 mb-5">
         <div className="row align-items-center">
-          <div className="col">
+          <div className="col-12 col-lg-6">
             <div class="card text-center">
               <div class="card-header">Test Creation</div>
               <div class="card-body ">
@@ -52,7 +52,7 @@ const Admin = () => {
               <div class="card-footer text-muted">Admin</div>
             </div>
           </div>
-          <div className="col ">
+          <div className="col-12 col-lg-6 mt-5 mt-lg-0 mb-5 mb-lg-0">
             <div class="card text-center">
               <div class="card-header">Students Outcome</div>
               <div class="card-body">
