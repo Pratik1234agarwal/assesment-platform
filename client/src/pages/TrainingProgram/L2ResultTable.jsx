@@ -85,25 +85,57 @@ const L2ResultTable = (props) => {
 
   return (
     <>
-      <div className="container-fluid admn">
-        <div className="row ml-3 ">
-          <Link to="/questionroutes">
+      {/* For Mobile */}
+      <div className="d-block d-sm-none">
+        <div className="row pt-2">
+          <div className="col">
             <img src={logo1} />
-          </Link>
+          </div>
+          <div className="col text-right">
+            <div className=" pt-2">
+              <i class="fas fa-arrow-circle-left fa-2x"></i>
+              <div className=" text-right pt-2"> {}</div>
+              <div
+                onClick={() => {
+                  history.push("/modulewiseresult");
+                }}
+                style={{ cursor: "pointer", color: "blue" }}
+              >
+                Back
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="container mt-3 text-white">
-        <button
-          className="btn float-right"
-          style={{ backgroundColor: "#0E3B7D", color: "white" }}
-          onClick={questionHome}
-        >
-          Go Back
-        </button>
+      <div className="d-none d-sm-block admn">
+        <div className="row pt-2 container-fluid ">
+          <div className="col-4">
+            <img src={logo1} />
+          </div>
+          <div className="col-4 text-center">
+            {/* <h4 className="pt-3 pl-5">Admin Dashboard</h4> */}
+          </div>
+          <div className="col float-right">
+            <div className="row pt-2">
+              <div className="col text-right pt-2"> {}</div>
+              <div className="col-2 text-right">
+                <i class="fas fa-arrow-circle-left fa-2x"></i>
+                <div
+                  onClick={() => {
+                    history.push("/modulewiseresult");
+                  }}
+                  style={{ cursor: "pointer", color: "blue" }}
+                >
+                  Back
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="container text-center pt-5">
+      <div className="container text-center pt-4">
         <h2>Test Result</h2>
       </div>
 

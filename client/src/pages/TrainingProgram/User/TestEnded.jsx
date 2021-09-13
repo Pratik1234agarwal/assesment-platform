@@ -6,7 +6,6 @@ const TestEnded = () => {
   let history = useHistory();
   useEffect(() => {
     if (localStorage.getItem("studtoken")) {
-      // history.push("/Instdsat");
     } else {
       history.push("/");
     }
@@ -30,9 +29,7 @@ const TestEnded = () => {
           <h1 class="">Congratulations ! </h1>
           <i class="fas fa-check-circle fa-7x icon-cog mt-4"></i>
           <h5 className="mt-5">Your test is Submitted</h5>
-          <p class="lead">
-            You will get your result on your registered email-id shortly.....
-          </p>
+          <p class="lead">You can see your result on your dashboard.....</p>
           <button onClick={logout} class="btn logp text-white">
             Home
           </button>

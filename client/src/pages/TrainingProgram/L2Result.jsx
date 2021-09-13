@@ -90,7 +90,7 @@ const L2Result = () => {
 
   const logout = () => {
     localStorage.removeItem("Admin");
-    history.push("/studentsignin");
+    history.push("/admin");
   };
 
   useEffect(async () => {
@@ -190,7 +190,18 @@ const L2Result = () => {
           </div>
           <div className="col float-right">
             <div className="row pt-2">
-              <div className="col text-right pt-2"> </div>
+              <div className="col text-right ">
+                <i class="fas fa-arrow-circle-left fa-3x"></i>
+                <div
+                  onClick={() => {
+                    history.push("/trainingadmin");
+                  }}
+                  className="mr-2"
+                  style={{ cursor: "pointer", color: "blue" }}
+                >
+                  Back
+                </div>
+              </div>
               <div className="col-2 text-right">
                 <i class="fas fa-user-circle fa-3x"></i>
                 <div

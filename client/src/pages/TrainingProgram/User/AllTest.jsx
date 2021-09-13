@@ -91,7 +91,7 @@ const AllTest = () => {
 
   const logout = () => {
     localStorage.removeItem("studtoken");
-    history.push("/studentsignin");
+    history.push("/");
   };
 
   useEffect(async () => {
@@ -136,7 +136,7 @@ const AllTest = () => {
         }
       }
     } else {
-      history.push("/studentsignup");
+      history.push("/");
     }
   }, []);
 
