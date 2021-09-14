@@ -24,7 +24,7 @@ const TestSchema = new mongoose.Schema({
   marksPerQuestions: {
     type: Number,
     required: true,
-    default: 1.0,
+    default: 4.0,
   },
   negativeMarksPerQuestion: {
     type: Number,
