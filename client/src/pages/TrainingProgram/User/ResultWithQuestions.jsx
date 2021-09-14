@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import logo1 from "../../../images/logo.png";
 import axios from "axios";
 
 const ResultWithQuestions = (props) => {
@@ -36,8 +37,61 @@ const ResultWithQuestions = (props) => {
 
   return (
     <>
-      <div className="container mt-3">
-        <h3 className="text-capitalize">
+      {/* For Mobile */}
+      <div className="d-block d-sm-none">
+        <div className="row pt-2">
+          <div className="col">
+            <img src={logo1} />
+          </div>
+          <div className="col text-right">
+            <div className=" pt-2">
+              <i class="fas fa-arrow-circle-left fa-2x"></i>
+              <div className=" text-right pt-2"> {}</div>
+              <div
+                onClick={() => {
+                  history.push("/alltest");
+                }}
+                style={{ cursor: "pointer", color: "blue" }}
+              >
+                Back
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="d-none d-sm-block">
+        <div className="row pt-2 container-fluid">
+          <div className="col-4">
+            <img src={logo1} />
+          </div>
+          <div className="col-4 text-center">
+            <h3 className="text-capitalize pt-3 pl-5 ">
+              {test && test.testName} Result <br />
+            </h3>
+          </div>
+          <div className="col float-right">
+            <div className="row pt-2">
+              <div className="col text-right pt-2"> {}</div>
+              <div className="col-2 text-right">
+                <i class="fas fa-arrow-circle-left fa-2x"></i>
+                {/* <i class="fas fa-home fa-2x"></i> */}
+                <div
+                  onClick={() => {
+                    history.push("/alltest");
+                  }}
+                  style={{ cursor: "pointer", color: "blue" }}
+                >
+                  Back
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container ">
+        <h3 className="text-capitalize d-block d-sm-none">
           {test && test.testName} Result <br />
         </h3>
         <h5 className="pt-3">

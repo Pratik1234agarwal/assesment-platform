@@ -553,9 +553,57 @@ const ModulesTest = (props) => {
         </div>
       </div>
 
-      <div className="container-fluid admn">
-        <div className="row  pt-2 ml-3 pb-2">
-          <img src={logo1} />
+      {/* For Mobile */}
+      <div className="d-block d-sm-none">
+        <div className="row pt-2">
+          <div className="col">
+            <img src={logo1} />
+          </div>
+          <div className="col text-right">
+            <div className=" pt-2">
+              <i class="fas fa-arrow-circle-left fa-2x"></i>
+              <div className=" text-right pt-2"> {}</div>
+              <div
+                onClick={() => {
+                  history.push("/createbatch");
+                }}
+                style={{ cursor: "pointer", color: "blue" }}
+              >
+                Back
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="container text-center">
+          <h4 className="pt-3">Admin</h4>
+        </div>
+      </div>
+
+      <div className="d-none d-sm-block">
+        <div className="row pt-2 container-fluid">
+          <div className="col-4">
+            <img src={logo1} />
+          </div>
+          <div className="col-4 text-center">
+            <h4 className="pt-3 pl-5">Admin Dashboard</h4>
+          </div>
+          <div className="col float-right">
+            <div className="row pt-2">
+              <div className="col text-right pt-2"> {}</div>
+              <div className="col-2 text-right">
+                <i class="fas fa-arrow-circle-left fa-2x"></i>
+                {/* <i class="fas fa-home fa-2x"></i> */}
+                <div
+                  onClick={() => {
+                    history.push("/createbatch");
+                  }}
+                  style={{ cursor: "pointer", color: "blue" }}
+                >
+                  Back
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -616,7 +664,7 @@ const ModulesTest = (props) => {
         </div>
       </div>
 
-      <div className="mt-4 mb-4 container">
+      <div className="mt-4 mb-5 container">
         <div className="row">
           <div className="col-lg-2 col-12 ">
             <h4 className="mt-4 text-white bg-dark rounded px-3 py-3">
@@ -630,7 +678,7 @@ const ModulesTest = (props) => {
                   <br />
                   <br />
                   {timedline(stp.createdAt)}
-                  <div className="row">
+                  <div className="row ">
                     <div className="col-11">
                       <div class="card mt-4 shadow rounded-lg border-0">
                         <div class="card-body row">

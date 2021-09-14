@@ -12,6 +12,13 @@ const AdminModules = (props) => {
   const [subtopicname, setsubtopicname] = useState([]);
   const [subtopic, setsubtopic] = useState("");
 
+  function home() {
+    history.push("/trainingadmin");
+  }
+  function back() {
+    history.push("/createbatch");
+  }
+
   const AddSubtopic = async (event) => {
     if (event) {
       event.preventDefault();
@@ -37,8 +44,8 @@ const AdminModules = (props) => {
         console.log(res);
         swal(
           {
-            title: "Subtopic Added",
-            text: "Successfully Added subtopic details",
+            title: "Module Added",
+            text: "Successfully Added Module details",
             type: "success",
             confirmButtonColor: "#0E3B7D",
             confirmButtonText: "Ok",
@@ -104,7 +111,7 @@ const AdminModules = (props) => {
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalCenterTitle">
-                Subtopic Details
+                Module Details
               </h5>
               <button
                 type="button"
@@ -118,7 +125,7 @@ const AdminModules = (props) => {
             <div class="modal-body">
               <form onSubmit={AddSubtopic}>
                 <div class="form-group">
-                  <label for="testName">Add Subtopic Name :</label>
+                  <label for="testName">Add Module Name :</label>
                   <input
                     class="form-control"
                     id="testName"
@@ -179,14 +186,22 @@ const AdminModules = (props) => {
           </div>
           <div className="col float-right">
             <div className="row pt-2">
-              <div className="col text-right pt-2"> Admin</div>
-              <div className="col-2 text-right">
-                <i class="fas fa-user-circle fa-3x"></i>
+              <div className="col text-right ">
+                <i class="fas fa-home fa-2x"></i>
                 <div
-                  onClick={logout}
+                  onClick={home}
                   style={{ cursor: "pointer", color: "blue" }}
                 >
-                  Logout
+                  Home
+                </div>
+              </div>
+              <div className="col-2 text-right">
+                <i class="fas fa-arrow-circle-left fa-2x"></i>
+                <div
+                  onClick={back}
+                  style={{ cursor: "pointer", color: "blue" }}
+                >
+                  Back
                 </div>
               </div>
             </div>
@@ -300,8 +315,12 @@ const AdminModules = (props) => {
         >
           <div class="card-body ">
             <h5
-              class="card-title bg-success  text-white px-2 py-2"
-              style={{ border: "2px solid ", borderRadius: "20px" }}
+              class="card-title  text-white px-2 py-2"
+              style={{
+                border: "2px solid ",
+                borderRadius: "20px",
+                backgroundColor: "#180D5B",
+              }}
             >
               Add New Module
             </h5>

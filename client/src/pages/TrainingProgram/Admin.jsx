@@ -22,7 +22,16 @@ const Admin = () => {
           style={{ backgroundColor: "#0E3B7D", color: "white" }}
           onClick={logout}
         >
-          Log Out
+          Logout
+        </button>
+        <button
+          className="btn float-right mr-3"
+          style={{ backgroundColor: "#0E3B7D", color: "white" }}
+          onClick={() => {
+            history.push("/admin");
+          }}
+        >
+          Home
         </button>
       </div>
 

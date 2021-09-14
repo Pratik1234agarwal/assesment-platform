@@ -28,7 +28,7 @@ const TestInstructions = (props) => {
         }
       }
     } else {
-      history.push("/studentsignup");
+      history.push("/");
     }
   }, []);
 
