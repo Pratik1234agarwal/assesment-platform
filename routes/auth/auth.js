@@ -128,7 +128,6 @@ router.post(
       }
 
       // Checking email for the ones in the array.
-      console.log(users.includes('pratik12aga@gmail.com'));
       if (!users.includes(req.body.email.toLocaleLowerCase())) {
         console.log("Email doesn't exists");
         return res.status(400).json(failErrorResponse('User Not present'));
