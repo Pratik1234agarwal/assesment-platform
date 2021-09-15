@@ -65,7 +65,7 @@ function generateResult(paper, questionBank) {
     const response = paper.responses[i];
     let question = {};
     for (let j = 0; j < questionBank.length; j++) {
-      if (questionBank[j]._id.toString() === response.questionId) {
+      if (questionBank[j]._id.toString() === response.questionId.toString()) {
         question = questionBank[j];
       }
     }
