@@ -694,6 +694,7 @@ const users = [
   'ssharanyab@gmail.com',
   'vishaw1729@gmail.com',
   'pratik1234agarwal@gmail.com',
+  'navtejdhindsa57@gmail.com',
 ];
 
 module.exports = users;
