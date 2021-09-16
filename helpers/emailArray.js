@@ -287,7 +287,7 @@ const users = [
   'mohitdhawan02@gmail.com',
   'harisharyan69@gmail.com',
   'sm325642@gmail.com',
-  'Rajanbabrah056@gmail.com',
+  'rajanbabrah056@gmail.com',
   'seetakhammy@gmail.com',
   'aasthatiwari214@gmail.com',
   'gurpreetmeelu900@gmail.com',
@@ -295,7 +295,7 @@ const users = [
   'kunalsaini690@gmail.com',
   'herryevence@gmail.com',
   'amitkumarpatil51@gmail.com',
-  'Sarabjeettamber97@gmail.com',
+  'sarabjeettamber97@gmail.com',
   'tarunsharma9855@gmail.com',
   'anmoldep3@gmail.com',
   'mahajansaab490@gmail.com',
@@ -624,7 +624,7 @@ const users = [
   'devesh421@outlook.com',
   'loveshgoel30@gmail.com',
   'harshkheri1998@gmail.com',
-  'avneesh.6070@gmail.Com',
+  'avneesh.6070@gmail.com',
   'mahant.radhika2000@gmail.com',
   'harshtandon.cse@gmail.com',
   'ssheetalsharda@gmail.com',
@@ -697,4 +697,4 @@ const users = [
   'navtejdhindsa57@gmail.com',
 ];
 
-module.exports = users;
+module.exports = users.map((user) => user.toLocaleLowerCase());
