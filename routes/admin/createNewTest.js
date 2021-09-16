@@ -97,7 +97,11 @@ router.post(
           .status(400)
           .json(failErrorResponse('A Test with the same name already exists'));
       }
-      test = new Test({ ...req.body, createdBy: req.user.id });
+      test = new Test({
+        ...req.body,
+        marksPerQuestions: req.body.marksPerQuestion,
+        createdBy: req.user.id,
+      });
       await test.save();
       await Event.updateOne({ _id: req.params.eventId }, { testId: test._id });
       res.json({
