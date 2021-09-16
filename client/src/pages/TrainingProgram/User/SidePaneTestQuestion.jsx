@@ -15,6 +15,8 @@ const SidePaneTestQuestion = ({
 }) => {
   let history = useHistory();
 
+  console.log("SidePanel", statusans);
+
   useEffect(() => {
     // console.log("pol");
   }, []);

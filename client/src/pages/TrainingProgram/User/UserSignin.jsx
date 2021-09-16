@@ -89,9 +89,10 @@ const UserSignin = () => {
       );
     } catch (err) {
       console.log(err.response.data);
-      console.log(err.response.data.data.message);
-      if (err.response.data && err.response.data.data.message) {
-        alert(err.response.data.data.message);
+      console.log(err);
+
+      if (err.response.data && err.response.data.message) {
+        alert(err.response.data.message);
       }
     }
   }

@@ -27,6 +27,7 @@ const TestPanel = (props) => {
   const [paper, setPaper] = useState({});
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const [testduration, settestduration] = useState();
+  const [responses, setresponses] = useState([]);
 
   const toggleFullScreen = () => {
     if (screenfull.isEnabled) {
@@ -99,6 +100,9 @@ const TestPanel = (props) => {
         console.log(res);
 
         console.log(res.data.data.paper.test.questionBank);
+
+        console.log(res.data.data.paper.responses);
+        setresponses(res.data.data.paper.responses);
 
         settestduration(res.data.data.paper.test.durationOfTest);
 
@@ -270,6 +274,9 @@ const TestPanel = (props) => {
               startedAt={paper.startedAt}
               statusans={statusans}
               setstatusans={setstatusans}
+              questions={questions}
+              id={props.match.params.id}
+              testduration={testduration}
             />
           </div>
           <div className="container-fluid mt-4">
@@ -279,6 +286,10 @@ const TestPanel = (props) => {
                 onAnswer={onAnswer}
                 question={questions[currentQuestion - 1]}
                 paperId={paper._id}
+                statusans={statusans}
+                setstatusans={setstatusans}
+                id={props.match.params.id}
+                questionlength={questions}
               />
               {/* <Question
                 onAnswer={onAnswer}
@@ -359,6 +370,10 @@ const TestPanel = (props) => {
                       onAnswer={onAnswer}
                       question={questions[currentQuestion - 1]}
                       paperId={paper._id}
+                      statusans={statusans}
+                      setstatusans={setstatusans}
+                      id={props.match.params.id}
+                      questionlength={questions}
                     />
                     {/* <Question
                       onAnswer={onAnswer}

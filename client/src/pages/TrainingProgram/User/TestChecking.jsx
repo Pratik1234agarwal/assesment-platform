@@ -45,38 +45,38 @@ const TestChecking = (stp) => {
           <button
             className="btn btn-info mt-3"
             onClick={() => {
-              if (
-                new Date(stp.startTime) <= Date.now() &&
-                new Date(stp.endTime) >= Date.now()
-              ) {
-                console.log(new Date(stp.startTime));
-                console.log(Date.now());
-                if (!stp.testId) {
-                } else {
-                  history.push("/testinstructions/" + stp.testId._id);
-                }
+              // if (
+              //   new Date(stp.startTime) <= Date.now() &&
+              //   new Date(stp.endTime) >= Date.now()
+              // ) {
+              //   console.log(new Date(stp.startTime));
+              //   console.log(Date.now());
+              if (!stp.testId) {
               } else {
-                console.log("not available");
-                console.log(new Date(stp.startTime).getTime());
-                console.log(new Date(stp.startTime) <= Date.now());
-                console.log(new Date(stp.endTime) >= Date.now());
-                swal(
-                  {
-                    title: "Test is not available",
-                    text: "Give test on mentioned date & time only",
-                    type: "error",
-                    confirmButtonColor: "#0E3B7D",
-                    confirmButtonText: "Ok",
-                    closeOnConfirm: TextTrackCue,
-                    customClass: "Custom_Cancel",
-                  },
-                  function (isConfirm) {
-                    if (isConfirm) {
-                    } else {
-                    }
-                  }
-                );
+                history.push("/testinstructions/" + stp.testId._id);
               }
+              // } else {
+              //   console.log("not available");
+              //   console.log(new Date(stp.startTime).getTime());
+              //   console.log(new Date(stp.startTime) <= Date.now());
+              //   console.log(new Date(stp.endTime) >= Date.now());
+              //   swal(
+              //     {
+              //       title: "Test is not available",
+              //       text: "Give test on mentioned date & time only",
+              //       type: "error",
+              //       confirmButtonColor: "#0E3B7D",
+              //       confirmButtonText: "Ok",
+              //       closeOnConfirm: TextTrackCue,
+              //       customClass: "Custom_Cancel",
+              //     },
+              //     function (isConfirm) {
+              //       if (isConfirm) {
+              //       } else {
+              //       }
+              //     }
+              //   );
+              // }
             }}
           >
             Start Test

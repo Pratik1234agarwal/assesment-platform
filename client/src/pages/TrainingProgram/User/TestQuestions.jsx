@@ -1,7 +1,16 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
 
-const TestQuestions = ({ question, onAnswer, paperId }) => {
+const TestQuestions = ({
+  question,
+  onAnswer,
+  paperId,
+  statusans,
+  setstatusans,
+  id,
+  questionlength,
+}) => {
+  console.log("testquestion", question);
   let height = "240px",
     qheight = "320px",
     qwidth = "250px",
@@ -21,17 +30,32 @@ const TestQuestions = ({ question, onAnswer, paperId }) => {
       b.current.checked = false;
       c.current.checked = false;
       d.current.checked = false;
-      if (question.answer === "A") {
-        a.current.checked = true;
-      } else if (question.answer === "B") {
-        b.current.checked = true;
-      } else if (question.answer === "C") {
-        c.current.checked = true;
-      } else if (question.answer === "D") {
-        d.current.checked = true;
+      // if (question.answer === "A") {
+      //   a.current.checked = true;
+      // } else if (question.answer === "B") {
+      //   b.current.checked = true;
+      // } else if (question.answer === "C") {
+      //   c.current.checked = true;
+      // } else if (question.answer === "D") {
+      //   d.current.checked = true;
+      // }
+      if (statusans.length != 0) {
+        for (let j = 0; j < statusans.length; j++) {
+          if (question._id === statusans[j].questionId) {
+            if (statusans[j].answer === "A") {
+              a.current.checked = true;
+            } else if (statusans[j].answer === "B") {
+              b.current.checked = true;
+            } else if (statusans[j].answer === "C") {
+              c.current.checked = true;
+            } else if (statusans[j].answer === "D") {
+              d.current.checked = true;
+            }
+          }
+        }
       }
     }
-  }, [question]);
+  }, [statusans]);
 
   const onChange = async (e) => {
     console.log(e.target.value);

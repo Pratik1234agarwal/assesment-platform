@@ -102,7 +102,7 @@ function App() {
         <Route path="/testresult/:id" component={ResultWithQuestions} />
 
         {/* //////////// Training Programs User Route ///////////////// */}
-        {/* <Route path="/studentsignup" component={UserSignup} /> */}
+        <Route path="/studentsignup" component={UserSignup} />
         <Route path="/alltest" component={AllTest} />
         {/* //////////// Training Programs User Test Route ///////////////// */}
         <Route path="/testinstructions/:id" component={TestInstructions} />
