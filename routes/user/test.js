@@ -279,19 +279,41 @@ router.post(
       if (flag === 0) {
         return res.status(400).json(failErrorResponse('Invalid Question Id'));
       }
-
-      await Paper.updateOne(
-        { _id: paper._id },
-        {
-          $push: {
-            responses: {
-              questionId: req.params.questionId,
-              status: 'answered',
-              answer: req.body.answer,
+      let temp = 0;
+      for (let i = 0; i < paper.responses.length; i++) {
+        if (
+          paper.responses[i].questionId.toString() ===
+          req.params.questionId.toString()
+        ) {
+          await Paper.updateOne(
+            {
+              _id: paper._id,
+              'responses.questionId': req.params.questionId,
             },
-          },
+            {
+              $set: {
+                answer: req.params.answer,
+              },
+            }
+          );
+          console.log('Here');
+          temp = 1;
         }
-      );
+      }
+      if (temp === 0) {
+        await Paper.updateOne(
+          { _id: paper._id },
+          {
+            $push: {
+              responses: {
+                questionId: req.params.questionId,
+                status: 'answered',
+                answer: req.body.answer,
+              },
+            },
+          }
+        );
+      }
 
       return res.json({
         status: 'success',

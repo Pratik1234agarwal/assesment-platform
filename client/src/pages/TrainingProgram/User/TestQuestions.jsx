@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import axios from "axios";
+import React, { useState, useRef } from 'react';
+import axios from 'axios';
 
 const TestQuestions = ({
   question,
@@ -10,11 +10,11 @@ const TestQuestions = ({
   id,
   questionlength,
 }) => {
-  console.log("testquestion", question);
-  let height = "240px",
-    qheight = "320px",
-    qwidth = "250px",
-    width = "180px";
+  console.log('testquestion', question);
+  let height = '240px',
+    qheight = '320px',
+    qwidth = '250px',
+    width = '180px';
   const a = useRef(null);
   const b = useRef(null);
   const c = useRef(null);
@@ -39,16 +39,16 @@ const TestQuestions = ({
       // } else if (question.answer === "D") {
       //   d.current.checked = true;
       // }
-      if (statusans.length != 0) {
+      if (statusans.length !== 0) {
         for (let j = 0; j < statusans.length; j++) {
           if (question._id === statusans[j].questionId) {
-            if (statusans[j].answer === "A") {
+            if (statusans[j].answer === 'A') {
               a.current.checked = true;
-            } else if (statusans[j].answer === "B") {
+            } else if (statusans[j].answer === 'B') {
               b.current.checked = true;
-            } else if (statusans[j].answer === "C") {
+            } else if (statusans[j].answer === 'C') {
               c.current.checked = true;
-            } else if (statusans[j].answer === "D") {
+            } else if (statusans[j].answer === 'D') {
               d.current.checked = true;
             }
           }
@@ -62,13 +62,13 @@ const TestQuestions = ({
     console.log(question._id);
     try {
       const res = await axios.post(
-        "/api/v1/test/" + paperId + "/" + question._id,
+        '/api/v1/test/' + paperId + '/' + question._id,
         {
           answer: e.target.value,
         },
         {
           headers: {
-            Authorization: `studtoken ${localStorage.getItem("studtoken")}`,
+            Authorization: `studtoken ${localStorage.getItem('studtoken')}`,
           },
         }
       );
@@ -99,7 +99,7 @@ const TestQuestions = ({
                   <img
                     src={question.questionImage}
                     height={qheight}
-                    width={"auto"}
+                    width={'auto'}
                     className=" img-fluid zoom"
                   />
                 )}
@@ -126,11 +126,11 @@ const TestQuestions = ({
                     <h5> {question.A.text} </h5>
                   </label>
                   <br />
-                  {question.A.imageUrl != "" && (
+                  {question.A.imageUrl != '' && (
                     <img
                       src={question.A.imageUrl}
                       height={height}
-                      width={"auto"}
+                      width={'auto'}
                       className="ml-3 img-fluid"
                     />
                   )}
@@ -149,11 +149,11 @@ const TestQuestions = ({
                     <h5>{question.B.text}</h5>
                   </label>
                   <br />
-                  {question.B.imageUrl != "" && (
+                  {question.B.imageUrl != '' && (
                     <img
                       src={question.B.imageUrl}
                       height={height}
-                      width={"auto"}
+                      width={'auto'}
                       className="ml-3 img-fluid"
                     />
                   )}
@@ -176,11 +176,11 @@ const TestQuestions = ({
                     <h5>{question.C.text}</h5>
                   </label>
                   <br />
-                  {question.C.imageUrl != "" && (
+                  {question.C.imageUrl != '' && (
                     <img
                       src={question.C.imageUrl}
                       height={height}
-                      width={"auto"}
+                      width={'auto'}
                       className="ml-3 img-fluid"
                     />
                   )}
@@ -200,11 +200,11 @@ const TestQuestions = ({
                     <h5> {question.D.text} </h5>
                   </label>
                   <br />
-                  {question.D.imageUrl != "" && (
+                  {question.D.imageUrl != '' && (
                     <img
                       src={question.D.imageUrl}
                       height={height}
-                      width={"auto"}
+                      width={'auto'}
                       className="ml-3 img-fluid"
                     />
                   )}
