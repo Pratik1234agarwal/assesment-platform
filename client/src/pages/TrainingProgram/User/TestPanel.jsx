@@ -251,6 +251,7 @@ const TestPanel = (props) => {
         </button>
       </div>
 
+      {/* for mobile */}
       <div className="d-block d-sm-none">
         <div className="container-fluid   fix bg-white">
           <div className="row pt-2">
@@ -269,7 +270,7 @@ const TestPanel = (props) => {
           </div>
 
           <div className="mt-3">
-            <SidePane
+            <SidePaneTestQuestion
               setCurrentQuestion={setCurrentQuestion}
               startedAt={paper.startedAt}
               statusans={statusans}
@@ -319,7 +320,7 @@ const TestPanel = (props) => {
               <button
                 type="button"
                 class="btn sub  text-white "
-                // onClick={onSubmit}
+                onClick={onSubmit}
               >
                 Submit Test
               </button>

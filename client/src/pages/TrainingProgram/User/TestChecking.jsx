@@ -37,66 +37,65 @@ const TestChecking = (stp) => {
     if (!stp.testId) {
       return <>Test Not Available</>;
     } else {
-      //   history.push("/testinstructions/" + stp.testId._id);
-      console.log(stp.testId._id);
-      testc(stp.testId._id);
-      if (testgiven == 0) {
-        return (
-          <button
-            className="btn btn-info mt-3"
-            onClick={() => {
-              // if (
-              //   new Date(stp.startTime) <= Date.now() &&
-              //   new Date(stp.endTime) >= Date.now()
-              // ) {
-              //   console.log(new Date(stp.startTime));
-              //   console.log(Date.now());
+      console.log(stp.testId);
+      // testc(stp.testId);
+      // if (testgiven == 0) {
+      return (
+        <button
+          className="btn btn-info mt-3"
+          onClick={() => {
+            if (
+              new Date(stp.startTime) <= Date.now() &&
+              new Date(stp.endTime) >= Date.now()
+            ) {
+              console.log(new Date(stp.startTime));
+              console.log(Date.now());
               if (!stp.testId) {
               } else {
-                history.push("/testinstructions/" + stp.testId._id);
+                history.push("/testinstructions/" + stp.testId);
               }
-              // } else {
-              //   console.log("not available");
-              //   console.log(new Date(stp.startTime).getTime());
-              //   console.log(new Date(stp.startTime) <= Date.now());
-              //   console.log(new Date(stp.endTime) >= Date.now());
-              //   swal(
-              //     {
-              //       title: "Test is not available",
-              //       text: "Give test on mentioned date & time only",
-              //       type: "error",
-              //       confirmButtonColor: "#0E3B7D",
-              //       confirmButtonText: "Ok",
-              //       closeOnConfirm: TextTrackCue,
-              //       customClass: "Custom_Cancel",
-              //     },
-              //     function (isConfirm) {
-              //       if (isConfirm) {
-              //       } else {
-              //       }
-              //     }
-              //   );
-              // }
-            }}
-          >
-            Start Test
-          </button>
-        );
-      } else {
-        return (
-          <button
-            className="btn btn-danger mt-3 ml-3"
-            onClick={() => {
-              if (!stp.testId) {
-              } else {
-                history.push("/testresult/" + stp.testId._id);
-              }
-            }}
-          >
-            View Result
-          </button>
-        );
-      }
+            } else {
+              console.log("not available");
+              console.log(new Date(stp.startTime).getTime());
+              console.log(new Date(stp.startTime) <= Date.now());
+              console.log(new Date(stp.endTime) >= Date.now());
+              swal(
+                {
+                  title: "Test is not available",
+                  text: "Give test on mentioned date & time only",
+                  type: "error",
+                  confirmButtonColor: "#0E3B7D",
+                  confirmButtonText: "Ok",
+                  closeOnConfirm: TextTrackCue,
+                  customClass: "Custom_Cancel",
+                },
+                function (isConfirm) {
+                  if (isConfirm) {
+                  } else {
+                  }
+                }
+              );
+            }
+          }}
+        >
+          Start Test
+        </button>
+      );
+      // } else {
+      //   return (
+      //     <button
+      //       className="btn btn-danger mt-3 ml-3"
+      //       onClick={() => {
+      //         if (!stp.testId) {
+      //         } else {
+      //           history.push("/testresult/" + stp.testId._id);
+      //         }
+      //       }}
+      //     >
+      //       View Result
+      //     </button>
+      //   );
+      // }
     }
   }
   console.log("testid");
