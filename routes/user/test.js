@@ -20,6 +20,10 @@ router.get('/subtopics', auth, async (req, res) => {
   try {
     const topics = await Subtopic.find().populate({
       path: 'events',
+      populate: {
+        path: 'testId',
+        select: 'durationOfTest',
+      },
     });
     return res.json({
       status: 'success',
