@@ -143,7 +143,7 @@ const UserSignin = () => {
         <img src={logos} />
       </div>
       <h3 className="mt-4 d-block d-sm-none ">Student SignIn</h3>
-      <h6 className="text-center bg-light pt-3 pb-3 d-block d-sm-none">
+      {/* <h6 className="text-center bg-light pt-3 pb-3 d-block d-sm-none">
         Don't have an account... <br />
         <button
           className="but mt-2"
@@ -153,11 +153,11 @@ const UserSignin = () => {
         >
           Sign Up
         </button>
-      </h6>
+      </h6> */}
       <div>
         {/* //// */}
         <form className="form d-block d-sm-none" onSubmit={signIn}>
-          <h2>Sign In</h2>
+          <h2 className="mt-3">Sign In</h2>
           <p>Enter Your Details</p>
           {/* <div class="social-container">
                 <a href="#" class="social">

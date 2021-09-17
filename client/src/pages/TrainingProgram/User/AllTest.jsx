@@ -13,13 +13,13 @@ import NewModule from "./NewModule";
 
 const AllTest = () => {
   let history = useHistory();
-  const [events, setevents] = useState([]);
+  // const [events, setevents] = useState([]);
 
-  function SubEvent(id) {
+  function SubEvent(events) {
     console.log("hey");
     return (
       <>
-        <NewModule id={id} />
+        <NewModule events={events} />
       </>
     );
   }
@@ -252,12 +252,7 @@ const AllTest = () => {
         </div>
       </div>
 
-      <div
-        className="pt-3 container"
-        // data-toggle="tooltip"
-        // title="Hooray!"
-        // data-placement="right"
-      >
+      <div className="pt-3 container">
         <div className="row">
           <div className="col">
             All Modules {"("}
@@ -266,87 +261,6 @@ const AllTest = () => {
           </div>
         </div>
       </div>
-
-      {/* <div className="container-fluid d-none d-sm-block pb-5 ">
-        <div className="pt-3 container">
-          All Modules {"("}
-          {subtopicname && subtopicname.length}
-          {")"}
-        </div>
-        <div className="row d-flex justify-content-center">
-          {subtopicname &&
-            subtopicname.map((stp, index) => (
-              <>
-                <div
-                  class="card mt-4  shadow  w-25 m-2"
-                  style={{
-                    border: "2px solid white",
-                    borderRadius: "20px",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => {
-                    history.push("/moduletest/" + stp._id);
-                  }}
-                >
-                  <div class="position-absolute badge badge-secondary  px-2 m-2">
-                    Module - {index + 1}
-                  </div>
-                  <div class="card-body ">
-                    <br />
-                    <h5
-                      class="card-title bg-primary  text-white px-2 py-2"
-                      style={{ border: "2px solid ", borderRadius: "20px" }}
-                    >
-                      {stp.name}
-                    </h5>
-
-                    <h6 class="card-text px-2 mb-3 text-danger">
-                      0/{stp.events.length} Test Completed
-                    </h6>
-                  </div>
-                </div>
-              </>
-            ))}
-        </div>
-      </div> */}
-
-      {/* for mobile */}
-
-      {/* <div className="container-fluid d-block d-sm-none mb-5">
-        <div className="row d-flex justify-content-center">
-          {subtopicname &&
-            subtopicname.map((stp, index) => (
-              <div
-                class="card mt-4  shadow w-100 m-2"
-                style={{
-                  border: "2px solid white",
-                  borderRadius: "20px",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  history.push("/ModulesTest/" + stp._id);
-                }}
-              >
-                <div class="position-absolute badge badge-secondary  px-2 m-2">
-                  Module - {index + 1}
-                </div>
-                <div class="card-body ">
-                  <br />
-                  <h5
-                    class="card-title bg-primary  text-white px-2 py-2"
-                    style={{ border: "2px solid ", borderRadius: "20px" }}
-                  >
-                    {stp.name}
-                  </h5>
-
-                  <h6 class="card-text px-2 mb-3 text-danger">
-                    Test Added : {stp.events.length}
-                  </h6>
-                </div>
-              </div>
-            ))}
-        </div>
-      </div> */}
 
       <div className="pt-3 pb-4 mb-5 rounded bg-white container ">
         {subtopicname &&
@@ -360,7 +274,7 @@ const AllTest = () => {
                     content: (
                       <>
                         {/* {stp._id} */}
-                        {SubEvent(stp._id)}
+                        {SubEvent(stp.events)}
                       </>
                     ),
                   },
