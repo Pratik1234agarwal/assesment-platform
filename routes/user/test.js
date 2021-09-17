@@ -40,7 +40,7 @@ router.get('/subtopics', auth, async (req, res) => {
 
 router.get('/completed', auth, async (req, res) => {
   try {
-    const paper = await Paper.find({ user: req.user.id });
+    const paper = await Paper.find({ user: req.user.id }).select('testId');
     const test = await Test.find();
     return res.json({
       status: 'success',
@@ -48,6 +48,7 @@ router.get('/completed', auth, async (req, res) => {
         totalAttempted: paper.length,
         totalTest: test.length,
         precentageCompleted: paper.length / test.length,
+        paper,
       },
     });
   } catch (err) {
@@ -176,7 +177,7 @@ router.get('/result/:testId', auth, async (req, res) => {
 router.get('/resultAll', auth, async (req, res) => {
   try {
     const paper = await Paper.find({ user: req.user.id }).select('marks test');
-    return res.json({ status: 'sucess', data: { paper } });
+    return res.json({ status: 'success', data: { paper } });
   } catch (err) {
     console.log(err);
     return res.status(500).json(serverErrorResponse());
