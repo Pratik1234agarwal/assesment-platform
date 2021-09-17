@@ -13,7 +13,6 @@ import NewModule from "./NewModule";
 
 const AllTest = () => {
   let history = useHistory();
-  // const [events, setevents] = useState([]);
 
   function SubEvent(events) {
     console.log("hey");
@@ -47,21 +46,9 @@ const AllTest = () => {
     // tabFocus: true,
   };
 
-  const [test, settest] = useState([]);
   const [username, setusername] = useState([]);
 
   const [subtopicname, setsubtopicname] = useState([]);
-  const [subtopic, setsubtopic] = useState("");
-
-  function userHome() {
-    history.push("/userdashboard");
-  }
-
-  const badage = (index) => {
-    if (index == 0) {
-      return <div class="position-absolute badge badge-danger m-2">New</div>;
-    }
-  };
 
   const getExpirationDate = (jwtToken) => {
     if (!jwtToken) {
@@ -140,25 +127,6 @@ const AllTest = () => {
     }
   }, []);
 
-  function timed(lp) {
-    var date = new Date(lp);
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    var ampm = hours >= 12 ? "pm" : "am";
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    var strTime = hours + ":" + minutes + " " + ampm;
-    return date.toString().slice(4, 16) + strTime;
-  }
-
-  const timedline = (lp) => {
-    var utcDate = new Date(lp);
-
-    console.log(utcDate.toString());
-    return utcDate.toString().slice(4, 16);
-  };
-
   function profile() {
     axios
       .get("/api/v1/auth", {
@@ -205,7 +173,6 @@ const AllTest = () => {
           </div>
           <div className="col-4 text-center">
             <h4 className="pt-3 pl-5">Student Dashboard</h4>
-            {/* <Cameraweb /> */}
           </div>
           <div className="col float-right">
             <div className="row pt-2">
@@ -271,12 +238,7 @@ const AllTest = () => {
                 rows: [
                   {
                     title: "Module " + (index + 1) + " : " + stp.name,
-                    content: (
-                      <>
-                        {/* {stp._id} */}
-                        {SubEvent(stp.events)}
-                      </>
-                    ),
+                    content: <>{SubEvent(stp.events)}</>,
                   },
                 ],
               }}

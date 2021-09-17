@@ -52,7 +52,7 @@ const TestChecking = (stp) => {
               console.log(Date.now());
               if (!stp.testId) {
               } else {
-                history.push("/testinstructions/" + stp.testId);
+                history.push("/testinstructions/" + stp.testId._id);
               }
             } else {
               console.log("not available");

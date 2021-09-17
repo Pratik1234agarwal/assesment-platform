@@ -68,7 +68,7 @@ const UserSignin = () => {
 
     try {
       const res = await axios.post("/api/v1/auth/login", items);
-      console.log(res);
+      // console.log(res);
       localStorage.setItem("studtoken", res.data.data.token);
       swal(
         {
@@ -84,6 +84,7 @@ const UserSignin = () => {
           if (isConfirm) {
             history.push("/alltest");
           } else {
+            history.push("/alltest");
           }
         }
       );
