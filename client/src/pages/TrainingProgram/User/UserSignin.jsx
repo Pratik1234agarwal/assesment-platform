@@ -93,7 +93,25 @@ const UserSignin = () => {
       console.log(err);
 
       if (err.response.data && err.response.data.message) {
-        alert(err.response.data.message);
+        // alert(err.response.data.message);
+        swal(
+          {
+            title: err.response.data.message,
+            text: "",
+            type: "warning",
+            confirmButtonColor: "#0E3B7D",
+            confirmButtonText: "Ok",
+            closeOnConfirm: true,
+            customClass: "Custom_Cancel",
+          },
+          function (isConfirm) {
+            if (isConfirm) {
+              window.location.reload();
+            } else {
+              window.location.reload();
+            }
+          }
+        );
       }
     }
   }

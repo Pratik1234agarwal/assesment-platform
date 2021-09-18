@@ -14,11 +14,16 @@ import NewModule from "./NewModule";
 const AllTest = () => {
   let history = useHistory();
 
+  const [username, setusername] = useState([]);
+
+  const [subtopicname, setsubtopicname] = useState([]);
+  const [result, setresult] = useState([]);
+
   function SubEvent(events) {
     console.log("hey");
     return (
       <>
-        <NewModule events={events} />
+        <NewModule events={events} result={result} />
       </>
     );
   }
@@ -45,10 +50,6 @@ const AllTest = () => {
     // arrowIcon: "V",
     // tabFocus: true,
   };
-
-  const [username, setusername] = useState([]);
-
-  const [subtopicname, setsubtopicname] = useState([]);
 
   const getExpirationDate = (jwtToken) => {
     if (!jwtToken) {
@@ -114,8 +115,12 @@ const AllTest = () => {
         };
         try {
           const res = await axios.get("/api/v1/test/subtopics", config);
+          const res1 = await axios.get("/api/v1/test/resultAll", config);
           console.log(res);
+          console.log(res1);
           setsubtopicname(res.data.data.subtopics);
+          setresult(res1.data.data.paper);
+          // console.log(res1.data.data.paper);
         } catch (err) {
           if (err.response && err.response.data) {
             alert(err.response.data.message);
