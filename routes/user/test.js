@@ -290,17 +290,21 @@ router.post(
           paper.responses[i].questionId.toString() ===
           req.params.questionId.toString()
         ) {
-          await Paper.updateOne(
-            {
-              _id: paper._id,
-              'responses.questionId': req.params.questionId,
-            },
-            {
-              $set: {
-                answer: req.params.answer,
-              },
-            }
-          );
+          // await Paper.updateOne(
+          //   {
+          //     _id: paper._id,
+          //   },
+          //   {
+          //     $push: {
+          //       'responses.$[outer]': { answer: req.body.answer },
+          //     },
+          //   },
+          //   {
+          //     arrayFilters: [{ 'outer.questionId': req.params.questionId }],
+          //   }
+          // );
+          paper.responses[i].answer = req.body.answer;
+          await paper.save();
           console.log('Here');
           temp = 1;
         }
