@@ -65,7 +65,7 @@ const L2NewModule = ({ id }) => {
                         <h5>Quiz No : {index + 1}</h5>
                       </p>
                     </div>
-                    <div className="col d-flex justify-content-end">
+                    <div className="col d-flex justify-content-center">
                       <p class="card-text " style={{ color: "#180D5B" }}>
                         <h6>
                           <i class="fas fa-clock"></i> : {timed(stp.startTime)}
@@ -89,6 +89,22 @@ const L2NewModule = ({ id }) => {
                         }}
                       >
                         View Result
+                      </button>
+                      <button
+                        className="btn btn-danger mt-3 ml-3"
+                        onClick={() => {
+                          if (!stp.testId) {
+                          } else {
+                            history.push(
+                              "/studentnotgiventest/" +
+                                stp.testId._id +
+                                "/" +
+                                (subtopicname && subtopicname.name)
+                            );
+                          }
+                        }}
+                      >
+                        Test Not Given
                       </button>
                     </div>
                   </div>
@@ -121,14 +137,36 @@ const L2NewModule = ({ id }) => {
                     </div>
                   </div>
                   <div className="row mb-3 px-3">
-                    <div className="col"></div>
+                    <div className="col">
+                      <button
+                        className="btn btn-danger mt-3 ml-3"
+                        onClick={() => {
+                          if (!stp.testId) {
+                          } else {
+                            history.push(
+                              "/studentnotgiventest/" +
+                                stp.testId._id +
+                                "/" +
+                                (subtopicname && subtopicname.name)
+                            );
+                          }
+                        }}
+                      >
+                        Test Not Given
+                      </button>
+                    </div>
                     <div className="col d-flex justify-content-end">
                       <button
                         className="btn btn-info mt-3"
                         onClick={() => {
                           if (!stp.testId) {
                           } else {
-                            history.push("/resulttable/" + stp.testId._id);
+                            history.push(
+                              "/resulttable/" +
+                                stp.testId._id +
+                                "/" +
+                                (subtopicname && subtopicname.name)
+                            );
                           }
                         }}
                       >

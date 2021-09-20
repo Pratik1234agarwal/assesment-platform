@@ -48,6 +48,7 @@ import AdminModules from "./pages/TrainingProgram/AdminModules";
 import L2Result from "./pages/TrainingProgram/L2Result";
 import L2ResultTable from "./pages/TrainingProgram/L2ResultTable";
 import ResultWithQuestions from "./pages/TrainingProgram/User/ResultWithQuestions";
+import ResultData from "./pages/TrainingProgram/ResultData";
 
 // axios.defaults.baseURL = "https://adsatiitropar.com";
 
@@ -113,6 +114,7 @@ function App() {
         <Route path="/detailedresult" component={DetailResult} />
         <Route path="/moduletest/:id" component={ModuleTest} />
         <Route path="/adminmodule/:id" component={AdminModules} />
+        <Route path="/studentnotgiventest/:id/:type" component={ResultData} />
       </Switch>
     </>
   );

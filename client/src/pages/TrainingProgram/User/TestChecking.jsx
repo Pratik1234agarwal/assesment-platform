@@ -16,13 +16,7 @@ const TestChecking = (props) => {
     console.log("In useffect of checking", props.result);
     {
       props.result &&
-        props.result.map((reslt, index) => (
-          <div>
-            {reslt._id}
-            <p>{reslt.marks}</p>
-            {pos(reslt.test)}
-          </div>
-        ));
+        props.result.map((reslt, index) => <div>{pos(reslt.test)}</div>);
     }
     function pos(res) {
       if (!props.stp.testId) {
@@ -85,18 +79,23 @@ const TestChecking = (props) => {
         );
       } else {
         return (
-          <i class="fas fa-check-circle fa-2x" style={{ color: "green" }}></i>
-          // <button
-          //   className="btn btn-danger mt-3 ml-3"
-          //   onClick={() => {
-          //     if (!stp.testId) {
-          //     } else {
-          //       history.push("/testresult/" + stp.testId._id);
-          //     }
-          //   }}
-          // >
-          //   View Result
-          // </button>
+          <>
+            <i
+              class="fas fa-check-circle fa-2x"
+              style={{ color: "green", marginTop: "3px" }}
+            ></i>
+            {/* <button
+              className="btn btn-danger mt-2 ml-3"
+              onClick={() => {
+                if (!stp.testId) {
+                } else {
+                  history.push("/testresult/" + stp.testId._id);
+                }
+              }}
+            >
+              View Result
+            </button> */}
+          </>
         );
       }
     }
