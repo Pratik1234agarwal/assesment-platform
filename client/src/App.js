@@ -49,6 +49,7 @@ import L2Result from "./pages/TrainingProgram/L2Result";
 import L2ResultTable from "./pages/TrainingProgram/L2ResultTable";
 import ResultWithQuestions from "./pages/TrainingProgram/User/ResultWithQuestions";
 import ResultData from "./pages/TrainingProgram/ResultData";
+import StudentDashboard from "./pages/TrainingProgram/User/StudentDashboard";
 
 // axios.defaults.baseURL = "https://adsatiitropar.com";
 
@@ -90,7 +91,6 @@ function App() {
         <Route path="/trainingadmin" component={Admin} />
         <Route path="/createbatch" component={CreateBatch} />
         <Route path="/classtimetable" component={TimeTable} />
-        <Route path="/studentdashboard" component={Users} />
         <Route path="/ModulesTest/:id" component={ModulesTest} />
         <Route path="/testdetails/:id" component={TestDetails} />
         <Route path="/addquestionstest/:id" component={AddQuestion} />
@@ -105,6 +105,7 @@ function App() {
         {/* //////////// Training Programs User Route ///////////////// */}
         {/* <Route path="/studentsignup" component={UserSignup} /> */}
         <Route path="/alltest" component={AllTest} />
+        <Route path="/studentdashboard" component={StudentDashboard} />
         {/* //////////// Training Programs User Test Route ///////////////// */}
         <Route path="/testinstructions/:id" component={TestInstructions} />
         <Route path="/test/:id" component={TestPanel} />

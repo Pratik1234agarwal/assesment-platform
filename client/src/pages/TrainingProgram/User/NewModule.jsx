@@ -42,17 +42,22 @@ const NewModule = (props) => {
                   style={{ border: "2px solid black", borderRadius: "20px" }}
                 >
                   <div class="card-body row">
-                    <div className="col ">
+                    <div className="col d-flex align-items-center">
                       <p class="card-text ">
                         <h5>Quiz No : {index + 1}</h5>
                       </p>
                     </div>
-                    <div className="col d-flex justify-content-end">
-                      <p class="card-text " style={{ color: "#180D5B" }}>
-                        <h6>
-                          <i class="fas fa-clock"></i> : {timed(stp.startTime)}
-                        </h6>
-                      </p>
+                    <div className="col d-flex align-items-center">
+                      <div>
+                        <i class="fas fa-clock"></i> : {timed(stp.startTime)}
+                        {/* <span className="text-grey h6">
+                          Start Time : {timed(stp.startTime)}
+                        </span>
+                        <br />
+                        <span className="text-danger h6">
+                          End Time : {timed(stp.endTime)}
+                        </span> */}
+                      </div>
                     </div>
                     <div
                       className="col d-flex align-items-center justify-content-end"

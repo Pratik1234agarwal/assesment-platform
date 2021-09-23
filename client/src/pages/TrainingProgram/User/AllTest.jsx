@@ -155,19 +155,23 @@ const AllTest = () => {
           </div>
           <div className="col text-right">
             <div className=" pt-2">
-              <i class="text-right fas fa-user-circle fa-3x"></i>
-              <div className=" text-right pt-2"> {username}</div>
-              <div
-                onClick={logout}
-                style={{ cursor: "pointer", color: "blue" }}
-              >
-                Logout
+              <div className=" text-right ">
+                <i class="fas fa-arrow-circle-left fa-3x"></i>
+                <div
+                  onClick={() => {
+                    history.push("/studentdashboard");
+                  }}
+                  className="mr-2"
+                  style={{ cursor: "pointer", color: "blue" }}
+                >
+                  Back
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div className="container text-center">
-          <h4 className="pt-3">Student Dashboard</h4>
+          <h4 className="pt-3">Modulewise Quizes</h4>
         </div>
       </div>
 
@@ -177,11 +181,22 @@ const AllTest = () => {
             <img src={logo1} />
           </div>
           <div className="col-4 text-center">
-            <h4 className="pt-3 pl-5">Student Dashboard</h4>
+            <h4 className="pt-3 pl-5">Modulewise Quizes</h4>
           </div>
           <div className="col float-right">
             <div className="row pt-2">
-              <div className="col text-right pt-2"> {username}</div>
+              <div className="col text-right ">
+                <i class="fas fa-arrow-circle-left fa-3x"></i>
+                <div
+                  onClick={() => {
+                    history.push("/studentdashboard");
+                  }}
+                  className="mr-2"
+                  style={{ cursor: "pointer", color: "blue" }}
+                >
+                  Back
+                </div>
+              </div>
               <div className="col-2 text-right">
                 <i class="fas fa-user-circle fa-3x"></i>
                 <div

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory, Link } from "react-router-dom";
 import { useAlert } from "react-alert";
@@ -82,9 +82,9 @@ const UserSignin = () => {
         },
         function (isConfirm) {
           if (isConfirm) {
-            history.push("/alltest");
+            history.push("/studentdashboard");
           } else {
-            history.push("/alltest");
+            history.push("/studentdashboard");
           }
         }
       );
@@ -98,7 +98,7 @@ const UserSignin = () => {
           {
             title: err.response.data.message,
             text: "",
-            type: "warning",
+            type: "error",
             confirmButtonColor: "#0E3B7D",
             confirmButtonText: "Ok",
             closeOnConfirm: true,
@@ -106,15 +106,44 @@ const UserSignin = () => {
           },
           function (isConfirm) {
             if (isConfirm) {
-              window.location.reload();
+              setPasswords("");
+              setEmails("");
             } else {
-              window.location.reload();
+              setPasswords("");
+              setEmails("");
+            }
+          }
+        );
+      } else {
+        setPasswords("");
+        swal(
+          {
+            title: "Incorrect Password",
+            text: "",
+            type: "error",
+            confirmButtonColor: "#0E3B7D",
+            confirmButtonText: "Ok",
+            closeOnConfirm: true,
+            customClass: "Custom_Cancel",
+          },
+          function (isConfirm) {
+            if (isConfirm) {
+              setPasswords("");
+            } else {
+              setPasswords("");
             }
           }
         );
       }
     }
   }
+
+  useEffect(() => {
+    if (localStorage.getItem("studtoken")) {
+      history.push("/studentdashboard");
+    } else {
+    }
+  });
 
   return (
     <>

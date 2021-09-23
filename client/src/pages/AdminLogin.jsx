@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./AdminLogin.css";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import "sweetalert/dist/sweetalert.css";
+import swal from "sweetalert";
 
 import logo1 from "../images/logo.png";
 const AdminLogin = () => {
@@ -25,12 +27,44 @@ const AdminLogin = () => {
       .then((res) => {
         console.log(res);
         localStorage.setItem("Admin", res.data.data.token);
-        alert("Signin Complete");
-        history.push("/adminroutes");
+        swal(
+          {
+            title: "SignIn Complete",
+            text: "",
+            type: "success",
+            confirmButtonColor: "#0E3B7D",
+            confirmButtonText: "Ok",
+            closeOnConfirm: true,
+            customClass: "Custom_Cancel",
+          },
+          function (isConfirm) {
+            if (isConfirm) {
+              history.push("/adminroutes");
+            } else {
+              history.push("/adminroutes");
+            }
+          }
+        );
       })
       .catch((err) => {
-        // console.log(err.response.data.message),
-        alert(err.response.data.message);
+        swal(
+          {
+            title: err.response.data.message,
+            text: "",
+            type: "warning",
+            confirmButtonColor: "#0E3B7D",
+            confirmButtonText: "Ok",
+            closeOnConfirm: true,
+            customClass: "Custom_Cancel",
+          },
+          function (isConfirm) {
+            if (isConfirm) {
+              window.location.reload();
+            } else {
+              window.location.reload();
+            }
+          }
+        );
       });
   }
   return (
