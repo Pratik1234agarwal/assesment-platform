@@ -760,6 +760,7 @@ const users = [
   'amayavasthi12@gmail.com',
   'ssharanyab@gmail.com',
   'vishaw1729@gmail.com',
+  'pratik1234agarwal@gmail.com'
 ];
 
 module.exports = users.map((user) => user.toLocaleLowerCase());
