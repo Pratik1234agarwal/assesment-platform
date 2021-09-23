@@ -33,8 +33,11 @@ router.get('/', auth, async (req, res) => {
         currentDate.getDate() === date.getDate() &&
         date.getMonth() === currentDate.getMonth()
       ) {
+        console.log('Attendace already marked for the day');
       } else {
         attendance = new Attendance({ user: id });
+        await attendance.save();
+        console.log('New Attendance Created');
       }
     }
 

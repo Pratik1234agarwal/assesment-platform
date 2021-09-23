@@ -4,6 +4,7 @@ const AttendanceShema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
+    unique: false,
     required: true,
   },
   date: {
