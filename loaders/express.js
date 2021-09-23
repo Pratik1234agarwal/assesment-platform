@@ -22,6 +22,7 @@ module.exports = async ({ app }) => {
 
   app.use('/api/v1/auth', require('../routes/auth/auth'));
   app.use('/api/v1/dsat', require('../routes/DSAT/exam'));
+  app.use('/api/v1/attendance', require('../routes/user/attendance'));
   app.use('/api/v1/result', require('../routes/DSAT/result'));
   app.use('/api/v1/admin', require('../routes/admin/adminAuth'));
   app.use('/api/v1/test', require('../routes/user/test'));
