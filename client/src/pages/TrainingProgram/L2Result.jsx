@@ -10,9 +10,20 @@ import Avatar from "react-avatar";
 import Faq from "react-faq-component";
 import NewModule from "./User/NewModule";
 import L2NewModule from "./User/L2NewModule";
+import exportFromJSON from "export-from-json";
 
 const L2Result = () => {
   let history = useHistory();
+
+  const [subtopicname, setsubtopicname] = useState([]);
+  const [studentstestdetails, setstudentstestdetails] = useState("");
+
+  const fileName = "Students_Data_with_Quizes";
+  const exportType = exportFromJSON.types.csv;
+
+  const ExportToExcel = () => {
+    exportFromJSON({ data: studentstestdetails, fileName, exportType });
+  };
 
   function SubEvent(id) {
     console.log("hey");
@@ -45,12 +56,6 @@ const L2Result = () => {
     // arrowIcon: "V",
     // tabFocus: true,
   };
-
-  const [test, settest] = useState([]);
-  const [username, setusername] = useState([]);
-
-  const [subtopicname, setsubtopicname] = useState([]);
-  const [subtopic, setsubtopic] = useState("");
 
   function userHome() {
     history.push("/userdashboard");
@@ -123,7 +128,13 @@ const L2Result = () => {
       };
       try {
         const res = await axios.get("/api/v1/admin/course/subtopic", config);
+        const res1 = await axios.get(
+          "/api/v1/admin/excelData/testAlldetails",
+          config
+        );
         console.log(res);
+        console.log(res1);
+        setstudentstestdetails(res1.data.data.data);
         setsubtopicname(res.data.data.subtopics);
       } catch (err) {
         if (err.response && err.response.data) {
@@ -238,6 +249,37 @@ const L2Result = () => {
                   height="190px"
                   width="290px"
                 />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="pt-3 container">
+        <div className="row">
+          <div className="col">Students Quizes Data :-</div>
+        </div>
+      </div>
+
+      <div className="pt-3 container">
+        <div
+          class="card w-100 shadow"
+          style={{
+            backgroundColor: "#180D5B",
+            color: "white",
+            border: "2px solid #180D5B",
+            borderRadius: "10px",
+          }}
+        >
+          <div class="card-body">
+            <div className="row">
+              <div className="col-12 col-lg-6 col-md-6 d-flex align-content-center h6">
+                All Students Data with Quizes [ Given or Not Given ]
+              </div>
+              <div className="col-12 col-lg-6 col-md-6 d-flex justify-content-lg-end justify-content-md-end align-content-center">
+                <button className="btn btn-danger" onClick={ExportToExcel}>
+                  Download Excel
+                </button>
               </div>
             </div>
           </div>
