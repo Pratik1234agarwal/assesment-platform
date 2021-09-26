@@ -1,30 +1,30 @@
-const express = require('express');
-const User = require('../../models/User');
-const { check, validationResult } = require('express-validator');
-const jwt = require('jsonwebtoken');
+const express = require("express");
+const User = require("../../models/User");
+const { check, validationResult } = require("express-validator");
+const jwt = require("jsonwebtoken");
 const router = express.Router();
-const config = require('config');
-const auth = require('../../middleware/auth');
+const config = require("config");
+const auth = require("../../middleware/auth");
 const {
   serverErrorResponse,
   failErrorResponse,
-} = require('../../helpers/responseHandles');
-const resetPassword = require('./resetPassword');
-const sendMailAfterRegistration = require('../../Nodemailer/mailTemplates/mailSendOnRegistration');
-const users = require('../../helpers/emailArray');
+} = require("../../helpers/responseHandles");
+const resetPassword = require("./resetPassword");
+const sendMailAfterRegistration = require("../../Nodemailer/mailTemplates/mailSendOnRegistration");
+const users = require("../../helpers/emailArray");
 
 // Routes for reset password
-router.use('/reset', resetPassword);
+router.use("/reset", resetPassword);
 
 // Authentication Routes
-router.get('/', auth, async (req, res) => {
+router.get("/", auth, async (req, res) => {
   try {
     console.log(req.user);
-    const user = await User.findById(req.user.id).select('-googleId');
+    const user = await User.findById(req.user.id).select("-googleId");
     if (!user) {
-      return res.status(400).json(failErrorResponse('No such user found'));
+      return res.status(400).json(failErrorResponse("No such user found"));
     }
-    res.json({ status: 'success', data: { user } });
+    res.json({ status: "success", data: { user } });
   } catch (err) {
     console.log(err);
     res.status(500).json(serverErrorResponse());
@@ -32,16 +32,16 @@ router.get('/', auth, async (req, res) => {
 });
 
 router.post(
-  '/signup',
+  "/signup",
   [
-    check('email', 'Please Provide a valid email address').not().isEmpty(),
-    check('name', 'Please provide user name').not().isEmpty(),
-    check('phone', 'Please provide a valid Phone number').not().isEmpty(),
-    check('category', 'Please provide user category').not().isEmpty(),
-    check('university', 'Please provide Designation/University details')
+    check("email", "Please Provide a valid email address").not().isEmpty(),
+    check("name", "Please provide user name").not().isEmpty(),
+    check("phone", "Please provide a valid Phone number").not().isEmpty(),
+    check("category", "Please provide user category").not().isEmpty(),
+    check("university", "Please provide Designation/University details")
       .not()
       .isEmpty(),
-    check('branch', 'Please provide user branch').not().isEmpty(),
+    check("branch", "Please provide user branch").not().isEmpty(),
   ],
 
   async (req, res) => {
@@ -55,10 +55,10 @@ router.post(
         email: req.body.email,
       });
       if (user) {
-        console.log('User with the same email already exists');
+        console.log("User with the same email already exists");
         return res
           .status(400)
-          .json(failErrorResponse('A user Already Exists with this email'));
+          .json(failErrorResponse("A user Already Exists with this email"));
       }
       user = new User({
         name: req.body.name,
@@ -86,14 +86,14 @@ router.post(
       // Return JWT Token
       jwt.sign(
         payload,
-        config.get('JSONTokenSecretNormalUser'),
+        config.get("JSONTokenSecretNormalUser"),
         { expiresIn: 36000 },
         (err, token) => {
           if (err) {
             throw err;
           }
           return res.status(201).json({
-            status: 'success',
+            status: "success",
             data: {
               token,
             },
@@ -108,20 +108,20 @@ router.post(
 );
 
 router.post(
-  '/login',
+  "/login",
   [
-    check('email', 'Please Provide a valid emial id').not().isEmpty(),
-    check('password', 'Please provide a valid password').not().isEmpty(),
+    check("email", "Please Provide a valid emial id").not().isEmpty(),
+    check("password", "Please provide a valid password").not().isEmpty(),
   ],
   async (req, res) => {
-    console.log('Hello');
+    console.log("Hello");
     try {
       const errors = validationResult(req);
       console.log(errors);
       req.body.email = req.body.email.toLocaleLowerCase();
       if (!errors.isEmpty()) {
         return res.status(400).json({
-          status: 'fail',
+          status: "fail",
           data: {
             message: errors.errors[0].msg,
           },
@@ -131,15 +131,15 @@ router.post(
       // Checking email for the ones in the array.
       if (!users.includes(req.body.email.toLocaleLowerCase())) {
         console.log("Email doesn't exists");
-        return res.status(400).json(failErrorResponse('User Not present'));
+        return res.status(400).json(failErrorResponse("User Not present"));
       }
 
       let user = await User.findOne({ email: req.body.email });
       if (!user) {
         return res.status(404).json({
-          status: 'fail',
+          status: "fail",
           data: {
-            message: 'No Such User Found, Check the email and password again',
+            message: "No Such User Found, Check the email and password again",
           },
         });
       }
@@ -147,8 +147,8 @@ router.post(
         if (err) throw err;
         if (!isMatch) {
           return res.status(401).json({
-            status: 'fail',
-            data: { message: 'Password Provided is incorrect' },
+            status: "fail",
+            data: { message: "Password Provided is incorrect" },
           });
         }
         // Return jwt token
@@ -159,12 +159,12 @@ router.post(
         };
         jwt.sign(
           payload,
-          config.get('JSONTokenSecretNormalUser'),
-          { expiresIn: 36000 },
+          config.get("JSONTokenSecretNormalUser"),
+          { expiresIn: "365d" },
           (err, token) => {
             if (err) throw err;
             return res.json({
-              status: 'success',
+              status: "success",
               data: {
                 token,
               },
@@ -175,8 +175,8 @@ router.post(
     } catch (err) {
       console.log(err);
       res.status(500).json({
-        status: 'error',
-        message: 'Internal Server Error',
+        status: "error",
+        message: "Internal Server Error",
       });
     }
   }

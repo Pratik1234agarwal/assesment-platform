@@ -29,8 +29,8 @@ const TestEnded = () => {
           <h1 class="">Congratulations ! </h1>
           <i class="fas fa-check-circle fa-7x icon-cog mt-4"></i>
           <h5 className="mt-5">Your test is Submitted</h5>
-          <p class="lead">You can see your result on your dashboard.....</p>
-          <button onClick={logout} class="btn logp text-white">
+          <p class="lead">Your test result will be declared soon.....</p>
+          <button onClick={logout} class="btn logp text-white ">
             Home
           </button>
         </div>

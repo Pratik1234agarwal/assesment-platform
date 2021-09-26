@@ -44,24 +44,24 @@ const TestQuestionsDatabase = (props) => {
         accessor: "text",
       },
       {
-        Header: "Option_1",
+        Header: "Option_A",
         accessor: "A.text",
       },
       {
-        Header: "Option_2",
+        Header: "Option_B",
         accessor: "B.text",
       },
       {
-        Header: "Option_3",
+        Header: "Option_C",
         accessor: "C.text",
       },
       {
-        Header: "Option_4",
+        Header: "Option_D",
         accessor: "D.text",
       },
       {
-        Header: "Category",
-        accessor: "category",
+        Header: "Answer",
+        accessor: "answer",
       },
     ],
     []

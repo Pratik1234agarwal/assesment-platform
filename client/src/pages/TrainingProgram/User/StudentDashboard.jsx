@@ -66,6 +66,7 @@ const StudentDashboard = () => {
         getExpirationDate(localStorage.getItem("studtoken"))
       );
       console.log(exp);
+      console.log(getExpirationDate(localStorage.getItem("studtoken")));
       if (exp == true) {
         swal(
           {
@@ -108,42 +109,16 @@ const StudentDashboard = () => {
 
   return (
     <>
-      <div className="d-block d-sm-none">
-        <div className="row pt-2">
-          <div className="col">
-            <img src={logo1} />
-          </div>
-          <div className="col text-right">
-            <div className=" pt-2">
-              <i class="text-right fas fa-user-circle fa-3x"></i>
-              <div className=" text-right pt-2"> {username}</div>
-              <div
-                onClick={logout}
-                style={{ cursor: "pointer", color: "blue" }}
-              >
-                Logout
-              </div>
+      <div className="container-fluid">
+        <div className="d-block d-sm-none">
+          <div className="row pt-2">
+            <div className="col">
+              <img src={logo1} />
             </div>
-          </div>
-        </div>
-        <div className="container text-center">
-          <h4 className="pt-3">Student Dashboard</h4>
-        </div>
-      </div>
-
-      <div className="d-none d-sm-block">
-        <div className="row pt-2 container-fluid">
-          <div className="col-4">
-            <img src={logo1} />
-          </div>
-          <div className="col-4 text-center">
-            <h4 className="pt-3 pl-5">Student Dashboard</h4>
-          </div>
-          <div className="col float-right">
-            <div className="row pt-2">
-              <div className="col text-right pt-2"> {username}</div>
-              <div className="col-2 text-right">
-                <i class="fas fa-user-circle fa-3x"></i>
+            <div className="col text-right">
+              <div className=" pt-2">
+                <i class="text-right fas fa-user-circle fa-3x"></i>
+                <div className=" text-right pt-2"> {username}</div>
                 <div
                   onClick={logout}
                   style={{ cursor: "pointer", color: "blue" }}
@@ -153,53 +128,81 @@ const StudentDashboard = () => {
               </div>
             </div>
           </div>
+          <div className="container text-center">
+            <h4 className="pt-3">Student Dashboard</h4>
+          </div>
         </div>
-      </div>
 
-      <div className="container text-center mt-5 ">
-        <h3>Welcome to Student Panel of L2-Program</h3>
-      </div>
-
-      <div className="container text-center mt-5 mb-5">
-        <div className="row pt-3 align-items-center">
-          <div className="col-12 col-lg-6">
-            <div class="card text-center" style={{ borderRadius: "10px" }}>
-              <div class="card-header">Attend Class</div>
-              <div class="card-body ">
-                <h5 class="card-title">Attend Today's Class</h5>
-                <p class="card-text" style={{ fontSize: "17px" }}>
-                  This will redirect you to join the class
-                </p>
-                <button
-                  className="btn btn-danger "
-                  onClick={classLink}
-                  style={{ borderRadius: "10px" }}
-                >
-                  Attend Class
-                </button>
+        <div className="d-none d-sm-block">
+          <div className="row pt-2 container-fluid">
+            <div className="col-4">
+              <img src={logo1} />
+            </div>
+            <div className="col-4 text-center">
+              <h4 className="pt-3 pl-5">Student Dashboard</h4>
+            </div>
+            <div className="col float-right">
+              <div className="row pt-2">
+                <div className="col text-right pt-2"> {username}</div>
+                <div className="col-2 text-right">
+                  <i class="fas fa-user-circle fa-3x"></i>
+                  <div
+                    onClick={logout}
+                    style={{ cursor: "pointer", color: "blue" }}
+                  >
+                    Logout
+                  </div>
+                </div>
               </div>
-              <div class="card-footer text-muted">Student</div>
             </div>
           </div>
-          <div className="col-12 col-lg-6 mt-5 mt-lg-0 mb-5 mb-lg-0">
-            <div class="card text-center" style={{ borderRadius: "10px" }}>
-              <div class="card-header">Knowledge Check</div>
-              <div class="card-body">
-                <h5 class="card-title">Attempt Quizes</h5>
-                <p class="card-text" style={{ fontSize: "17px" }}>
-                  All the quizes are provided modulewise
-                </p>
-                <button
-                  className="btn btn-danger "
-                  onClick={() => {
-                    history.push("/alltest");
-                  }}
-                  style={{ borderRadius: "10px" }}
-                >
-                  Check Quizes
-                </button>
+        </div>
+
+        <div className="container text-center mt-5 ">
+          <h3>Welcome to Student Panel of L2-Program</h3>
+        </div>
+
+        <div className="container text-center mt-5 mb-5">
+          <div className="row pt-3 align-items-center">
+            <div className="col-12 col-lg-6">
+              <div class="card text-center" style={{ borderRadius: "10px" }}>
+                <div class="card-header">Attend Class</div>
+                <div class="card-body ">
+                  <h5 class="card-title">Attend Today's Class</h5>
+                  <p class="card-text" style={{ fontSize: "17px" }}>
+                    This will redirect you to join the class
+                  </p>
+                  <button
+                    className="btn btn-danger "
+                    onClick={classLink}
+                    style={{ borderRadius: "10px" }}
+                  >
+                    Attend Class
+                  </button>
+                </div>
+                <div class="card-footer text-muted">Student</div>
               </div>
-              <div class="card-footer text-muted">Student</div>
+            </div>
+            <div className="col-12 col-lg-6 mt-5 mt-lg-0 mb-5 mb-lg-0">
+              <div class="card text-center" style={{ borderRadius: "10px" }}>
+                <div class="card-header">Knowledge Check</div>
+                <div class="card-body">
+                  <h5 class="card-title">Attempt Quizes</h5>
+                  <p class="card-text" style={{ fontSize: "17px" }}>
+                    All the quizes are provided modulewise
+                  </p>
+                  <button
+                    className="btn btn-danger "
+                    onClick={() => {
+                      history.push("/alltest");
+                    }}
+                    style={{ borderRadius: "10px" }}
+                  >
+                    Check Quizes
+                  </button>
+                </div>
+                <div class="card-footer text-muted">Student</div>
+              </div>
             </div>
           </div>
         </div>
