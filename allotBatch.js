@@ -787,9 +787,9 @@ async function allot() {
     await User.updateOne({ email: batch3[i] }, { batch: 3 });
   }
 
-  for (let i = 0; i < batch4.length; i++) {
-    await User.updateOne({ email: batch4[i] }, { batch: 4 });
-  }
+  // for (let i = 0; i < batch4.length; i++) {
+  //   await User.updateOne({ email: batch4[i] }, { batch: 4 });
+  // }
 
   console.log('done');
 }
@@ -806,4 +806,4 @@ async function testing() {
   }
 }
 
-setTimeout(testing, 1000);
+setTimeout(allot, 1000);
