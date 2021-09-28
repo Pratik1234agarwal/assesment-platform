@@ -202,7 +202,7 @@ const batch1 = [
   '20ucs224@lnmiit.ac.in',
   'muskaanchoudhary115@gmail.com',
   'sukhappy81@gmail.com',
-];
+].map((d) => d.toLocaleLowerCase());
 
 const batch2 = [
   'rmndpkr1712@gmail.com',
@@ -405,7 +405,7 @@ const batch2 = [
   'zeeshandehlvi@gmail.com',
   'stejveer1470@gmail.com',
   'kaurparneet604@gmail.com',
-];
+].map((d) => d.toLocaleLowerCase());
 
 const batch3 = [
   'misspayal26@gmail.com',
@@ -608,7 +608,7 @@ const batch3 = [
   'rubinakamboj2019@gmail.com',
   'shikha03tomar@gmail.com',
   'dikshasaili906@gmail.com',
-];
+].map((d) => d.toLocaleLowerCase());
 
 const batch4 = [
   'vbagga73@gmail.com',
@@ -772,7 +772,7 @@ const batch4 = [
   'amayavasthi12@gmail.com',
   'ssharanyab@gmail.com',
   'vishaw1729@gmail.com',
-];
+].map((d) => d.toLocaleLowerCase());
 
 async function allot() {
   for (let i = 0; i < batch1.length; i++) {
