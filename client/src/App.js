@@ -79,7 +79,7 @@ function App() {
         <Route path="/questionroutes" component={AddingQuestionRoute} />
 
         {/* /////////////////// */}
-        <Route path="/signin" component={SignIn} />
+        {/* <Route path="/signin" component={SignIn} /> */}
         <Route path="/studentslots" component={SlotsChecking} />
         <Route
           path="/studentsperslot"

@@ -9,6 +9,7 @@ const TestChecking = (props) => {
   let history = useHistory();
 
   const [testgiven, settestgiven] = useState(0);
+  const [marks, setmarks] = useState();
   console.log("testid");
   console.log(props.result);
 
@@ -16,13 +17,19 @@ const TestChecking = (props) => {
     console.log("In useffect of checking", props.result);
     {
       props.result &&
-        props.result.map((reslt, index) => <div>{pos(reslt.test)}</div>);
+        props.result.map((reslt, index) => (
+          <div>{pos(reslt.test._id, reslt)}</div>
+        ));
     }
-    function pos(res) {
+    function pos(res, resl) {
       if (!props.stp.testId) {
       } else {
         console.log(res);
+        console.log(resl);
         if (props.stp.testId._id === res) {
+          if (resl.marks) {
+            setmarks(resl.marks);
+          }
           settestgiven(1);
         } else {
         }
@@ -35,7 +42,38 @@ const TestChecking = (props) => {
       return <>Test Not Available</>;
     } else {
       console.log(stp.testId);
-      if (testgiven == 0) {
+
+      if (testgiven == 1 && marks != null) {
+        return (
+          <>
+            <h6>Marks : {marks}</h6>
+            <i
+              class="fas fa-check-circle fa-2x ml-3"
+              style={{ color: "green", marginTop: "3px" }}
+            ></i>
+          </>
+        );
+      } else if (testgiven == 1) {
+        return (
+          <>
+            <i
+              class="fas fa-check-circle fa-2x"
+              style={{ color: "green", marginTop: "3px" }}
+            ></i>
+            {/* <button
+              className="btn btn-danger mt-2 ml-3"
+              onClick={() => {
+                if (!stp.testId) {
+                } else {
+                  history.push("/testresult/" + stp.testId._id);
+                }
+              }}
+            >
+              View Result
+            </button> */}
+          </>
+        );
+      } else {
         return (
           <button
             className="btn btn-info mt-3"
@@ -76,26 +114,6 @@ const TestChecking = (props) => {
           >
             Start Test
           </button>
-        );
-      } else {
-        return (
-          <>
-            <i
-              class="fas fa-check-circle fa-2x"
-              style={{ color: "green", marginTop: "3px" }}
-            ></i>
-            {/* <button
-              className="btn btn-danger mt-2 ml-3"
-              onClick={() => {
-                if (!stp.testId) {
-                } else {
-                  history.push("/testresult/" + stp.testId._id);
-                }
-              }}
-            >
-              View Result
-            </button> */}
-          </>
         );
       }
     }
