@@ -176,7 +176,18 @@ router.get('/result/:testId', auth, async (req, res) => {
 // Get the marks in all the test if test evalutaion done
 router.get('/resultAll', auth, async (req, res) => {
   try {
-    const paper = await Paper.find({ user: req.user.id }).select('marks test');
+    let paper = await Paper.find({ user: req.user.id })
+      .populate({
+        path: 'test',
+        select: 'durationOfTest',
+      })
+      .select('marks test startedAt');
+
+    paper = paper.filter(
+      (p) =>
+        new Date(p.startedAt).getTime() + p.test.durationOfTest * 60 * 1000 <
+        Date.now()
+    );
     return res.json({ status: 'success', data: { paper } });
   } catch (err) {
     console.log(err);
