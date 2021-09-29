@@ -27,7 +27,6 @@ const UserSchema = new mongoose.Schema({
   batch: {
     type: Number,
     require: false,
-    default: 1,
   },
   university: {
     type: String,
