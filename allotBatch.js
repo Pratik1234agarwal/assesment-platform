@@ -800,6 +800,7 @@ async function testing() {
     const user = await User.findOne({ email: batch4[i] });
     if (!user) {
       console.log('User does not exists');
+      continue;
     }
     if (user.batch) {
       c++;
