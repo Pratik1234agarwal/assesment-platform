@@ -46,10 +46,21 @@ const TestChecking = (props) => {
       if (testgiven == 1) {
         return (
           <>
-            <i
+            {/* <i
               class="fas fa-check-circle fa-2x ml-3"
               style={{ color: "green", marginTop: "3px" }}
-            ></i>
+            ></i> */}
+            <button
+              className="btn btn-danger mt-3"
+              onClick={() => {
+                if (!stp.testId) {
+                } else {
+                  history.push("/testresult/" + stp.testId._id);
+                }
+              }}
+            >
+              View Result
+            </button>
           </>
         );
       } else {
