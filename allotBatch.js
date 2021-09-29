@@ -804,6 +804,7 @@ async function testing() {
     }
     if (user.batch) {
       c++;
+      console.log(user.batch);
     } else {
       console.log('herer');
       await User.updateOne({ email: batch4[i] }, { batch: 4 });
