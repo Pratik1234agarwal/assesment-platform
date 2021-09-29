@@ -796,14 +796,15 @@ async function allot() {
 
 async function testing() {
   let c = 0;
-  for (let i = 0; i < batch3.length; i++) {
-    const user = await User.findOne({ email: batch3[i] });
-    if (user) {
+  for (let i = 0; i < batch4.length; i++) {
+    const user = await User.findOne({ email: batch4[i] });
+    if (user.batch) {
       c++;
+    } else {
+      await User.updateOne({ email: batch4[i] }, { batch: 4 });
     }
-    console.log(c);
-    await User.updateOne({ email: batch3[i] }, { batch: 3 });
   }
+  console.log(c);
 }
 
-setTimeout(allot, 1000);
+setTimeout(testing, 1000);

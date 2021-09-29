@@ -8,11 +8,11 @@ const {
 } = require('../../helpers/responseHandles');
 
 const meetLinks = [
-  'https://meet.google.com/lookup/akf3scelw5?authuser=2&hs=179',
-  'https://meet.google.com/lookup/f45vmxvun6?authuser=2&hs=179',
-  'https://meet.google.com/lookup/dnhhe3cjgv?authuser=2&hs=179',
-  'https://meet.google.com/lookup/hkabusjazm?authuser=2&hs=179',
-  'https://meet.google.com/lookup/hkabusjazm?authuser=2&hs=179',
+  'https://meet.google.com/ern-xiah-trt',
+  'https://meet.google.com/rsf-yybg-trb',
+  'https://meet.google.com/zsn-qbmj-zay',
+  'https://meet.google.com/wic-pzzk-fjq',
+  'https://meet.google.com/wic-pzzk-fjq',
 ];
 
 router.get('/', auth, async (req, res) => {
