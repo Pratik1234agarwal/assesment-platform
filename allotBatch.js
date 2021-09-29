@@ -797,14 +797,11 @@ async function allot() {
 async function testing() {
   let c = 0;
   for (let i = 0; i < batch4.length; i++) {
-    if (batch4[i] === 'swatidame@gmail.com') {
-      console.log('Its time');
-    }
+    const user = await User.findOne({ email: batch4[i] });
     if (!user) {
       console.log('User does not exists');
       continue;
     }
-    const user = await User.findOne({ email: batch4[i] });
     if (user.email === 'swatidame@gmail.com') {
       console.log(user);
       console.log(user.batch);
