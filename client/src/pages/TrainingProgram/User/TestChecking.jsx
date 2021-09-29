@@ -43,34 +43,13 @@ const TestChecking = (props) => {
     } else {
       console.log(stp.testId);
 
-      if (testgiven == 1 && marks != null) {
+      if (testgiven == 1) {
         return (
           <>
-            <h6>Marks : {marks}</h6>
             <i
               class="fas fa-check-circle fa-2x ml-3"
               style={{ color: "green", marginTop: "3px" }}
             ></i>
-          </>
-        );
-      } else if (testgiven == 1) {
-        return (
-          <>
-            <i
-              class="fas fa-check-circle fa-2x"
-              style={{ color: "green", marginTop: "3px" }}
-            ></i>
-            {/* <button
-              className="btn btn-danger mt-2 ml-3"
-              onClick={() => {
-                if (!stp.testId) {
-                } else {
-                  history.push("/testresult/" + stp.testId._id);
-                }
-              }}
-            >
-              View Result
-            </button> */}
           </>
         );
       } else {
