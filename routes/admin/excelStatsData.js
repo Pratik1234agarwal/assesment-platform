@@ -50,27 +50,53 @@ router.get('/testAllDetails', auth, async (req, res) => {
     let data = [];
     const tests = await Test.find().select('testName');
     console.log(tests[0]);
-    for (let i = 0; i < users.length; i++) {
-      const user = await User.findOne({ email: users[i] });
-      if (!user) continue;
-      let temp = {
-        name: user.name,
-        email: user.email,
-        phone: user.phone,
-        batch: `batch ${user.batch}`,
-      };
-      for (let j = 0; j < tests.length; j++) {
-        const paper = await Paper.findOne({
-          user: user._id,
-          test: tests[j]._id,
-        }).select('marks');
-        if (paper) {
-          temp[tests[j].testName] = 'Given';
-        } else {
-          temp[tests[j].testName] = 'Not Given';
+    // for (let i = 0; i < users.length; i++) {
+    //   const user = await User.findOne({ email: users[i] });
+    //   if (!user) continue;
+    //   let temp = {
+    //     name: user.name,
+    //     email: user.email,
+    //     phone: user.phone,
+    //     batch: `batch ${user.batch}`,
+    //   };
+
+    //   for (let j = 0; j < tests.length; j++) {
+    //     const paper = await Paper.findOne({
+    //       user: user._id,
+    //       test: tests[j]._id,
+    //     }).select('marks');
+    //     if (paper) {
+    //       temp[tests[j].testName] = 'Given';
+    //     } else {
+    //       temp[tests[j].testName] = 'Not Given';
+    //     }
+    //   }
+    //   data.push(temp);
+    // }
+
+    for (let k = 1; k <= 3; k++) {
+      const usersBatch = await User.find({ batch: k });
+      for (let i = 0; i < usersBatch.length; i++) {
+        const user = usersBatch[i];
+        let temp = {
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          batch: `batch ${k}`,
+        };
+        for (let j = 0; j < tests.length; j++) {
+          const paper = await Paper.findOne({
+            user: user._id,
+            test: tests[j]._id,
+          }).select('marks');
+          if (paper) {
+            temp[tests[j].testName] = 'Given';
+          } else {
+            temp[tests[j].testName] = 'Not Given';
+          }
         }
+        data.push(temp);
       }
-      data.push(temp);
     }
     return res.json({
       status: 'success',
