@@ -798,6 +798,9 @@ async function testing() {
   let c = 0;
   for (let i = 0; i < batch4.length; i++) {
     const user = await User.findOne({ email: batch4[i] });
+    if (!user) {
+      console.log('User does not exists');
+    }
     if (user.batch) {
       c++;
     } else {
