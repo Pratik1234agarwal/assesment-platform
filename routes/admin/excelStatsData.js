@@ -74,7 +74,7 @@ router.get('/testAllDetails', auth, async (req, res) => {
     //   data.push(temp);
     // }
 
-    for (let k = 1; k <= 3; k++) {
+    for (let k = 1; k <= 4; k++) {
       const usersBatch = await User.find({ batch: k });
       for (let i = 0; i < usersBatch.length; i++) {
         const user = usersBatch[i];

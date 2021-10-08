@@ -8,10 +8,10 @@ const {
 } = require('../../helpers/responseHandles');
 
 const meetLinks = [
-  'https://meet.google.com/ern-xiah-trt',
-  'https://meet.google.com/rsf-yybg-trb',
-  'https://meet.google.com/zsn-qbmj-zay',
-  'https://meet.google.com/wic-pzzk-fjq',
+  'https://meet.google.com/gzr-oyki-mmz',
+  'https://meet.google.com/uio-bbfb-jzr',
+  'https://meet.google.com/avz-crmo-qka',
+  'https://meet.google.com/krz-joxz-jsa',
   'https://meet.google.com/wic-pzzk-fjq',
 ];
 
