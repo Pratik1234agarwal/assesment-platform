@@ -22,6 +22,11 @@ const L2Result = () => {
   const exportType = exportFromJSON.types.csv;
 
   const ExportToExcel = async () => {
+    const config = {
+      headers: {
+        Authorization: `Admin ${localStorage.getItem('Admin')}`,
+      },
+    };
     try {
       const res1 = await axios.get(
         '/api/v1/admin/excelData/testAlldetails',
