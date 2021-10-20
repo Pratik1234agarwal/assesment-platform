@@ -12,7 +12,10 @@ import NewModule from './User/NewModule';
 import L2NewModule from './User/L2NewModule';
 import exportFromJSON from 'export-from-json';
 
+const Loader = () => <div className="loader">hey</div>;
+
 const L2Result = () => {
+  const [loading, setloading] = useState(false);
   let history = useHistory();
 
   const [subtopicname, setsubtopicname] = useState([]);
@@ -21,7 +24,16 @@ const L2Result = () => {
   const fileName = 'Students_Data_with_Quizes';
   const exportType = exportFromJSON.types.csv;
 
+  const hideLoader = () => {
+    setloading(false);
+  };
+
+  const showLoader = () => {
+    setloading(true);
+  };
+
   const ExportToExcel = async () => {
+    showLoader();
     const config = {
       headers: {
         Authorization: `Admin ${localStorage.getItem('Admin')}`,
@@ -33,8 +45,9 @@ const L2Result = () => {
         config
       );
       console.log(res1);
-      setstudentstestdetails(res1.data.data.data);
-      exportFromJSON({ data: studentstestdetails, fileName, exportType });
+      hideLoader();
+      // setstudentstestdetails(res1.data.data.data);
+      exportFromJSON({ data: res1.data.data.data, fileName, exportType });
     } catch (err) {
       if (err.response && err.response.data) {
         alert(err.response.data.message);
@@ -335,6 +348,8 @@ const L2Result = () => {
             />
           ))}
       </div>
+
+      {loading ? <Loader /> : null}
     </>
   );
 };
