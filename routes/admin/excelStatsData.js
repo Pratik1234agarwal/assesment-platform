@@ -1,20 +1,20 @@
-const router = require('express').Router();
-const auth = require('../../middleware/authAdmin');
+const router = require("express").Router();
+const auth = require("../../middleware/authAdmin");
 
 const {
   failErrorResponse,
   serverErrorResponse,
-} = require('../../helpers/responseHandles');
+} = require("../../helpers/responseHandles");
 
-const Paper = require('../../models/Paper');
-const User = require('../../models/User');
-const Event = require('../../models/Event');
-const Subtopic = require('../../models/SubTopic');
-const Test = require('../../models/Test');
+const Paper = require("../../models/Paper");
+const User = require("../../models/User");
+const Event = require("../../models/Event");
+const Subtopic = require("../../models/SubTopic");
+const Test = require("../../models/Test");
 
-const users = require('../../helpers/emailArray');
+const users = require("../../helpers/emailArray");
 
-router.get('/testNotGiven/:testId', auth, async (req, res) => {
+router.get("/testNotGiven/:testId", auth, async (req, res) => {
   try {
     let data = [];
     const id = req.params.testId;
@@ -34,7 +34,7 @@ router.get('/testNotGiven/:testId', auth, async (req, res) => {
     }
 
     return res.json({
-      status: 'success',
+      status: "success",
       data: {
         data,
       },
@@ -45,10 +45,10 @@ router.get('/testNotGiven/:testId', auth, async (req, res) => {
   }
 });
 
-router.get('/testAllDetails', auth, async (req, res) => {
+router.get("/testAllDetails", auth, async (req, res) => {
   try {
     let data = [];
-    const tests = await Test.find().select('testName');
+    const tests = await Test.find().select("testName");
     console.log(tests[0]);
     // for (let i = 0; i < users.length; i++) {
     //   const user = await User.findOne({ email: users[i] });
@@ -84,22 +84,22 @@ router.get('/testAllDetails', auth, async (req, res) => {
           phone: user.phone,
           batch: `batch ${k}`,
         };
-        for (let j = 0; j < tests.length; j++) {
+        for (let j = 15; j < tests.length; j++) {
           const paper = await Paper.findOne({
             user: user._id,
             test: tests[j]._id,
-          }).select('marks');
+          }).select("marks");
           if (paper) {
-            temp[tests[j].testName] = 'Given';
+            temp[tests[j].testName] = "Given";
           } else {
-            temp[tests[j].testName] = 'Not Given';
+            temp[tests[j].testName] = "Not Given";
           }
         }
         data.push(temp);
       }
     }
     return res.json({
-      status: 'success',
+      status: "success",
       data: {
         data,
         length: data.length,
