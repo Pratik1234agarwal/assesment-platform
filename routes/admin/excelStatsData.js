@@ -76,7 +76,7 @@ router.get("/testAllDetails", auth, async (req, res) => {
 
     for (let k = 1; k <= 4; k++) {
       const usersBatch = await User.find({ batch: k });
-      for (let i = 15; i < usersBatch.length; i++) {
+      for (let i = 0; i < usersBatch.length; i++) {
         const user = usersBatch[i];
         let temp = {
           name: user.name,
@@ -84,7 +84,7 @@ router.get("/testAllDetails", auth, async (req, res) => {
           phone: user.phone,
           batch: `batch ${k}`,
         };
-        for (let j = 0; j < tests.length; j++) {
+        for (let j = 15; j < tests.length; j++) {
           const paper = await Paper.findOne({
             user: user._id,
             test: tests[j]._id,
