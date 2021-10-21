@@ -1,9 +1,12 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const path = require('path');
-const os = require('os');
-const cluster = require('cluster');
-const loader = require('./loaders');
+const path = require("path");
+const os = require("os");
+const cluster = require("cluster");
+const loader = require("./loaders");
+
+var timeout = require("connect-timeout");
+app.use(timeout("1000s"));
 
 const clusterWorkerSize = os.cpus().length;
 
@@ -20,8 +23,8 @@ if (clusterWorkerSize > 1) {
       cluster.fork();
     }
 
-    cluster.on('exit', function (worker) {
-      console.log('Worker', worker.id, ' has exitted.');
+    cluster.on("exit", function (worker) {
+      console.log("Worker", worker.id, " has exitted.");
     });
   } else {
     //const app = express();
