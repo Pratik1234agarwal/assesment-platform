@@ -46,7 +46,7 @@ router.get("/testNotGiven/:testId", auth, async (req, res) => {
 });
 
 router.get("/testAllDetails", auth, async (req, res) => {
-  res.setTimeout(100);
+  res.setTimeout(5000000);
   try {
     let data = [];
     const tests = await Test.find().select("testName");
