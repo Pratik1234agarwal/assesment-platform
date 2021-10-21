@@ -1,32 +1,62 @@
-import React, { useState, useEffect } from "react";
-import logo1 from "../../images/logo.png";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
-import l2prog from "../../images/l2prog.jpg";
-import SweetAlert from "sweetalert-react";
-import "sweetalert/dist/sweetalert.css";
-import swal from "sweetalert";
-import Avatar from "react-avatar";
-import Faq from "react-faq-component";
-import NewModule from "./User/NewModule";
-import L2NewModule from "./User/L2NewModule";
-import exportFromJSON from "export-from-json";
+import React, { useState, useEffect } from 'react';
+import logo1 from '../../images/logo.png';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import l2prog from '../../images/l2prog.jpg';
+import SweetAlert from 'sweetalert-react';
+import 'sweetalert/dist/sweetalert.css';
+import swal from 'sweetalert';
+import Avatar from 'react-avatar';
+import Faq from 'react-faq-component';
+import NewModule from './User/NewModule';
+import L2NewModule from './User/L2NewModule';
+import exportFromJSON from 'export-from-json';
+
+const Loader = () => <div className="loader">hey</div>;
 
 const L2Result = () => {
+  const [loading, setloading] = useState(false);
   let history = useHistory();
 
   const [subtopicname, setsubtopicname] = useState([]);
-  const [studentstestdetails, setstudentstestdetails] = useState("");
+  const [studentstestdetails, setstudentstestdetails] = useState('');
 
-  const fileName = "Students_Data_with_Quizes";
+  const fileName = 'Students_Data_with_Quizes';
   const exportType = exportFromJSON.types.csv;
 
-  const ExportToExcel = () => {
-    exportFromJSON({ data: studentstestdetails, fileName, exportType });
+  const hideLoader = () => {
+    setloading(false);
+  };
+
+  const showLoader = () => {
+    setloading(true);
+  };
+
+  const ExportToExcel = async () => {
+    showLoader();
+    const config = {
+      headers: {
+        Authorization: `Admin ${localStorage.getItem('Admin')}`,
+      },
+    };
+    try {
+      const res1 = await axios.get(
+        '/api/v1/admin/excelData/testAlldetails',
+        config
+      );
+      console.log(res1);
+      hideLoader();
+      // setstudentstestdetails(res1.data.data.data);
+      exportFromJSON({ data: res1.data.data.data, fileName, exportType });
+    } catch (err) {
+      if (err.response && err.response.data) {
+        alert(err.response.data.message);
+      }
+    }
   };
 
   function SubEvent(id) {
-    console.log("hey");
+    console.log('hey');
     return (
       <>
         <L2NewModule id={id} />
@@ -36,19 +66,19 @@ const L2Result = () => {
 
   const styles1 = {
     // bgColor: 'white',
-    titleTextColor: "black",
-    rowTitleColor: "black",
-    rowContentColor: "#182d78",
-    arrowColor: "black",
-    rowContentPaddingLeft: "5px",
+    titleTextColor: 'black',
+    rowTitleColor: 'black',
+    rowContentColor: '#182d78',
+    arrowColor: 'black',
+    rowContentPaddingLeft: '5px',
   };
 
   const styles = {
     // bgColor: 'white',
-    titleTextColor: "black",
-    rowTitleColor: "black",
-    rowContentColor: "#33827f",
-    arrowColor: "black",
+    titleTextColor: 'black',
+    rowTitleColor: 'black',
+    rowContentColor: '#33827f',
+    arrowColor: 'black',
   };
 
   const config = {
@@ -58,7 +88,7 @@ const L2Result = () => {
   };
 
   function userHome() {
-    history.push("/userdashboard");
+    history.push('/userdashboard');
   }
 
   const badage = (index) => {
@@ -72,14 +102,14 @@ const L2Result = () => {
       return null;
     }
 
-    const jwt = JSON.parse(atob(jwtToken.split(".")[1]));
+    const jwt = JSON.parse(atob(jwtToken.split('.')[1]));
 
     // multiply by 1000 to convert seconds into milliseconds
     const expdatetime = new Date(jwt && jwt.exp && jwt.exp * 1000);
-    const time = new Date(expdatetime).toLocaleTimeString("en", {
-      timeStyle: "short",
+    const time = new Date(expdatetime).toLocaleTimeString('en', {
+      timeStyle: 'short',
       hour12: true,
-      timeZone: "IST",
+      timeZone: 'IST',
     });
 
     return expdatetime || null;
@@ -94,24 +124,24 @@ const L2Result = () => {
   };
 
   const logout = () => {
-    localStorage.removeItem("Admin");
-    history.push("/admin");
+    localStorage.removeItem('Admin');
+    history.push('/admin');
   };
 
   useEffect(async () => {
-    if (localStorage.getItem("Admin")) {
-      const exp = isExpired(getExpirationDate(localStorage.getItem("Admin")));
+    if (localStorage.getItem('Admin')) {
+      const exp = isExpired(getExpirationDate(localStorage.getItem('Admin')));
       console.log(exp);
       if (exp == true) {
         swal(
           {
-            title: "Session Expired",
-            text: "Please Login again !!",
-            type: "warning",
-            confirmButtonColor: "#0E3B7D",
-            confirmButtonText: "Ok",
+            title: 'Session Expired',
+            text: 'Please Login again !!',
+            type: 'warning',
+            confirmButtonColor: '#0E3B7D',
+            confirmButtonText: 'Ok',
             closeOnConfirm: true,
-            customClass: "Custom_Cancel",
+            customClass: 'Custom_Cancel',
           },
           function (isConfirm) {
             if (isConfirm) {
@@ -123,18 +153,12 @@ const L2Result = () => {
       }
       const config = {
         headers: {
-          Authorization: `Admin ${localStorage.getItem("Admin")}`,
+          Authorization: `Admin ${localStorage.getItem('Admin')}`,
         },
       };
       try {
-        const res = await axios.get("/api/v1/admin/course/subtopic", config);
-        const res1 = await axios.get(
-          "/api/v1/admin/excelData/testAlldetails",
-          config
-        );
+        const res = await axios.get('/api/v1/admin/course/subtopic', config);
         console.log(res);
-        console.log(res1);
-        setstudentstestdetails(res1.data.data.data);
         setsubtopicname(res.data.data.subtopics);
       } catch (err) {
         if (err.response && err.response.data) {
@@ -142,7 +166,7 @@ const L2Result = () => {
         }
       }
     } else {
-      history.push("/admin");
+      history.push('/admin');
     }
   }, []);
 
@@ -150,11 +174,11 @@ const L2Result = () => {
     var date = new Date(lp);
     var hours = date.getHours();
     var minutes = date.getMinutes();
-    var ampm = hours >= 12 ? "pm" : "am";
+    var ampm = hours >= 12 ? 'pm' : 'am';
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    var strTime = hours + ":" + minutes + " " + ampm;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
     return date.toString().slice(4, 16) + strTime;
   }
 
@@ -178,7 +202,7 @@ const L2Result = () => {
               <div className=" text-right pt-2"> </div>
               <div
                 onClick={logout}
-                style={{ cursor: "pointer", color: "blue" }}
+                style={{ cursor: 'pointer', color: 'blue' }}
               >
                 Logout
               </div>
@@ -205,10 +229,10 @@ const L2Result = () => {
                 <i class="fas fa-arrow-circle-left fa-3x"></i>
                 <div
                   onClick={() => {
-                    history.push("/trainingadmin");
+                    history.push('/trainingadmin');
                   }}
                   className="mr-2"
-                  style={{ cursor: "pointer", color: "blue" }}
+                  style={{ cursor: 'pointer', color: 'blue' }}
                 >
                   Back
                 </div>
@@ -217,7 +241,7 @@ const L2Result = () => {
                 <i class="fas fa-user-circle fa-3x"></i>
                 <div
                   onClick={logout}
-                  style={{ cursor: "pointer", color: "blue" }}
+                  style={{ cursor: 'pointer', color: 'blue' }}
                 >
                   Logout
                 </div>
@@ -231,10 +255,10 @@ const L2Result = () => {
         <div
           class="card w-100"
           style={{
-            backgroundColor: "#180D5B",
-            color: "white",
-            border: "2px solid #180D5B",
-            borderRadius: "10px",
+            backgroundColor: '#180D5B',
+            color: 'white',
+            border: '2px solid #180D5B',
+            borderRadius: '10px',
           }}
         >
           <div class="card-body">
@@ -265,10 +289,10 @@ const L2Result = () => {
         <div
           class="card w-100 shadow"
           style={{
-            backgroundColor: "#180D5B",
-            color: "white",
-            border: "2px solid #180D5B",
-            borderRadius: "10px",
+            backgroundColor: '#180D5B',
+            color: 'white',
+            border: '2px solid #180D5B',
+            borderRadius: '10px',
           }}
         >
           <div class="card-body">
@@ -294,9 +318,9 @@ const L2Result = () => {
       >
         <div className="row">
           <div className="col">
-            All Modules {"("}
+            All Modules {'('}
             {subtopicname && subtopicname.length}
-            {")"}
+            {')'}
           </div>
         </div>
       </div>
@@ -306,10 +330,10 @@ const L2Result = () => {
           subtopicname.map((stp, index) => (
             <Faq
               data={{
-                title: "",
+                title: '',
                 rows: [
                   {
-                    title: "Module " + (index + 1) + " : " + stp.name,
+                    title: 'Module ' + (index + 1) + ' : ' + stp.name,
                     content: (
                       <>
                         {/* {stp._id} */}
@@ -324,6 +348,8 @@ const L2Result = () => {
             />
           ))}
       </div>
+
+      {loading ? <Loader /> : null}
     </>
   );
 };
