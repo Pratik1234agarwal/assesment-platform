@@ -84,7 +84,7 @@ router.get("/testAllDetails", auth, async (req, res) => {
           phone: user.phone,
           batch: `batch ${k}`,
         };
-        for (let j = 15; j < tests.length; j++) {
+        for (let j = 0; j < tests.length; j++) {
           const paper = await Paper.findOne({
             user: user._id,
             test: tests[j]._id,
