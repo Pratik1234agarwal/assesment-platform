@@ -1,74 +1,102 @@
-import React, { useState, useEffect } from "react";
-import logo1 from "../../images/logo.png";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
-import { useTable, useSortBy } from "react-table";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import logo1 from '../../images/logo.png';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { useTable, useSortBy } from 'react-table';
+import { Link } from 'react-router-dom';
+import exportFromJSON from 'export-from-json';
 
 const L2ResultTable = (props) => {
   let history = useHistory();
   const [results, setresults] = useState([]);
+  const [testname, settestname] = useState('');
   const [test, settest] = useState([]);
+  const resultexcel = [];
+  const fileName = testname;
+  const exportType = exportFromJSON.types.csv;
 
   function questionHome() {
-    history.push("/modulewiseresult");
+    history.push('/modulewiseresult');
   }
 
+  const dataExcel = () => {
+    results?.map((x) => {
+      console.log(x.user.name);
+      console.log(x.user.email);
+      console.log(x.marks);
+      console.log(x.attempted);
+      console.log(x.correct);
+      console.log(x.incorrect);
+      resultexcel.push({
+        Name: x.user.name,
+        Email: x.user.email,
+        Marks: x.marks,
+        Attempted: x.attempted,
+        Correct: x.correct,
+        Incorrect: x.incorrect,
+      });
+    });
+  };
+
   useEffect(async () => {
-    if (localStorage.getItem("Admin")) {
+    if (localStorage.getItem('Admin')) {
       const config = {
         headers: {
-          Authorization: `Admin ${localStorage.getItem("Admin")}`,
+          Authorization: `Admin ${localStorage.getItem('Admin')}`,
         },
       };
       try {
         const res = await axios.get(
-          "/api/v1/admin/results/" + props.match.params.id,
+          '/api/v1/admin/results/' + props.match.params.id,
           config
         );
         const res1 = await axios.get(
-          "/api/v1/admin/test/" + props.match.params.id,
+          '/api/v1/admin/test/' + props.match.params.id,
           config
         );
         console.log(res);
         console.log(res1);
+        console.log(props.match.params.type);
+
         setresults(res.data.data.papers);
+        settestname(res1.data.data.test.testName);
         settest(res1.data.data.test);
+        dataExcel();
       } catch (err) {
         if (err.response && err.response.data) {
           alert(err.response.data.message);
         }
       }
     } else {
-      history.push("/admin");
+      history.push('/admin');
     }
   }, []);
 
   const columns = React.useMemo(
     () => [
       {
-        Header: "Name",
-        accessor: "user.name",
+        Header: 'Name',
+        accessor: 'user.name',
       },
       {
-        Header: "Email",
-        accessor: "user.email",
+        Header: 'Email',
+        accessor: 'user.email',
       },
       {
-        Header: "Marks",
-        accessor: "marks",
+        Header: 'Marks',
+        accessor: 'marks',
       },
       {
-        Header: "Attempted",
-        accessor: "attempted",
+        Header: 'Attempted',
+        accessor: 'attempted',
       },
       {
-        Header: "Correct",
-        accessor: "correct",
+        Header: 'Correct',
+        accessor: 'correct',
       },
       {
-        Header: "Incorrect",
-        accessor: "incorrect",
+        Header: 'Incorrect',
+        accessor: 'incorrect',
       },
     ],
     []
@@ -82,6 +110,28 @@ const L2ResultTable = (props) => {
       },
       useSortBy
     );
+
+  const ExportToExcel = () => {
+    if (results) {
+      results?.map((x) => {
+        console.log(x.user.name);
+        console.log(x.user.email);
+        console.log(x.marks);
+        console.log(x.attempted);
+        console.log(x.correct);
+        console.log(x.incorrect);
+        resultexcel.push({
+          Name: x.user.name,
+          Email: x.user.email,
+          Marks: x.marks,
+          Attempted: x.attempted,
+          Correct: x.correct,
+          Incorrect: x.incorrect,
+        });
+      });
+      exportFromJSON({ data: resultexcel, fileName, exportType });
+    }
+  };
 
   return (
     <>
@@ -97,9 +147,9 @@ const L2ResultTable = (props) => {
               <div className=" text-right pt-2"> {}</div>
               <div
                 onClick={() => {
-                  history.push("/modulewiseresult");
+                  history.push('/modulewiseresult');
                 }}
-                style={{ cursor: "pointer", color: "blue" }}
+                style={{ cursor: 'pointer', color: 'blue' }}
               >
                 Back
               </div>
@@ -123,9 +173,9 @@ const L2ResultTable = (props) => {
                 <i class="fas fa-arrow-circle-left fa-2x"></i>
                 <div
                   onClick={() => {
-                    history.push("/modulewiseresult");
+                    history.push('/modulewiseresult');
                   }}
-                  style={{ cursor: "pointer", color: "blue" }}
+                  style={{ cursor: 'pointer', color: 'blue' }}
                 >
                   Back
                 </div>
@@ -144,8 +194,14 @@ const L2ResultTable = (props) => {
         <h5>Test Name : {test && test.testName}</h5>
       </div>
 
-      <div className="container text-center pt-2 text-danger">
+      <div className="container text-center pt-2 text-success">
         <h4>No. of Students : {results && results.length}</h4>
+      </div>
+
+      <div className="container text-center pt-2 ">
+        <button className="btn btn-danger" onClick={ExportToExcel}>
+          Download Excel
+        </button>
       </div>
 
       <div className="container pt-4 mb-3 text-center">
@@ -162,22 +218,22 @@ const L2ResultTable = (props) => {
                       {...column.getHeaderProps(column.getSortByToggleProps())}
                       style={{
                         // padding: "10px",
-                        paddingTop: "10px",
-                        paddingBottom: "10px",
-                        paddingRight: "30px",
-                        paddingLeft: "30px",
-                        border: "solid 1px gray",
-                        cursor: "pointer",
+                        paddingTop: '10px',
+                        paddingBottom: '10px',
+                        paddingRight: '30px',
+                        paddingLeft: '30px',
+                        border: 'solid 1px gray',
+                        cursor: 'pointer',
                       }}
                     >
-                      {column.render("Header")}
+                      {column.render('Header')}
                       {/* Add a sort direction indicator */}
                       <span>
                         {column.isSorted ? (
                           column.isSortedDesc ? (
-                            " 🔽"
+                            ' 🔽'
                           ) : (
-                            " 🔼"
+                            ' 🔼'
                           )
                         ) : (
                           <i class="fa fa-fw fa-sort"></i>
@@ -198,11 +254,11 @@ const L2ResultTable = (props) => {
                         <td
                           {...cell.getCellProps()}
                           style={{
-                            padding: "10px",
-                            border: "solid 1px gray",
+                            padding: '10px',
+                            border: 'solid 1px gray',
                           }}
                         >
-                          {cell.render("Cell")}
+                          {cell.render('Cell')}
                         </td>
                       );
                     })}
