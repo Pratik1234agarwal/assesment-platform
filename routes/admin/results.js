@@ -1,25 +1,25 @@
-const router = require('express').Router();
-const User = require('../../models/User');
-const Questions = require('../../models/Questions');
-const Admin = require('../../models/Admin');
-const Paper = require('../../models/Paper');
-const Result = require('../../models/Result');
-const Test = require('../../models/Test');
-const auth = require('../../middleware/authAdmin');
+const router = require("express").Router();
+const User = require("../../models/User");
+const Questions = require("../../models/Questions");
+const Admin = require("../../models/Admin");
+const Paper = require("../../models/Paper");
+const Result = require("../../models/Result");
+const Test = require("../../models/Test");
+const auth = require("../../middleware/authAdmin");
 
 const {
   serverErrorResponse,
   failErrorResponse,
-} = require('../../helpers/responseHandles');
-const { json } = require('body-parser');
+} = require("../../helpers/responseHandles");
+const { json } = require("body-parser");
 
-router.get('/:testId', auth, async (req, res) => {
+router.get("/:testId", auth, async (req, res) => {
   try {
     const id = req.params.testId;
-    const test = await Test.findById(id).populate({ path: 'questionBank' });
+    const test = await Test.findById(id).populate({ path: "questionBank" });
     const papers = await Paper.find({ test: id }).populate({
-      path: 'user',
-      select: 'name email',
+      path: "user",
+      select: "name email batch",
     });
     console.log(papers);
     // Filter the paper based on the time they have finished upon.
@@ -43,7 +43,7 @@ router.get('/:testId', auth, async (req, res) => {
       papers[i].incorrect = metric.incorrect;
     }
     res.json({
-      status: 'success',
+      status: "success",
       data: {
         papers,
       },
