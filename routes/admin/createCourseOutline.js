@@ -1,22 +1,24 @@
-const Batch = require('../../models/Batch');
-const Subtopic = require('../../models/SubTopic');
-const Admin = require('../../models/Admin');
-const Event = require('../../models/Event');
-const { check, validationResult } = require('express-validator');
-const router = require('express').Router();
-const auth = require('../../middleware/authAdmin');
+const Batch = require("../../models/Batch");
+const Subtopic = require("../../models/SubTopic");
+const Admin = require("../../models/Admin");
+const Event = require("../../models/Event");
+const { check, validationResult } = require("express-validator");
+const router = require("express").Router();
+const auth = require("../../middleware/authAdmin");
 const {
   serverErrorResponse,
   failErrorResponse,
-} = require('../../helpers/responseHandles');
+} = require("../../helpers/responseHandles");
+
+const { l3students } = require("../../helpers/l3students");
 
 router.post(
-  '/batch',
+  "/batch",
   [
     [
       check(
-        'maxStudent',
-        'Please Specify Maximum number of students in the batch'
+        "maxStudent",
+        "Please Specify Maximum number of students in the batch"
       )
         .not()
         .isEmpty(),
@@ -27,7 +29,7 @@ router.post(
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        throw new Error('Please Specify all the fields');
+        throw new Error("Please Specify all the fields");
       }
 
       const batch = new Batch({
@@ -37,7 +39,7 @@ router.post(
       await batch.save();
 
       res.json({
-        status: 'success',
+        status: "success",
         data: {
           batch,
         },
@@ -48,11 +50,11 @@ router.post(
   }
 );
 
-router.get('/batch', auth, async (req, res) => {
+router.get("/batch", auth, async (req, res) => {
   try {
-    const batches = await Batch.find().populate('events');
+    const batches = await Batch.find().populate("events");
     return res.json({
-      status: 'success',
+      status: "success",
       data: {
         batches,
         length: batches.length,
@@ -64,21 +66,21 @@ router.get('/batch', auth, async (req, res) => {
   }
 });
 
-router.get('/batch/:batchId', auth, async (req, res) => {
+router.get("/batch/:batchId", auth, async (req, res) => {
   try {
     console.log(req.params);
     const id = req.params.batchId;
     console.log(id);
-    const batch = await Batch.findById(id).populate('events');
+    const batch = await Batch.findById(id).populate("events");
     if (!batch) {
       return res
         .status(400)
-        .json(failErrorResponse('No Batch found or Batch Id invalid'));
+        .json(failErrorResponse("No Batch found or Batch Id invalid"));
     }
 
     // Batch exits
     return res.json({
-      status: 'success',
+      status: "success",
       data: {
         batch,
       },
@@ -90,11 +92,11 @@ router.get('/batch/:batchId', auth, async (req, res) => {
 });
 
 // Get all subtopics
-router.get('/subtopic', auth, async (req, res) => {
+router.get("/subtopic", auth, async (req, res) => {
   try {
     const subtopics = await Subtopic.find();
     return res.json({
-      status: 'success',
+      status: "success",
       data: {
         subtopics,
         length: subtopics.length,
@@ -107,19 +109,19 @@ router.get('/subtopic', auth, async (req, res) => {
 });
 
 // Get a particular Subtopic
-router.get('/subtopic/:id', auth, async (req, res) => {
+router.get("/subtopic/:id", auth, async (req, res) => {
   try {
     const subtopic = await Subtopic.findById(req.params.id).populate({
-      path: 'events',
+      path: "events",
       populate: {
-        path: 'testId',
+        path: "testId",
       },
     });
     if (!subtopic) {
-      return res.status(400).json(failErrorResponse('Invalid Id'));
+      return res.status(400).json(failErrorResponse("Invalid Id"));
     }
     return res.json({
-      status: 'success',
+      status: "success",
       data: { subtopic },
     });
   } catch (err) {
@@ -129,28 +131,29 @@ router.get('/subtopic/:id', auth, async (req, res) => {
 });
 
 // Add a Subtopic
-router.post('/subtopic/:batchId', auth, async (req, res) => {
+router.post("/subtopic/:batchId", auth, async (req, res) => {
   try {
     const id = req.params.batchId;
     const outline = await Batch.findById(id);
     if (!outline) {
       return res
         .status(400)
-        .json(failErrorResponse('No Batch found or Batch ID is invalid'));
+        .json(failErrorResponse("No Batch found or Batch ID is invalid"));
     }
     console.log(req.body.name);
     if (!req.body.name) {
       return res
         .status(401)
-        .json(failErrorResponse('Please Specify a valid Subtopic name'));
+        .json(failErrorResponse("Please Specify a valid Subtopic name"));
     }
 
     const subtopic = new Subtopic({
       name: req.body.name,
+      program: req.body.program ? req.body.program : "L2",
     });
 
     await subtopic.save();
-    return res.json({ status: 'success', data: { subtopic } });
+    return res.json({ status: "success", data: { subtopic } });
   } catch (err) {
     console.log(err);
     res.status(500).json(serverErrorResponse());
@@ -159,12 +162,12 @@ router.post('/subtopic/:batchId', auth, async (req, res) => {
 
 // Add a Event
 router.post(
-  '/event/:subTopicId',
+  "/event/:subTopicId",
   [
     [
-      check('type', 'Please specify a type').not().isEmpty(),
-      check('startTime', 'Please specify a Start Date').not().isEmpty(),
-      check('endTime', 'Please specify a End Date').not().isEmpty(),
+      check("type", "Please specify a type").not().isEmpty(),
+      check("startTime", "Please specify a Start Date").not().isEmpty(),
+      check("endTime", "Please specify a End Date").not().isEmpty(),
     ],
     auth,
   ],
@@ -181,7 +184,7 @@ router.post(
         return res
           .status(400)
           .json(
-            failErrorResponse('No Subtopic found or Subtopic ID is invalid')
+            failErrorResponse("No Subtopic found or Subtopic ID is invalid")
           );
       }
       const type = req.body.type;
@@ -189,10 +192,10 @@ router.post(
       if (type) {
         if (
           !(
-            type === 'test' ||
-            type === 'assignment' ||
-            type === 'liveClass' ||
-            type === 'readingMaterial'
+            type === "test" ||
+            type === "assignment" ||
+            type === "liveClass" ||
+            type === "readingMaterial"
           )
         ) {
           return res
@@ -220,7 +223,7 @@ router.post(
       await subtopic.save();
 
       res.json({
-        status: 'success',
+        status: "success",
         data: {
           event,
         },

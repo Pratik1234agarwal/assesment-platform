@@ -925,6 +925,7 @@ const users = [
   "sainisimranjeet927@gmail.com",
   "pallavithareja01@gmail.com",
   "kaursukhpreet4133@gmail.com",
+  "artsypavneet29@gmail.com",
 ];
 
 module.exports = users.map((user) => user.toLocaleLowerCase());

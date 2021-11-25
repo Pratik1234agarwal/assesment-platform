@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const SubTopicSchema = mongoose.Schema({
   createdAt: {
@@ -11,7 +11,11 @@ const SubTopicSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
-  events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'event' }],
+  program: {
+    type: String,
+    required: false,
+  },
+  events: [{ type: mongoose.Schema.Types.ObjectId, ref: "event" }],
 });
 
-module.exports = mongoose.model('subtopic', SubTopicSchema);
+module.exports = mongoose.model("subtopic", SubTopicSchema);
