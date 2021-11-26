@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import logo1 from "../../../images/logo.png";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
-import l2prog from "../../../images/l2prog.jpg";
-import SweetAlert from "sweetalert-react";
-import "sweetalert/dist/sweetalert.css";
-import swal from "sweetalert";
-import "./AllTest.css";
-import Avatar from "react-avatar";
-import Faq from "react-faq-component";
-import NewModule from "./NewModule";
+import React, { useState, useEffect } from 'react';
+import logo1 from '../../../images/logo.png';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import l2prog from '../../../images/l2prog.jpg';
+import SweetAlert from 'sweetalert-react';
+import 'sweetalert/dist/sweetalert.css';
+import swal from 'sweetalert';
+import './AllTest.css';
+import Avatar from 'react-avatar';
+import Faq from 'react-faq-component';
+import NewModule from './NewModule';
 
 const AllTest = () => {
   let history = useHistory();
@@ -20,7 +20,7 @@ const AllTest = () => {
   const [result, setresult] = useState([]);
 
   function SubEvent(events) {
-    console.log("hey");
+    console.log('hey');
     return (
       <>
         <NewModule events={events} result={result} />
@@ -30,19 +30,19 @@ const AllTest = () => {
 
   const styles1 = {
     // bgColor: 'white',
-    titleTextColor: "black",
-    rowTitleColor: "black",
-    rowContentColor: "#182d78",
-    arrowColor: "black",
-    rowContentPaddingLeft: "5px",
+    titleTextColor: 'black',
+    rowTitleColor: 'black',
+    rowContentColor: '#182d78',
+    arrowColor: 'black',
+    rowContentPaddingLeft: '5px',
   };
 
   const styles = {
     // bgColor: 'white',
-    titleTextColor: "black",
-    rowTitleColor: "black",
-    rowContentColor: "#33827f",
-    arrowColor: "black",
+    titleTextColor: 'black',
+    rowTitleColor: 'black',
+    rowContentColor: '#33827f',
+    arrowColor: 'black',
   };
 
   const config = {
@@ -56,14 +56,14 @@ const AllTest = () => {
       return null;
     }
 
-    const jwt = JSON.parse(atob(jwtToken.split(".")[1]));
+    const jwt = JSON.parse(atob(jwtToken.split('.')[1]));
 
     // multiply by 1000 to convert seconds into milliseconds
     const expdatetime = new Date(jwt && jwt.exp && jwt.exp * 1000);
-    const time = new Date(expdatetime).toLocaleTimeString("en", {
-      timeStyle: "short",
+    const time = new Date(expdatetime).toLocaleTimeString('en', {
+      timeStyle: 'short',
       hour12: true,
-      timeZone: "IST",
+      timeZone: 'IST',
     });
 
     return expdatetime || null;
@@ -78,27 +78,27 @@ const AllTest = () => {
   };
 
   const logout = () => {
-    localStorage.removeItem("studtoken");
-    history.push("/");
+    localStorage.removeItem('studtoken');
+    history.push('/');
   };
 
   useEffect(async () => {
-    if (localStorage.getItem("studtoken")) {
+    if (localStorage.getItem('studtoken')) {
       const exp = isExpired(
-        getExpirationDate(localStorage.getItem("studtoken"))
+        getExpirationDate(localStorage.getItem('studtoken'))
       );
       console.log(exp);
-      console.log(getExpirationDate(localStorage.getItem("studtoken")));
+      console.log(getExpirationDate(localStorage.getItem('studtoken')));
       if (exp == true) {
         swal(
           {
-            title: "Session Expired",
-            text: "Please Login again !!",
-            type: "warning",
-            confirmButtonColor: "#0E3B7D",
-            confirmButtonText: "Ok",
+            title: 'Session Expired',
+            text: 'Please Login again !!',
+            type: 'warning',
+            confirmButtonColor: '#0E3B7D',
+            confirmButtonText: 'Ok',
             closeOnConfirm: true,
-            customClass: "Custom_Cancel",
+            customClass: 'Custom_Cancel',
           },
           function (isConfirm) {
             if (isConfirm) {
@@ -111,12 +111,12 @@ const AllTest = () => {
         profile();
         const config = {
           headers: {
-            Authorization: `studtoken ${localStorage.getItem("studtoken")}`,
+            Authorization: `studtoken ${localStorage.getItem('studtoken')}`,
           },
         };
         try {
-          const res = await axios.get("/api/v1/test/subtopics", config);
-          const res1 = await axios.get("/api/v1/test/resultAll", config);
+          const res = await axios.get('/api/v1/test/subtopics', config);
+          const res1 = await axios.get('/api/v1/test/resultAll', config);
           console.log(res);
           console.log(res1);
           setsubtopicname(res.data.data.subtopics);
@@ -129,15 +129,15 @@ const AllTest = () => {
         }
       }
     } else {
-      history.push("/");
+      history.push('/');
     }
   }, []);
 
   function profile() {
     axios
-      .get("/api/v1/auth", {
+      .get('/api/v1/auth', {
         headers: {
-          Authorization: `studtoken ${localStorage.getItem("studtoken")}`,
+          Authorization: `studtoken ${localStorage.getItem('studtoken')}`,
         },
       })
       .then((res) => {
@@ -161,10 +161,10 @@ const AllTest = () => {
                   <i class="fas fa-arrow-circle-left fa-3x"></i>
                   <div
                     onClick={() => {
-                      history.push("/studentdashboard");
+                      history.push('/studentdashboard');
                     }}
                     className="mr-2"
-                    style={{ cursor: "pointer", color: "blue" }}
+                    style={{ cursor: 'pointer', color: 'blue' }}
                   >
                     Back
                   </div>
@@ -191,10 +191,10 @@ const AllTest = () => {
                   <i class="fas fa-arrow-circle-left fa-3x"></i>
                   <div
                     onClick={() => {
-                      history.push("/studentdashboard");
+                      history.push('/studentdashboard');
                     }}
                     className="mr-2"
-                    style={{ cursor: "pointer", color: "blue" }}
+                    style={{ cursor: 'pointer', color: 'blue' }}
                   >
                     Back
                   </div>
@@ -203,7 +203,7 @@ const AllTest = () => {
                   <i class="fas fa-user-circle fa-3x"></i>
                   <div
                     onClick={logout}
-                    style={{ cursor: "pointer", color: "blue" }}
+                    style={{ cursor: 'pointer', color: 'blue' }}
                   >
                     Logout
                   </div>
@@ -217,10 +217,10 @@ const AllTest = () => {
           <div
             class="card w-100"
             style={{
-              backgroundColor: "#180D5B",
-              color: "white",
-              border: "2px solid #180D5B",
-              borderRadius: "10px",
+              backgroundColor: '#180D5B',
+              color: 'white',
+              border: '2px solid #180D5B',
+              borderRadius: '10px',
             }}
           >
             <div class="card-body">
@@ -244,9 +244,9 @@ const AllTest = () => {
         <div className="pt-3 container">
           <div className="row">
             <div className="col">
-              All Modules {"("}
+              All Modules {'('}
               {subtopicname && subtopicname.length}
-              {")"}
+              {')'}
             </div>
           </div>
         </div>
@@ -256,10 +256,10 @@ const AllTest = () => {
             subtopicname.map((stp, index) => (
               <Faq
                 data={{
-                  title: "",
+                  title: '',
                   rows: [
                     {
-                      title: "Module " + (index + 1) + " : " + stp.name,
+                      title: 'Module ' + (index + 1) + ' : ' + stp.name,
                       content: <>{SubEvent(stp.events)}</>,
                     },
                   ],

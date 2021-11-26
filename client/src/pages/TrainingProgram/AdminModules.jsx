@@ -1,22 +1,27 @@
-import React, { useState, useEffect } from "react";
-import logo1 from "../../images/logo.png";
-import l2prog from "../../images/l2prog.jpg";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
-import SweetAlert from "sweetalert-react";
-import "sweetalert/dist/sweetalert.css";
-import swal from "sweetalert";
+import React, { useState, useEffect } from 'react';
+import logo1 from '../../images/logo.png';
+import l2prog from '../../images/l2prog.jpg';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import SweetAlert from 'sweetalert-react';
+import 'sweetalert/dist/sweetalert.css';
+import swal from 'sweetalert';
 
 const AdminModules = (props) => {
+  const l2programsubtopicname = [];
+  const l3programsubtopicname = [];
   let history = useHistory();
   const [subtopicname, setsubtopicname] = useState([]);
-  const [subtopic, setsubtopic] = useState("");
+  const [l2subtopicname, setl2subtopicname] = useState([]);
+  const [l3subtopicname, setl3subtopicname] = useState([]);
+  const [subtopic, setsubtopic] = useState('');
+  const [program, setprogram] = useState('');
 
   function home() {
-    history.push("/trainingadmin");
+    history.push('/trainingadmin');
   }
   function back() {
-    history.push("/createbatch");
+    history.push('/createbatch');
   }
 
   const AddSubtopic = async (event) => {
@@ -26,31 +31,32 @@ const AdminModules = (props) => {
 
     let data = {
       name: subtopic,
+      program: program,
     };
     console.log(data);
 
-    if (localStorage.getItem("Admin")) {
+    if (localStorage.getItem('Admin')) {
       const config = {
         headers: {
-          Authorization: `Admin ${localStorage.getItem("Admin")}`,
+          Authorization: `Admin ${localStorage.getItem('Admin')}`,
         },
       };
       try {
         const res = await axios.post(
-          "/api/v1/admin/course/subtopic/" + props.match.params.id,
+          '/api/v1/admin/course/subtopic/' + props.match.params.id,
           data,
           config
         );
         console.log(res);
         swal(
           {
-            title: "Module Added",
-            text: "Successfully Added Module details",
-            type: "success",
-            confirmButtonColor: "#0E3B7D",
-            confirmButtonText: "Ok",
+            title: 'Module Added',
+            text: 'Successfully Added Module details',
+            type: 'success',
+            confirmButtonColor: '#0E3B7D',
+            confirmButtonText: 'Ok',
             closeOnConfirm: false,
-            customClass: "Custom_Cancel",
+            customClass: 'Custom_Cancel',
           },
           function (isConfirm) {
             if (isConfirm) {
@@ -66,34 +72,50 @@ const AdminModules = (props) => {
         }
       }
     } else {
-      history.push("/admin");
+      history.push('/admin');
     }
   };
 
   const logout = () => {
-    localStorage.removeItem("admin");
-    history.push("/admin");
+    localStorage.removeItem('admin');
+    history.push('/admin');
   };
 
   useEffect(async () => {
-    if (localStorage.getItem("Admin")) {
+    if (localStorage.getItem('Admin')) {
       const config = {
         headers: {
-          Authorization: `Admin ${localStorage.getItem("Admin")}`,
+          Authorization: `Admin ${localStorage.getItem('Admin')}`,
         },
       };
       try {
-        const res = await axios.get("/api/v1/admin/course/subtopic/", config);
+        const res = await axios.get('/api/v1/admin/course/subtopic/', config);
         console.log(res);
         console.log(res.data.data.subtopics);
         setsubtopicname(res.data.data.subtopics);
+        res.data.data.subtopics.map((stp) => {
+          if (stp.program) {
+            if (stp.program === 'L3') {
+              l3programsubtopicname.push(stp);
+            } else if (stp.program === 'L2') {
+              l2programsubtopicname.push(stp);
+            }
+          } else {
+            l2programsubtopicname.push(stp);
+          }
+        });
+        setl2subtopicname(l2programsubtopicname);
+        setl3subtopicname(l3programsubtopicname);
+
+        console.log(l2programsubtopicname);
+        console.log(l3programsubtopicname);
       } catch (err) {
         if (err.response && err.response.data) {
           alert(err.response.data.message);
         }
       }
     } else {
-      history.push("/admin");
+      history.push('/admin');
     }
   }, []);
 
@@ -133,6 +155,19 @@ const AdminModules = (props) => {
                     onChange={(e) => setsubtopic(e.target.value)}
                     required
                   />
+                  <br />
+                  <label for="testName">Select Program :</label>
+                  <select
+                    class="form-control"
+                    id="program-name"
+                    value={program}
+                    onChange={(e) => setprogram(e.target.value)}
+                    required
+                  >
+                    <option value="">Choose...</option>
+                    <option value="L2">L2</option>
+                    <option value="L3">L3</option>
+                  </select>
                 </div>
                 <div className="text-center">
                   <button
@@ -163,7 +198,7 @@ const AdminModules = (props) => {
               <div className=" text-right pt-2"> </div>
               <div
                 onClick={logout}
-                style={{ cursor: "pointer", color: "blue" }}
+                style={{ cursor: 'pointer', color: 'blue' }}
               >
                 Logout
               </div>
@@ -190,7 +225,7 @@ const AdminModules = (props) => {
                 <i class="fas fa-home fa-2x"></i>
                 <div
                   onClick={home}
-                  style={{ cursor: "pointer", color: "blue" }}
+                  style={{ cursor: 'pointer', color: 'blue' }}
                 >
                   Home
                 </div>
@@ -199,7 +234,7 @@ const AdminModules = (props) => {
                 <i class="fas fa-arrow-circle-left fa-2x"></i>
                 <div
                   onClick={back}
-                  style={{ cursor: "pointer", color: "blue" }}
+                  style={{ cursor: 'pointer', color: 'blue' }}
                 >
                   Back
                 </div>
@@ -212,12 +247,14 @@ const AdminModules = (props) => {
       <div className="container mt-3">
         <div
           class="card w-100"
-          style={{ backgroundColor: "#180D5B", color: "white" }}
+          style={{ backgroundColor: '#180D5B', color: 'white' }}
         >
           <div class="card-body">
             <div className="row">
               <div className="col d-flex align-items-center">
-                <h3>L-2 Program (Data Science & Artificial Intelligence)</h3>
+                <h3>
+                  L2 - L3 Program (Data Science & Artificial Intelligence)
+                </h3>
               </div>
               <div className="col d-flex justify-content-end">
                 <img
@@ -233,18 +270,19 @@ const AdminModules = (props) => {
       </div>
 
       <div className="container-fluid d-none d-sm-block">
+        <h4 className="pt-3 container">L2 Program Modules :-</h4>
         <div className="row d-flex justify-content-center">
-          {subtopicname &&
-            subtopicname.map((stp, index) => (
+          {l2subtopicname &&
+            l2subtopicname.map((stp, index) => (
               <div
                 class="card mt-4  shadow  w-25 m-2"
                 style={{
-                  border: "2px solid white",
-                  borderRadius: "20px",
-                  cursor: "pointer",
+                  border: '2px solid white',
+                  borderRadius: '20px',
+                  cursor: 'pointer',
                 }}
                 onClick={() => {
-                  history.push("/ModulesTest/" + stp._id);
+                  history.push('/ModulesTest/' + stp._id);
                 }}
               >
                 <div class="position-absolute badge badge-secondary  px-2 m-2">
@@ -255,7 +293,42 @@ const AdminModules = (props) => {
                   <br />
                   <h5
                     class="card-title bg-primary  text-white px-2 py-2"
-                    style={{ border: "2px solid ", borderRadius: "20px" }}
+                    style={{ border: '2px solid ', borderRadius: '20px' }}
+                  >
+                    {stp.name}
+                  </h5>
+
+                  <h6 class="card-text px-2 mb-3 text-danger">
+                    Test Added : {stp.events.length}
+                  </h6>
+                </div>
+              </div>
+            ))}
+        </div>
+        <h4 className="pt-3 container">L3 Program Modules :-</h4>
+        <div className="row d-flex justify-content-center">
+          {l3subtopicname &&
+            l3subtopicname.map((stp, index) => (
+              <div
+                class="card mt-4  shadow  w-25 m-2"
+                style={{
+                  border: '2px solid white',
+                  borderRadius: '20px',
+                  cursor: 'pointer',
+                }}
+                onClick={() => {
+                  history.push('/ModulesTest/' + stp._id);
+                }}
+              >
+                <div class="position-absolute badge badge-secondary  px-2 m-2">
+                  Module - {index + 1}
+                </div>
+                <div class="card-body ">
+                  {/* <div className="px-2 badage">Module No. - {index + 1}</div> */}
+                  <br />
+                  <h5
+                    class="card-title bg-primary  text-white px-2 py-2"
+                    style={{ border: '2px solid ', borderRadius: '20px' }}
                   >
                     {stp.name}
                   </h5>
@@ -272,18 +345,19 @@ const AdminModules = (props) => {
       {/* for mobile */}
 
       <div className="container-fluid d-block d-sm-none">
+        <h4 className="pt-3 container">L2 Program Modules :-</h4>
         <div className="row d-flex justify-content-center">
-          {subtopicname &&
-            subtopicname.map((stp, index) => (
+          {l2subtopicname &&
+            l2subtopicname.map((stp, index) => (
               <div
                 class="card mt-4  shadow w-100 m-2"
                 style={{
-                  border: "2px solid white",
-                  borderRadius: "20px",
-                  cursor: "pointer",
+                  border: '2px solid white',
+                  borderRadius: '20px',
+                  cursor: 'pointer',
                 }}
                 onClick={() => {
-                  history.push("/ModulesTest/" + stp._id);
+                  history.push('/ModulesTest/' + stp._id);
                 }}
               >
                 <div class="position-absolute badge badge-secondary  px-2 m-2">
@@ -294,7 +368,42 @@ const AdminModules = (props) => {
                   <br />
                   <h5
                     class="card-title bg-primary  text-white px-2 py-2"
-                    style={{ border: "2px solid ", borderRadius: "20px" }}
+                    style={{ border: '2px solid ', borderRadius: '20px' }}
+                  >
+                    {stp.name}
+                  </h5>
+
+                  <h6 class="card-text px-2 mb-3 text-danger">
+                    Test Added : {stp.events.length}
+                  </h6>
+                </div>
+              </div>
+            ))}
+        </div>
+        <h4 className="pt-3 container">L3 Program Modules :-</h4>
+        <div className="row d-flex justify-content-center">
+          {l3subtopicname &&
+            l3subtopicname.map((stp, index) => (
+              <div
+                class="card mt-4  shadow w-100 m-2"
+                style={{
+                  border: '2px solid white',
+                  borderRadius: '20px',
+                  cursor: 'pointer',
+                }}
+                onClick={() => {
+                  history.push('/ModulesTest/' + stp._id);
+                }}
+              >
+                <div class="position-absolute badge badge-secondary  px-2 m-2">
+                  Module - {index + 1}
+                </div>
+                <div class="card-body ">
+                  {/* <div className="px-2 badage">Module No. - {index + 1}</div> */}
+                  <br />
+                  <h5
+                    class="card-title bg-primary  text-white px-2 py-2"
+                    style={{ border: '2px solid ', borderRadius: '20px' }}
                   >
                     {stp.name}
                   </h5>
@@ -311,15 +420,15 @@ const AdminModules = (props) => {
       <div className="container mt-4 mb-5">
         <div
           class="card  shadow "
-          style={{ border: "2px solid white", borderRadius: "20px" }}
+          style={{ border: '2px solid white', borderRadius: '20px' }}
         >
           <div class="card-body ">
             <h5
               class="card-title  text-white px-2 py-2"
               style={{
-                border: "2px solid ",
-                borderRadius: "20px",
-                backgroundColor: "#180D5B",
+                border: '2px solid ',
+                borderRadius: '20px',
+                backgroundColor: '#180D5B',
               }}
             >
               Add New Module

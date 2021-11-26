@@ -1,12 +1,12 @@
-import React from "react";
-import logo1 from "../../images/logo.png";
-import { useHistory } from "react-router-dom";
+import React from 'react';
+import logo1 from '../../images/logo.png';
+import { useHistory } from 'react-router-dom';
 
 const Admin = () => {
   let history = useHistory();
   const logout = () => {
-    localStorage.removeItem("Admin");
-    history.push("/admin");
+    localStorage.removeItem('Admin');
+    history.push('/admin');
   };
   return (
     <>
@@ -19,16 +19,16 @@ const Admin = () => {
       <div className="container mt-4 text-white">
         <button
           className="btn float-right"
-          style={{ backgroundColor: "#0E3B7D", color: "white" }}
+          style={{ backgroundColor: '#0E3B7D', color: 'white' }}
           onClick={logout}
         >
           Logout
         </button>
         <button
           className="btn float-right mr-3"
-          style={{ backgroundColor: "#0E3B7D", color: "white" }}
+          style={{ backgroundColor: '#0E3B7D', color: 'white' }}
           onClick={() => {
-            history.push("/admin");
+            history.push('/admin');
           }}
         >
           Home
@@ -36,7 +36,7 @@ const Admin = () => {
       </div>
 
       <div className="container text-center mt-5 pt-4">
-        <h3>Welcome to Admin Panel of L2-Program</h3>
+        <h3>Welcome to Admin Panel of L2/L3 - Program</h3>
       </div>
 
       <div className="container text-center mt-5 mb-5">
@@ -46,13 +46,13 @@ const Admin = () => {
               <div class="card-header">Test Creation</div>
               <div class="card-body ">
                 <h5 class="card-title">Create Tests/ Add Events</h5>
-                <p class="card-text" style={{ fontSize: "17px" }}>
+                <p class="card-text" style={{ fontSize: '17px' }}>
                   Add Test And Test Details Modulewise
                 </p>
                 <button
                   className="btn btn-danger "
                   onClick={() => {
-                    history.push("/createbatch");
+                    history.push('/createbatch');
                   }}
                 >
                   Access
@@ -66,13 +66,13 @@ const Admin = () => {
               <div class="card-header">Students Outcome</div>
               <div class="card-body">
                 <h5 class="card-title">Check Modulewise Results</h5>
-                <p class="card-text" style={{ fontSize: "17px" }}>
+                <p class="card-text" style={{ fontSize: '17px' }}>
                   Check Moduleweise Results of all the students
                 </p>
                 <button
                   className="btn btn-danger "
                   onClick={() => {
-                    history.push("/modulewiseresult");
+                    history.push('/modulewiseresult');
                   }}
                 >
                   Check

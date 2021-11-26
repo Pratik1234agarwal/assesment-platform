@@ -15,10 +15,15 @@ import exportFromJSON from 'export-from-json';
 const Loader = () => <div className="loader">hey</div>;
 
 const L2Result = () => {
+  const l2programsubtopicname = [];
+  const l3programsubtopicname = [];
   const [loading, setloading] = useState(false);
   let history = useHistory();
 
   const [subtopicname, setsubtopicname] = useState([]);
+  const [l2subtopicname, setl2subtopicname] = useState([]);
+  const [l3subtopicname, setl3subtopicname] = useState([]);
+
   const [studentstestdetails, setstudentstestdetails] = useState('');
 
   const fileName = 'Students_Data_with_Quizes';
@@ -160,6 +165,19 @@ const L2Result = () => {
         const res = await axios.get('/api/v1/admin/course/subtopic', config);
         console.log(res);
         setsubtopicname(res.data.data.subtopics);
+        res.data.data.subtopics.map((stp) => {
+          if (stp.program) {
+            if (stp.program === 'L3') {
+              l3programsubtopicname.push(stp);
+            } else if (stp.program === 'L2') {
+              l2programsubtopicname.push(stp);
+            }
+          } else {
+            l2programsubtopicname.push(stp);
+          }
+        });
+        setl2subtopicname(l2programsubtopicname);
+        setl3subtopicname(l3programsubtopicname);
       } catch (err) {
         if (err.response && err.response.data) {
           alert(err.response.data.message);
@@ -264,7 +282,9 @@ const L2Result = () => {
           <div class="card-body">
             <div className="row">
               <div className="col d-flex align-items-center">
-                <h3>L-2 Program (Data Science & Artificial Intelligence)</h3>
+                <h3>
+                  L2 - L3 Program (Data Science & Artificial Intelligence)
+                </h3>
               </div>
               <div className="col d-flex justify-content-end">
                 <img
@@ -311,6 +331,48 @@ const L2Result = () => {
       </div>
 
       <div
+        className="pt-5 container"
+        // data-toggle="tooltip"
+        // title="Hooray!"
+        // data-placement="right"
+      >
+        <div className="row">
+          <div className="col">
+            <h5>
+              {' '}
+              L2 Modules Result {'('}
+              {l2subtopicname && l2subtopicname.length}
+              {')'} :-
+            </h5>
+          </div>
+        </div>
+      </div>
+
+      <div className="pt-3 pb-4 mb-5 rounded bg-white container ">
+        {l2subtopicname &&
+          l2subtopicname.map((stp, index) => (
+            <Faq
+              data={{
+                title: '',
+                rows: [
+                  {
+                    title: 'Module ' + (index + 1) + ' : ' + stp.name,
+                    content: (
+                      <>
+                        {/* {stp._id} */}
+                        {SubEvent(stp._id)}
+                      </>
+                    ),
+                  },
+                ],
+              }}
+              styles={styles1}
+              config={config}
+            />
+          ))}
+      </div>
+
+      <div
         className="pt-3 container"
         // data-toggle="tooltip"
         // title="Hooray!"
@@ -318,16 +380,18 @@ const L2Result = () => {
       >
         <div className="row">
           <div className="col">
-            All Modules {'('}
-            {subtopicname && subtopicname.length}
-            {')'}
+            <h5>
+              L3 Modules Result {'('}
+              {l3subtopicname && l3subtopicname.length}
+              {')'} :-
+            </h5>
           </div>
         </div>
       </div>
 
       <div className="pt-3 pb-4 mb-5 rounded bg-white container ">
-        {subtopicname &&
-          subtopicname.map((stp, index) => (
+        {l3subtopicname &&
+          l3subtopicname.map((stp, index) => (
             <Faq
               data={{
                 title: '',

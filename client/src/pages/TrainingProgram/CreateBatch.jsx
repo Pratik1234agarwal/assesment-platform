@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import logo1 from "../../images/logo.png";
-import l2prog from "../../images/l2prog.jpg";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
-import "sweetalert/dist/sweetalert.css";
-import swal from "sweetalert";
+import React, { useState, useEffect } from 'react';
+import logo1 from '../../images/logo.png';
+import l2prog from '../../images/l2prog.jpg';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import 'sweetalert/dist/sweetalert.css';
+import swal from 'sweetalert';
 
 // const batch = [
 //   { Students: "50" },
@@ -19,20 +19,20 @@ import swal from "sweetalert";
 
 const CreateBatch = () => {
   let history = useHistory();
-  const [studno, setstudno] = useState("");
+  const [studno, setstudno] = useState('');
   const [batch, setbatch] = useState([]);
   const [flag, setflag] = useState(1);
 
   useEffect(async () => {
     setflag(0);
-    if (localStorage.getItem("Admin")) {
+    if (localStorage.getItem('Admin')) {
       const config = {
         headers: {
-          Authorization: `Admin ${localStorage.getItem("Admin")}`,
+          Authorization: `Admin ${localStorage.getItem('Admin')}`,
         },
       };
       try {
-        const res = await axios.get("/api/v1/admin/course/batch", config);
+        const res = await axios.get('/api/v1/admin/course/batch', config);
         setbatch(res.data.data.batches);
         console.log(res);
       } catch (err) {
@@ -41,7 +41,7 @@ const CreateBatch = () => {
         }
       }
     } else {
-      history.push("/admin");
+      history.push('/admin');
     }
   }, [flag]);
 
@@ -51,28 +51,28 @@ const CreateBatch = () => {
       // totalNumberOfStudents: studno,
     };
     console.log(postData);
-    if (localStorage.getItem("Admin")) {
+    if (localStorage.getItem('Admin')) {
       // const config = {
       //   headers: {
       //     Authorization: `Admin ${localStorage.getItem("Admin")}`,
       //   },
       // };
       try {
-        const resp = await axios.post("/api/v1/admin/course/batch", postData, {
+        const resp = await axios.post('/api/v1/admin/course/batch', postData, {
           headers: {
-            Authorization: `Admin ${localStorage.getItem("Admin")}`,
+            Authorization: `Admin ${localStorage.getItem('Admin')}`,
           },
         });
         console.log(resp.data);
         swal(
           {
-            title: "Batch created Succesfully",
-            text: "Successfully created new batch",
-            type: "success",
-            confirmButtonColor: "#0E3B7D",
-            confirmButtonText: "Ok",
+            title: 'Batch created Succesfully',
+            text: 'Successfully created new batch',
+            type: 'success',
+            confirmButtonColor: '#0E3B7D',
+            confirmButtonText: 'Ok',
             closeOnConfirm: true,
-            customClass: "Custom_Cancel",
+            customClass: 'Custom_Cancel',
           },
           function (isConfirm) {
             if (isConfirm) {
@@ -82,7 +82,7 @@ const CreateBatch = () => {
             }
           }
         );
-        setflag("");
+        setflag('');
       } catch (err) {
         console.log(err.response.data.msg);
         if (err.response && err.response.data) {
@@ -90,12 +90,12 @@ const CreateBatch = () => {
         }
       }
     } else {
-      history.push("/admin");
+      history.push('/admin');
     }
   };
 
   function progHome() {
-    history.push("/trainingadmin");
+    history.push('/trainingadmin');
   }
 
   return (
@@ -112,7 +112,7 @@ const CreateBatch = () => {
               <div className=" text-right pt-2"> {}</div>
               <div
                 onClick={progHome}
-                style={{ cursor: "pointer", color: "blue" }}
+                style={{ cursor: 'pointer', color: 'blue' }}
               >
                 Back
               </div>
@@ -140,7 +140,7 @@ const CreateBatch = () => {
                 {/* <i class="fas fa-home fa-2x"></i> */}
                 <div
                   onClick={progHome}
-                  style={{ cursor: "pointer", color: "blue" }}
+                  style={{ cursor: 'pointer', color: 'blue' }}
                 >
                   Back
                 </div>
@@ -154,16 +154,18 @@ const CreateBatch = () => {
         <div
           class="card w-100"
           style={{
-            border: "2px solid black",
-            borderRadius: "20px",
-            backgroundColor: "#180D5B",
-            color: "white",
+            border: '2px solid black',
+            borderRadius: '20px',
+            backgroundColor: '#180D5B',
+            color: 'white',
           }}
         >
           <div class="card-body">
             <div className="row">
               <div className="col d-flex align-items-center">
-                <h3>L-2 Program (Data Science & Artificial Intelligence)</h3>
+                <h3>
+                  L2 - L3 Program (Data Science & Artificial Intelligence)
+                </h3>
               </div>
               <div className="col d-flex justify-content-end">
                 <img
@@ -181,16 +183,16 @@ const CreateBatch = () => {
       <div className="pt-4 container">
         <div className="row">
           <div className="col">
-            All Batches {"("}
+            All Batches {'('}
             {batch && batch.length}
-            {")"}
+            {')'}
           </div>
         </div>
       </div>
 
       <div>
         <div className="container  mb-5 d-none d-sm-block">
-          <div class="card  border-0" style={{ width: "auto" }}>
+          <div class="card  border-0" style={{ width: 'auto' }}>
             <div className="row">
               {/* <div className="col">
                 <div class="card shadow border-0">
@@ -246,9 +248,9 @@ const CreateBatch = () => {
                     <div
                       class="card mt-4   "
                       style={{
-                        border: "2px solid black",
-                        borderRadius: "20px",
-                        backgroundColor: "turquoise",
+                        border: '2px solid black',
+                        borderRadius: '20px',
+                        backgroundColor: 'turquoise',
                       }}
                     >
                       <div class="card-body row">
@@ -258,16 +260,16 @@ const CreateBatch = () => {
                           </p>
                         </div>
                         <div className="col d-flex ">
-                          <p class="card-text " style={{ color: "#180D5B" }}>
+                          <p class="card-text " style={{ color: '#180D5B' }}>
                             <h6>
-                              <i class="fa fa-tasks" aria-hidden="true"></i> L2
-                              - Program
+                              <i class="fa fa-tasks" aria-hidden="true"></i>
+                              L2/L3 - Program
                             </h6>
                           </p>
                         </div>
                         <div
                           className="col d-flex align-items-center justify-content-end"
-                          style={{ color: "black" }}
+                          style={{ color: 'black' }}
                         >
                           <h6 className="mt-3">Create Test / Add Questions</h6>
                         </div>
@@ -275,7 +277,7 @@ const CreateBatch = () => {
                           <button
                             className="btn btn-danger mt-3"
                             onClick={() => {
-                              history.push("/adminmodule/" + stp._id);
+                              history.push('/adminmodule/' + stp._id);
                             }}
                           >
                             Add Tests
@@ -292,7 +294,7 @@ const CreateBatch = () => {
         {/* for mobile */}
 
         <div className="container mb-5 d-block d-sm-none">
-          <div class="card  border-0" style={{ width: "auto" }}>
+          <div class="card  border-0" style={{ width: 'auto' }}>
             <div className="row">
               <div className="col">
                 {batch &&
@@ -300,8 +302,8 @@ const CreateBatch = () => {
                     <div
                       class="card mt-4   "
                       style={{
-                        border: "2px solid black",
-                        borderRadius: "20px",
+                        border: '2px solid black',
+                        borderRadius: '20px',
                       }}
                     >
                       <div class="card-body row">
@@ -311,10 +313,10 @@ const CreateBatch = () => {
                           </p>
                         </div>
                         <div className="col d-flex justify-content-end">
-                          <p class="card-text " style={{ color: "#180D5B" }}>
+                          <p class="card-text " style={{ color: '#180D5B' }}>
                             <h6>
-                              <i class="fa fa-tasks" aria-hidden="true"></i> L2
-                              - Program
+                              <i class="fa fa-tasks" aria-hidden="true"></i>
+                              L2/L3 - Program
                             </h6>
                           </p>
                         </div>
@@ -327,7 +329,7 @@ const CreateBatch = () => {
                           <button
                             className="btn btn-danger mt-3"
                             onClick={() => {
-                              history.push("/adminmodule/" + stp._id);
+                              history.push('/adminmodule/' + stp._id);
                             }}
                           >
                             Add Tests

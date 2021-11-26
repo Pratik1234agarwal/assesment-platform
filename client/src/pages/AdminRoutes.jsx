@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from "react";
-import logo1 from "../images/logo.png";
-import { useHistory } from "react-router-dom";
-import AdminBoxes from "./AdminBoxes";
-import "sweetalert/dist/sweetalert.css";
-import swal from "sweetalert";
+import React, { useState, useEffect } from 'react';
+import logo1 from '../images/logo.png';
+import { useHistory } from 'react-router-dom';
+import AdminBoxes from './AdminBoxes';
+import 'sweetalert/dist/sweetalert.css';
+import swal from 'sweetalert';
 
 const AdminRoutes = () => {
   let history = useHistory();
 
   const logout = () => {
-    localStorage.removeItem("Admin");
-    history.push("/admin");
+    localStorage.removeItem('Admin');
+    history.push('/admin');
   };
 
   function result() {
-    history.push("/admin1");
+    history.push('/admin1');
   }
   function slotcheck() {
-    history.push("/studentslots");
+    history.push('/studentslots');
   }
   function registrations() {
-    history.push("/A-DSAT_Registration");
+    history.push('/A-DSAT_Registration');
   }
 
   const getExpirationDate = (jwtToken) => {
@@ -28,14 +28,14 @@ const AdminRoutes = () => {
       return null;
     }
 
-    const jwt = JSON.parse(atob(jwtToken.split(".")[1]));
+    const jwt = JSON.parse(atob(jwtToken.split('.')[1]));
 
     // multiply by 1000 to convert seconds into milliseconds
     const expdatetime = new Date(jwt && jwt.exp && jwt.exp * 1000);
-    const time = new Date(expdatetime).toLocaleTimeString("en", {
-      timeStyle: "short",
+    const time = new Date(expdatetime).toLocaleTimeString('en', {
+      timeStyle: 'short',
       hour12: true,
-      timeZone: "IST",
+      timeZone: 'IST',
     });
 
     return expdatetime || null;
@@ -52,21 +52,21 @@ const AdminRoutes = () => {
   };
 
   useEffect(async () => {
-    if (localStorage.getItem("Admin")) {
+    if (localStorage.getItem('Admin')) {
       // let x = getExpirationDate(localStorage.getItem("Admin"));
       // console.log("token expp. date :", x);
-      const exp = isExpired(getExpirationDate(localStorage.getItem("Admin")));
+      const exp = isExpired(getExpirationDate(localStorage.getItem('Admin')));
       console.log(exp);
       if (exp == true) {
         swal(
           {
-            title: "Session Expired",
-            text: "Please Login again !!",
-            type: "warning",
-            confirmButtonColor: "#0E3B7D",
-            confirmButtonText: "Ok",
+            title: 'Session Expired',
+            text: 'Please Login again !!',
+            type: 'warning',
+            confirmButtonColor: '#0E3B7D',
+            confirmButtonText: 'Ok',
             closeOnConfirm: true,
-            customClass: "Custom_Cancel",
+            customClass: 'Custom_Cancel',
           },
           function (isConfirm) {
             if (isConfirm) {
@@ -77,7 +77,7 @@ const AdminRoutes = () => {
         );
       }
     } else {
-      history.push("/admin");
+      history.push('/admin');
     }
   }, []);
 
@@ -94,7 +94,7 @@ const AdminRoutes = () => {
       <div className="container mt-3 text-white">
         <button
           className="btn float-right"
-          style={{ backgroundColor: "#0E3B7D", color: "white" }}
+          style={{ backgroundColor: '#0E3B7D', color: 'white' }}
           onClick={logout}
         >
           Log Out
@@ -113,7 +113,7 @@ const AdminRoutes = () => {
               <div class="card-header">Students Outcome</div>
               <div class="card-body">
                 <h5 class="card-title">A-DSAT Result</h5>
-                <p class="card-text" style={{ fontSize: "17px" }}>
+                <p class="card-text" style={{ fontSize: '17px' }}>
                   Check the results of all the A-DSAT student and ......
                 </p>
                 <button className="btn btn-danger " onClick={result}>
@@ -129,15 +129,15 @@ const AdminRoutes = () => {
             <div class="card text-center">
               <div class="card-header">Training Program</div>
               <div class="card-body">
-                <h5 class="card-title">L2 Program</h5>
-                <p class="card-text" style={{ fontSize: "17px" }}>
+                <h5 class="card-title">L2 / L3 Program</h5>
+                <p class="card-text" style={{ fontSize: '17px' }}>
                   Add tests and all details according to the module
                   availables...
                 </p>
                 <button
                   className="btn btn-danger "
                   onClick={() => {
-                    history.push("/trainingadmin");
+                    history.push('/trainingadmin');
                   }}
                 >
                   Check
@@ -169,7 +169,7 @@ const AdminRoutes = () => {
               <div class="card-header">Registrations</div>
               <div class="card-body">
                 <h5 class="card-title">Total Registrations for A-DSAT</h5>
-                <p class="card-text" style={{ fontSize: "17px" }}>
+                <p class="card-text" style={{ fontSize: '17px' }}>
                   Check Registered students information....
                   <br />
                 </p>

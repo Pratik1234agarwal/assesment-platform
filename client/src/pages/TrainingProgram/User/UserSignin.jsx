@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useHistory, Link } from "react-router-dom";
-import { useAlert } from "react-alert";
-import logos from "../../../images/logo.png";
-import SweetAlert from "sweetalert-react";
-import "sweetalert/dist/sweetalert.css";
-import swal from "sweetalert";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useHistory, Link } from 'react-router-dom';
+import { useAlert } from 'react-alert';
+import logos from '../../../images/logo.png';
+import SweetAlert from 'sweetalert-react';
+import 'sweetalert/dist/sweetalert.css';
+import swal from 'sweetalert';
 
 const UserSignin = () => {
   const [popup, setpopup] = useState({ show: false });
   const alerts = useAlert();
   let history = useHistory();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [category, setCategory] = useState("");
-  const [university, setUniversity] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [category, setCategory] = useState('');
+  const [university, setUniversity] = useState('');
 
-  const [emails, setEmails] = useState("");
-  const [passwords, setPasswords] = useState("");
-  const [branch, setBranch] = useState("");
+  const [emails, setEmails] = useState('');
+  const [passwords, setPasswords] = useState('');
+  const [branch, setBranch] = useState('');
 
   function signUp(event) {
     if (event) {
@@ -31,25 +31,25 @@ const UserSignin = () => {
     console.warn(item);
     console.log(item);
     axios
-      .post("/api/v1/auth/signup", item)
+      .post('/api/v1/auth/signup', item)
       .then((res) => {
         console.log(res);
         // localStorage.setItem("token", res.data.data.token);
         swal(
           {
-            title: "Successfully Registered",
-            text: "Best Of Luck!",
-            type: "success",
-            confirmButtonColor: "#0E3B7D",
-            confirmButtonText: "Ok",
+            title: 'Successfully Registered',
+            text: 'Best Of Luck!',
+            type: 'success',
+            confirmButtonColor: '#0E3B7D',
+            confirmButtonText: 'Ok',
             closeOnConfirm: false,
-            customClass: "Custom_Cancel",
+            customClass: 'Custom_Cancel',
           },
           function (isConfirm) {
             if (isConfirm) {
-              window.location.replace("https://www.iitrpr.ac.in/aiupskilling");
+              window.location.replace('https://www.iitrpr.ac.in/aiupskilling');
             } else {
-              window.location.replace("https://www.iitrpr.ac.in/aiupskilling");
+              window.location.replace('https://www.iitrpr.ac.in/aiupskilling');
             }
           }
         );
@@ -64,27 +64,27 @@ const UserSignin = () => {
     let email = emails;
     let password = passwords;
     let items = { email, password };
-    // console.warn(items);
+    console.warn(items);
 
     try {
-      const res = await axios.post("/api/v1/auth/login", items);
+      const res = await axios.post('/api/v1/auth/login', items);
       // console.log(res);
-      localStorage.setItem("studtoken", res.data.data.token);
+      localStorage.setItem('studtoken', res.data.data.token);
       swal(
         {
-          title: "Sign In Success",
-          text: "",
-          type: "success",
-          confirmButtonColor: "#0E3B7D",
-          confirmButtonText: "Ok",
+          title: 'Sign In Success',
+          text: '',
+          type: 'success',
+          confirmButtonColor: '#0E3B7D',
+          confirmButtonText: 'Ok',
           closeOnConfirm: true,
-          customClass: "Custom_Cancel",
+          customClass: 'Custom_Cancel',
         },
         function (isConfirm) {
           if (isConfirm) {
-            history.push("/studentdashboard");
+            history.push('/studentdashboard');
           } else {
-            history.push("/studentdashboard");
+            history.push('/studentdashboard');
           }
         }
       );
@@ -97,40 +97,40 @@ const UserSignin = () => {
         swal(
           {
             title: err.response.data.message,
-            text: "",
-            type: "error",
-            confirmButtonColor: "#0E3B7D",
-            confirmButtonText: "Ok",
+            text: '',
+            type: 'error',
+            confirmButtonColor: '#0E3B7D',
+            confirmButtonText: 'Ok',
             closeOnConfirm: true,
-            customClass: "Custom_Cancel",
+            customClass: 'Custom_Cancel',
           },
           function (isConfirm) {
             if (isConfirm) {
-              setPasswords("");
-              setEmails("");
+              setPasswords('');
+              setEmails('');
             } else {
-              setPasswords("");
-              setEmails("");
+              setPasswords('');
+              setEmails('');
             }
           }
         );
       } else {
-        setPasswords("");
+        setPasswords('');
         swal(
           {
-            title: "Incorrect Password",
-            text: "",
-            type: "error",
-            confirmButtonColor: "#0E3B7D",
-            confirmButtonText: "Ok",
+            title: 'Incorrect Password',
+            text: '',
+            type: 'error',
+            confirmButtonColor: '#0E3B7D',
+            confirmButtonText: 'Ok',
             closeOnConfirm: true,
-            customClass: "Custom_Cancel",
+            customClass: 'Custom_Cancel',
           },
           function (isConfirm) {
             if (isConfirm) {
-              setPasswords("");
+              setPasswords('');
             } else {
-              setPasswords("");
+              setPasswords('');
             }
           }
         );
@@ -139,8 +139,8 @@ const UserSignin = () => {
   }
 
   useEffect(() => {
-    if (localStorage.getItem("studtoken")) {
-      history.push("/studentdashboard");
+    if (localStorage.getItem('studtoken')) {
+      history.push('/studentdashboard');
     } else {
     }
   });
