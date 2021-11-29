@@ -13,10 +13,12 @@ import NewModule from './NewModule';
 
 const AllTest = () => {
   let history = useHistory();
+  const l2programsubtopicname = [];
 
   const [username, setusername] = useState([]);
 
   const [subtopicname, setsubtopicname] = useState([]);
+  const [subtopicnamel3, setsubtopicnamel3] = useState([]);
   const [result, setresult] = useState([]);
 
   function SubEvent(events) {
@@ -116,13 +118,26 @@ const AllTest = () => {
         };
         try {
           const res = await axios.get('/api/v1/test/subtopics', config);
+          const resl3 = await axios.get('/api/v1/test/subtopics/l3', config);
           const res1 = await axios.get('/api/v1/test/resultAll', config);
           console.log(res);
           console.log(res1);
-          setsubtopicname(res.data.data.subtopics);
+          res.data.data.subtopics.map((stp) => {
+            if (stp.program) {
+              if (stp.program === 'L3') {
+              } else if (stp.program === 'L2') {
+                l2programsubtopicname.push(stp);
+              }
+            } else {
+              l2programsubtopicname.push(stp);
+            }
+          });
+          setsubtopicname(l2programsubtopicname);
+          setsubtopicnamel3(res.data.data.subtopics);
           setresult(res1.data.data.paper);
           // console.log(res1.data.data.paper);
         } catch (err) {
+          console.log(err);
           if (err.response && err.response.data) {
             alert(err.response.data.message);
           }
@@ -254,6 +269,63 @@ const AllTest = () => {
         <div className="pt-3 pb-4 mb-5 rounded bg-white container ">
           {subtopicname &&
             subtopicname.map((stp, index) => (
+              <Faq
+                data={{
+                  title: '',
+                  rows: [
+                    {
+                      title: 'Module ' + (index + 1) + ' : ' + stp.name,
+                      content: <>{SubEvent(stp.events)}</>,
+                    },
+                  ],
+                }}
+                styles={styles1}
+                config={config}
+              />
+            ))}
+        </div>
+
+        <div className="container mt-3">
+          <div
+            class="card w-100"
+            style={{
+              backgroundColor: '#180D5B',
+              color: 'white',
+              border: '2px solid #180D5B',
+              borderRadius: '10px',
+            }}
+          >
+            <div class="card-body">
+              <div className="row">
+                <div className="col d-flex align-items-center">
+                  <h3>L-3 Program (Data Science & Artificial Intelligence)</h3>
+                </div>
+                <div className="col d-flex justify-content-end">
+                  <img
+                    src={l2prog}
+                    alt="program Image"
+                    height="190px"
+                    width="290px"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-3 container">
+          <div className="row">
+            <div className="col">
+              All Modules {'('}
+              {subtopicnamel3 && subtopicnamel3.length}
+              {')'}
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-3 pb-4 mb-5 rounded bg-white container ">
+          {subtopicnamel3 &&
+            subtopicnamel3.map((stp, index) => (
               <Faq
                 data={{
                   title: '',
