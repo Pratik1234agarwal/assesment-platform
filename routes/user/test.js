@@ -40,7 +40,7 @@ router.get("/subtopics", auth, async (req, res) => {
 });
 
 // TODO: Add the api to get the data of the people in the L3 Program.
-router.router.get("/completed", auth, async (req, res) => {
+router.get("/completed", auth, async (req, res) => {
   try {
     const paper = await Paper.find({ user: req.user.id }).select("testId");
     const test = await Test.find();
