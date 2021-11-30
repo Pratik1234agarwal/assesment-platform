@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import logo1 from "../../../images/logo.png";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
-import "sweetalert/dist/sweetalert.css";
-import swal from "sweetalert";
+import React, { useState, useEffect } from 'react';
+import logo1 from '../../../images/logo.png';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import 'sweetalert/dist/sweetalert.css';
+import swal from 'sweetalert';
 
 const StudentDashboard = () => {
   let history = useHistory();
@@ -15,14 +15,14 @@ const StudentDashboard = () => {
       return null;
     }
 
-    const jwt = JSON.parse(atob(jwtToken.split(".")[1]));
+    const jwt = JSON.parse(atob(jwtToken.split('.')[1]));
 
     // multiply by 1000 to convert seconds into milliseconds
     const expdatetime = new Date(jwt && jwt.exp && jwt.exp * 1000);
-    const time = new Date(expdatetime).toLocaleTimeString("en", {
-      timeStyle: "short",
+    const time = new Date(expdatetime).toLocaleTimeString('en', {
+      timeStyle: 'short',
       hour12: true,
-      timeZone: "IST",
+      timeZone: 'IST',
     });
 
     return expdatetime || null;
@@ -37,20 +37,20 @@ const StudentDashboard = () => {
   };
 
   const logout = () => {
-    localStorage.removeItem("studtoken");
-    history.push("/");
+    localStorage.removeItem('studtoken');
+    history.push('/');
   };
 
   const classLink = async () => {
     const config = {
       headers: {
-        Authorization: `studtoken ${localStorage.getItem("studtoken")}`,
+        Authorization: `studtoken ${localStorage.getItem('studtoken')}`,
       },
     };
     try {
-      const res = await axios.get("/api/v1/attendance", config);
+      const res = await axios.get('/api/v1/attendance', config);
       console.log(res);
-      window.open(res.data.data.meetLink, "_blank");
+      window.open(res.data.data.meetLink, '_blank');
     } catch (err) {
       if (err.response && err.response.data) {
         alert(err.response.data.message);
@@ -61,22 +61,22 @@ const StudentDashboard = () => {
   };
 
   useEffect(async () => {
-    if (localStorage.getItem("studtoken")) {
+    if (localStorage.getItem('studtoken')) {
       const exp = isExpired(
-        getExpirationDate(localStorage.getItem("studtoken"))
+        getExpirationDate(localStorage.getItem('studtoken'))
       );
       console.log(exp);
-      console.log(getExpirationDate(localStorage.getItem("studtoken")));
+      console.log(getExpirationDate(localStorage.getItem('studtoken')));
       if (exp == true) {
         swal(
           {
-            title: "Session Expired",
-            text: "Please Login again !!",
-            type: "warning",
-            confirmButtonColor: "#0E3B7D",
-            confirmButtonText: "Ok",
+            title: 'Session Expired',
+            text: 'Please Login again !!',
+            type: 'warning',
+            confirmButtonColor: '#0E3B7D',
+            confirmButtonText: 'Ok',
             closeOnConfirm: true,
-            customClass: "Custom_Cancel",
+            customClass: 'Custom_Cancel',
           },
           function (isConfirm) {
             if (isConfirm) {
@@ -89,15 +89,15 @@ const StudentDashboard = () => {
         profile();
       }
     } else {
-      history.push("/");
+      history.push('/');
     }
   }, []);
 
   function profile() {
     axios
-      .get("/api/v1/auth", {
+      .get('/api/v1/auth', {
         headers: {
-          Authorization: `studtoken ${localStorage.getItem("studtoken")}`,
+          Authorization: `studtoken ${localStorage.getItem('studtoken')}`,
         },
       })
       .then((res) => {
@@ -121,7 +121,7 @@ const StudentDashboard = () => {
                 <div className=" text-right pt-2"> {username}</div>
                 <div
                   onClick={logout}
-                  style={{ cursor: "pointer", color: "blue" }}
+                  style={{ cursor: 'pointer', color: 'blue' }}
                 >
                   Logout
                 </div>
@@ -148,7 +148,7 @@ const StudentDashboard = () => {
                   <i class="fas fa-user-circle fa-3x"></i>
                   <div
                     onClick={logout}
-                    style={{ cursor: "pointer", color: "blue" }}
+                    style={{ cursor: 'pointer', color: 'blue' }}
                   >
                     Logout
                   </div>
@@ -159,23 +159,23 @@ const StudentDashboard = () => {
         </div>
 
         <div className="container text-center mt-5 ">
-          <h3>Welcome to Student Panel of L2-Program</h3>
+          <h3>Welcome to Student Panel of L2/L3-Program</h3>
         </div>
 
         <div className="container text-center mt-5 mb-5">
           <div className="row pt-3 align-items-center">
             <div className="col-12 col-lg-6">
-              <div class="card text-center" style={{ borderRadius: "10px" }}>
+              <div class="card text-center" style={{ borderRadius: '10px' }}>
                 <div class="card-header">Attend Class</div>
                 <div class="card-body ">
                   <h5 class="card-title">Attend Today's Class</h5>
-                  <p class="card-text" style={{ fontSize: "17px" }}>
+                  <p class="card-text" style={{ fontSize: '17px' }}>
                     This will redirect you to join the class
                   </p>
                   <button
                     className="btn btn-danger "
                     onClick={classLink}
-                    style={{ borderRadius: "10px" }}
+                    style={{ borderRadius: '10px' }}
                   >
                     Attend Class
                   </button>
@@ -184,19 +184,19 @@ const StudentDashboard = () => {
               </div>
             </div>
             <div className="col-12 col-lg-6 mt-5 mt-lg-0 mb-5 mb-lg-0">
-              <div class="card text-center" style={{ borderRadius: "10px" }}>
+              <div class="card text-center" style={{ borderRadius: '10px' }}>
                 <div class="card-header">Knowledge Check</div>
                 <div class="card-body">
                   <h5 class="card-title">Attempt Quizes</h5>
-                  <p class="card-text" style={{ fontSize: "17px" }}>
+                  <p class="card-text" style={{ fontSize: '17px' }}>
                     All the quizes are provided modulewise
                   </p>
                   <button
                     className="btn btn-danger "
                     onClick={() => {
-                      history.push("/alltest");
+                      history.push('/alltest');
                     }}
-                    style={{ borderRadius: "10px" }}
+                    style={{ borderRadius: '10px' }}
                   >
                     Check Quizes
                   </button>

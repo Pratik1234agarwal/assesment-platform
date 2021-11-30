@@ -3,6 +3,7 @@ import logo1 from '../../../images/logo.png';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import l2prog from '../../../images/l2prog.jpg';
+import l3prog from '../../../images/l3prog.jpg';
 import SweetAlert from 'sweetalert-react';
 import 'sweetalert/dist/sweetalert.css';
 import swal from 'sweetalert';
@@ -19,6 +20,7 @@ const AllTest = () => {
 
   const [subtopicname, setsubtopicname] = useState([]);
   const [subtopicnamel3, setsubtopicnamel3] = useState([]);
+  const [l3error, setl3error] = useState('');
   const [result, setresult] = useState([]);
 
   function SubEvent(events) {
@@ -29,6 +31,76 @@ const AllTest = () => {
       </>
     );
   }
+
+  const l3 = () => {
+    // alert(l3error);
+    if (l3error === 'Student Not Present in the L3 Program') {
+      return;
+    } else if (l3error === 'no error') {
+      return (
+        <>
+          <div className="container mt-3">
+            <div
+              class="card w-100"
+              style={{
+                backgroundColor: '#192066',
+                color: 'white',
+                border: '2px solid #180D5B',
+                borderRadius: '10px',
+              }}
+            >
+              <div class="card-body">
+                <div className="row">
+                  <div className="col d-flex align-items-center">
+                    <h3>
+                      L-3 Program (Data Science & Artificial Intelligence)
+                    </h3>
+                  </div>
+                  <div className="col d-flex justify-content-end">
+                    <img
+                      src={l3prog}
+                      alt="program Image"
+                      height="190px"
+                      width="290px"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-3 container pb-3">
+            <div className="row">
+              <div className="col">
+                All Modules {'('}
+                {subtopicnamel3 && subtopicnamel3.length}
+                {')'}
+              </div>
+            </div>
+          </div>
+
+          <div className=" pb-4 mb-5 rounded bg-white container ">
+            {subtopicnamel3 &&
+              subtopicnamel3.map((stp, index) => (
+                <Faq
+                  data={{
+                    title: '',
+                    rows: [
+                      {
+                        title: 'Module ' + (index + 1) + ' : ' + stp.name,
+                        content: <>{SubEvent(stp.events)}</>,
+                      },
+                    ],
+                  }}
+                  styles={styles1}
+                  config={config}
+                />
+              ))}
+          </div>
+        </>
+      );
+    }
+  };
 
   const styles1 = {
     // bgColor: 'white',
@@ -118,7 +190,6 @@ const AllTest = () => {
         };
         try {
           const res = await axios.get('/api/v1/test/subtopics', config);
-          const resl3 = await axios.get('/api/v1/test/subtopics/l3', config);
           const res1 = await axios.get('/api/v1/test/resultAll', config);
           console.log(res);
           console.log(res1);
@@ -133,12 +204,24 @@ const AllTest = () => {
             }
           });
           setsubtopicname(l2programsubtopicname);
-          setsubtopicnamel3(res.data.data.subtopics);
           setresult(res1.data.data.paper);
+
+          const resl3 = await axios.get('/api/v1/test/subtopics/l3', config);
+          console.log(resl3);
+          setl3error('no error');
+          setsubtopicnamel3(resl3.data.data.subtopics);
           // console.log(res1.data.data.paper);
         } catch (err) {
           console.log(err);
+          console.log(err.response.data);
           if (err.response && err.response.data) {
+            if (
+              err.response.data.message ===
+              'Student Not Present in the L3 Program'
+            ) {
+              setl3error(err.response.data.message);
+              return;
+            }
             alert(err.response.data.message);
           }
         }
@@ -228,6 +311,8 @@ const AllTest = () => {
           </div>
         </div>
 
+        {l3()}
+
         <div className="container mt-3">
           <div
             class="card w-100"
@@ -269,63 +354,6 @@ const AllTest = () => {
         <div className="pt-3 pb-4 mb-5 rounded bg-white container ">
           {subtopicname &&
             subtopicname.map((stp, index) => (
-              <Faq
-                data={{
-                  title: '',
-                  rows: [
-                    {
-                      title: 'Module ' + (index + 1) + ' : ' + stp.name,
-                      content: <>{SubEvent(stp.events)}</>,
-                    },
-                  ],
-                }}
-                styles={styles1}
-                config={config}
-              />
-            ))}
-        </div>
-
-        <div className="container mt-3">
-          <div
-            class="card w-100"
-            style={{
-              backgroundColor: '#180D5B',
-              color: 'white',
-              border: '2px solid #180D5B',
-              borderRadius: '10px',
-            }}
-          >
-            <div class="card-body">
-              <div className="row">
-                <div className="col d-flex align-items-center">
-                  <h3>L-3 Program (Data Science & Artificial Intelligence)</h3>
-                </div>
-                <div className="col d-flex justify-content-end">
-                  <img
-                    src={l2prog}
-                    alt="program Image"
-                    height="190px"
-                    width="290px"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="pt-3 container">
-          <div className="row">
-            <div className="col">
-              All Modules {'('}
-              {subtopicnamel3 && subtopicnamel3.length}
-              {')'}
-            </div>
-          </div>
-        </div>
-
-        <div className="pt-3 pb-4 mb-5 rounded bg-white container ">
-          {subtopicnamel3 &&
-            subtopicnamel3.map((stp, index) => (
               <Faq
                 data={{
                   title: '',
