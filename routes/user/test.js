@@ -13,7 +13,7 @@ const Test = require("../../models/Test");
 const Paper = require("../../models/Paper");
 const { check, validationResult } = require("express-validator");
 const { response } = require("express");
-const { l3students } = require("../../helpers/l3students");
+const l3students = require("../../helpers/l3students");
 
 //const scheduleEvent = require('../../agenda/agenda');
 
@@ -36,6 +36,39 @@ router.get("/subtopics", auth, async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json(serverErrorResponse());
+  }
+});
+
+router.get("/subtopics/l3", auth, async (req, res) => {
+  try {
+    // Check if the student is in the L3 Program list
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(400).json(failErrorResponse("No Such User Existss"));
+    }
+    console.log("l3 ", l3students);
+    if (!l3students.includes(user.email.toLowerCase())) {
+      return res
+        .status(400)
+        .json(failErrorResponse("Student Not Present in the L3 Program"));
+    }
+    const subtopics = await Subtopic.find({ program: "L3" }).populate({
+      path: "events",
+      populate: {
+        path: "testId",
+        select: "durationOfTest",
+      },
+    });
+
+    return res.json({
+      status: "success",
+      data: {
+        subtopics,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(serverErrorResponse());
   }
 });
 
@@ -191,38 +224,6 @@ router.get("/resultAll", auth, async (req, res) => {
         Date.now()
     );
     return res.json({ status: "success", data: { paper } });
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json(serverErrorResponse());
-  }
-});
-
-router.get("/subtopics/l3", auth, async (req, res) => {
-  try {
-    // Check if the student is in the L3 Program list
-    const user = await User.findById(req.user.id);
-    if (!user) {
-      return res.status(400).json(failErrorResponse("No Such User Existss"));
-    }
-    if (!l3students.includes(user.email.toLowerCase())) {
-      return res
-        .status(400)
-        .json(failErrorResponse("Student Not Present in the L3 Program"));
-    }
-    const subtopics = await Subtopic.find({ program: "L3" }).populate({
-      path: "events",
-      populate: {
-        path: "testId",
-        select: "durationOfTest",
-      },
-    });
-
-    return res.json({
-      status: "success",
-      data: {
-        subtopics,
-      },
-    });
   } catch (err) {
     console.log(err);
     return res.status(500).json(serverErrorResponse());
