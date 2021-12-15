@@ -98,6 +98,11 @@ const L2ResultTable = (props) => {
         Header: 'Incorrect',
         accessor: 'incorrect',
       },
+
+      {
+        Header: 'Batch',
+        accessor: 'user.batch',
+      },
     ],
     []
   );
