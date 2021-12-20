@@ -98,6 +98,11 @@ const L2ResultTable = (props) => {
         Header: 'Incorrect',
         accessor: 'incorrect',
       },
+
+      {
+        Header: 'Batch',
+        accessor: 'user.batch',
+      },
     ],
     []
   );
@@ -127,6 +132,7 @@ const L2ResultTable = (props) => {
           Attempted: x.attempted,
           Correct: x.correct,
           Incorrect: x.incorrect,
+          Batch: x.user.batch,
         });
       });
       exportFromJSON({ data: resultexcel, fileName, exportType });
