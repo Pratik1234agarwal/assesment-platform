@@ -20,6 +20,9 @@ async function generateData() {
     const tests = await Test.find();
     for (let i = 0; i < l3students.length; i++) {
       const user = await User.findOne({ email: l3students[i] });
+      if (!user) {
+        console.log("User not present in the database");
+      }
       console.log(i);
       const dd = {};
       dd["Name"] = user.name;
