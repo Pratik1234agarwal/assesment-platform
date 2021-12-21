@@ -16,14 +16,16 @@ const headingColumnNames = ["Name", "Email", "Phone"];
 
 async function generateData() {
   try {
-    console.log("bb");
     const tests = await Test.find();
+    console.log(l3students.length);
     for (let i = 0; i < l3students.length; i++) {
       const user = await User.findOne({ email: l3students[i] });
       if (!user) {
         console.log("User not present in the database");
       }
-      console.log(i);
+      if (i % 50 == 0) {
+        console.log(i);
+      }
       const dd = {};
       dd["Name"] = user.name;
       dd["Email"] = user.email;
@@ -43,7 +45,7 @@ async function generateData() {
 
       data.push(dd);
     }
-
+    console.log("Data Length: ", data.length);
     for (let i = 0; i < tests.length; i++) {
       headingColumnNames.push(tests[i].testName);
     }
@@ -96,7 +98,7 @@ async function doeverything() {
   console.log("aa");
   await generateData();
   generateExcel();
-  await sendMail();
+  //await sendMail();
 }
 
 setTimeout(doeverything, 1000);
