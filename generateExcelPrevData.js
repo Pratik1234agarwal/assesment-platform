@@ -27,7 +27,10 @@ async function generateData() {
       dd["Phone"] = user.phone;
 
       for (let j = 0; j < tests.length; j++) {
-        const paper = await Paper.find({ user: user._id, test: tests[j]._id });
+        const paper = await Paper.findOne({
+          user: user._id,
+          test: tests[j]._id,
+        });
         if (!paper) {
           dd[tests[j].testName] = "Not Attempted";
         } else {
