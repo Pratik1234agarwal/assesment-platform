@@ -16,9 +16,11 @@ const headingColumnNames = ["Name", "Email", "Phone"];
 
 async function generateData() {
   try {
+    console.log("bb");
     const tests = await Test.find();
     for (let i = 0; i < l3students.length; i++) {
       const user = await User.findOne({ email: l3students[i] });
+      console.log(i);
       const dd = {};
       dd["Name"] = user.name;
       dd["Email"] = user.email;
@@ -27,9 +29,9 @@ async function generateData() {
       for (let j = 0; j < tests.length; j++) {
         const paper = await Paper.find({ user: user._id, test: tests[j]._id });
         if (!paper) {
-          dd[test.testName] = "Not Attempted";
+          dd[tests[j].testName] = "Not Attempted";
         } else {
-          dd[test.testName] = paper.marks;
+          dd[tests[j].testName] = `${paper.marks}`;
         }
       }
 
@@ -85,6 +87,7 @@ async function sendMail() {
 }
 
 async function doeverything() {
+  console.log("aa");
   await generateData();
   generateExcel();
   await sendMail();
