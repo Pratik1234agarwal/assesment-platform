@@ -1,14 +1,14 @@
-const express = require('express');
-const logger = require('morgan');
-const cors = require('cors');
-const path = require('path');
+const express = require("express");
+const logger = require("morgan");
+const cors = require("cors");
+const path = require("path");
 const {
   failErrorResponse,
   serverErrorResponse,
-} = require('../helpers/responseHandles');
+} = require("../helpers/responseHandles");
 
 module.exports = async ({ app }) => {
-  app.use(logger('dev'));
+  app.use(logger("dev"));
 
   // Parse Various Requests
   app.use(express.json({ extended: true }));
@@ -18,18 +18,23 @@ module.exports = async ({ app }) => {
   app.use(cors());
 
   // Serving static react files
-  app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
+  app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
-  app.use('/api/v1/auth', require('../routes/auth/auth'));
-  app.use('/api/v1/dsat', require('../routes/DSAT/exam'));
-  app.use('/api/v1/attendance', require('../routes/user/attendance'));
-  app.use('/api/v1/result', require('../routes/DSAT/result'));
-  app.use('/api/v1/admin', require('../routes/admin/adminAuth'));
-  app.use('/api/v1/test', require('../routes/user/test'));
+  app.use("/api/v1/auth", require("../routes/auth/auth"));
+  app.use("/api/v1/dsat", require("../routes/DSAT/exam"));
+  app.use("/api/v1/attendance", require("../routes/user/attendance"));
+  app.use("/api/v1/result", require("../routes/DSAT/result"));
+  app.use("/api/v1/admin", require("../routes/admin/adminAuth"));
+  app.use("/api/v1/test", require("../routes/user/test"));
+
+  app.use("/api/get/file/:filename", (req, res) => {
+    const location = path.join(__dirname, "..", req.params.filename);
+    res.sendFile(location);
+  });
 
   // Any other routes serves the React App
-  app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
+  app.get("/*", (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
   });
 
   // Error Handlers
@@ -37,7 +42,7 @@ module.exports = async ({ app }) => {
     /**
      * Handle 401 thrown by express-jwt library
      */
-    if (err.name === 'UnauthorizedError') {
+    if (err.name === "UnauthorizedError") {
       return res.status(err.status).send({ message: err.message }).end();
     }
     return next(err);
