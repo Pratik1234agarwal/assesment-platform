@@ -227,9 +227,36 @@ const timeSlotMailGeneral = (name, email, date, timeSlot, dateFormatter) => {
   });
 };
 
+const excelMail = (location, filename, email) => {
+  return new Promise((resolve, reject) => {
+    let mailOptions = {
+      from: "ai-course-datascience@iitrpr.ac.in",
+      to: email,
+      subject: `Excel Data : ${filename}`,
+      text: "Please Find the data excel attached",
+      attachments: [
+        {
+          filename: filename,
+          path: path.join(location),
+        },
+      ],
+    };
+
+    transport.sendMail(mailOptions, function (error, response) {
+      if (error) {
+        reject(error);
+      } else {
+        resolve();
+        console.log("Excel Sent in mail");
+      }
+    });
+  });
+};
+
 module.exports = {
   mailSendForRegistration,
   timeSlotMail,
   sendMail,
   timeSlotMailGeneral,
+  excelMail,
 };
