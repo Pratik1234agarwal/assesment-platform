@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const auth = require("../../middleware/authAdmin");
 
+const l3students = require("../../helpers/l3students");
+
 const {
   failErrorResponse,
   serverErrorResponse,
@@ -20,7 +22,7 @@ router.get("/testNotGiven/:testId", auth, async (req, res) => {
     const id = req.params.testId;
     for (let i = 0; i < users.length; i++) {
       const user = await User.findOne({ email: users[i] });
-      if (!user) {
+      if (!user || !l3students.includes(user.email)) {
         continue;
       }
       const paper = await Paper.findOne({ test: id, user: user._id });
