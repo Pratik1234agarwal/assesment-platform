@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const QuestionSchema = mongoose.Schema({
   text: {
@@ -37,6 +37,14 @@ const QuestionSchema = mongoose.Schema({
     type: String,
     required: false,
   },
+  topic: {
+    type: String,
+    required: true,
+  },
+  subtopic: {
+    type: String,
+    required: true,
+  },
 });
 
-module.exports = mongoose.model('questions', QuestionSchema);
+module.exports = mongoose.model("questions", QuestionSchema);

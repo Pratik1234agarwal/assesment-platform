@@ -18,6 +18,7 @@ const QuestionAdd = ({ testname, questno, marksques, negmarks }) => {
   const [option4Img, setoption4Img] = useState("");
   const [answer, setanswer] = useState("");
   const [category, setcategory] = useState("");
+  
   const [difficultyLevel, setDifficultyLevel] = useState("");
 
   function Onsubmit(event) {
@@ -396,6 +397,15 @@ const QuestionAdd = ({ testname, questno, marksques, negmarks }) => {
                       Quantitative Aptitude
                     </option>
                   </select>
+                </div>
+              </div>
+
+              <div className="row mt-5">
+                <div className="col">
+                  <label for="topic">
+                    <h6>Topic:</h6>
+                  </label>
+                  <input id="topic" className="" type="text" />
                 </div>
               </div>
 

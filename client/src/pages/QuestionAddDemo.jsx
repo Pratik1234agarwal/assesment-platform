@@ -462,6 +462,22 @@ const QuestionAddDemo = () => {
                 </div>
               </div>
 
+              <div className="row mt-5">
+                <div className="col">
+                  <label for="topic">
+                    <h6>Topic:</h6>
+                  </label>
+                  <input id="topic" className="" type="text" />
+                </div>
+
+                <div className="col">
+                  <label for="subtopic">
+                    <h6>Subtopic ( comma-seperated list):</h6>
+                  </label>
+                  <input id="subtopic" className="" type="text" />
+                </div>
+              </div>
+
               <div className="text-center mt-5 mb-5">
                 <button
                   type="submit"

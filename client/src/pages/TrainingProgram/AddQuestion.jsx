@@ -34,6 +34,10 @@ const AddQuestion = (props) => {
   const [category, setcategory] = useState("");
   const [difficultyLevel, setDifficultyLevel] = useState("");
 
+  // Topic and Subtoic addition
+  const [topic, setTopic] = useState("");
+  const [subtopic, setSubtopic] = useState("");
+
   async function Onsubmit(event) {
     showLoader();
     if (event) {
@@ -160,6 +164,8 @@ const AddQuestion = (props) => {
       answer,
       category,
       difficulty: difficultyLevel,
+      topic,
+      subtopic
     };
     console.log(item);
     try {
@@ -449,6 +455,22 @@ const AddQuestion = (props) => {
                       Quantitative Aptitude
                     </option>
                   </select>
+                </div>
+              </div>
+
+              <div className="row mt-5">
+                <div className="col">
+                  <label for="topic">
+                    <h6>Topic:</h6>
+                  </label>
+                  <input id="topic" className="form-control" type="text" value={topic} onChange={(e)=>setTopic(e.target.value)}/>
+                </div>
+
+                <div className="col">
+                  <label for="subtopic">
+                    <h6>Subtopic:</h6>
+                  </label>
+                  <input id="subtopic" className="form-control" type="text" value={subtopic} onChange={(e)=>setSubtopic(e.target.value)}/>
                 </div>
               </div>
 

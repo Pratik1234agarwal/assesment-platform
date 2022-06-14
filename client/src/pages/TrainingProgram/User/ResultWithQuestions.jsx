@@ -2,37 +2,48 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import logo1 from "../../../images/logo.png";
 import axios from "axios";
+import ReportStudent from './ReportStudent.jsx';
 
 const ResultWithQuestions = (props) => {
   let history = useHistory();
   const [questionResponses, setquestionResponses] = useState([]);
   const [test, settest] = useState([]);
+  const [report,setReport] = useState({});
 
-  useEffect(async () => {
-    if (localStorage.getItem("studtoken")) {
-      const config = {
-        headers: {
-          Authorization: `studtoken ${localStorage.getItem("studtoken")}`,
-        },
-      };
-      try {
-        const res = await axios.get(
-          "/api/v1/test/result/" + props.match.params.id,
-          config
-        );
-        console.log(res.data);
-        console.log(res);
+  useEffect(() => {
+    async function getData(){
+      if (localStorage.getItem("studtoken")) {
+        const config = {
+          headers: {
+            Authorization: `studtoken ${localStorage.getItem("studtoken")}`,
+          },
+        };
+        try {
+          const res = await axios.get(
+            "/api/v1/test/result/" + props.match.params.id,
+            config
+          );
+          const reportData = await axios.get(
+            "/api/v1/report/" + props.match.params.id,
+            config
+          );
 
-        console.log(res.data.data.questionResponses);
-        setquestionResponses(res.data.data.questionResponses);
-        settest(res.data.data.test);
-      } catch (err) {
-        // console.log(err);
-        alert("Test Is Not attempted");
+          setReport(reportData.data.data);
+          console.log(res.data);
+          console.log(res);
+  
+          console.log(res.data.data.questionResponses);
+          setquestionResponses(res.data.data.questionResponses);
+          settest(res.data.data.test);
+        } catch (err) {
+          // console.log(err);
+          alert("Test Is Not attempted");
+        }
+      } else {
+        history.push("/");
       }
-    } else {
-      history.push("/");
     }
+    getData();
   }, []);
 
   return (
@@ -71,6 +82,8 @@ const ResultWithQuestions = (props) => {
                 {test && test.testName} Result <br />
               </h3>
             </div>
+
+            
             <div className="col float-right">
               <div className="row pt-2">
                 <div className="col text-right pt-2"> {}</div>
@@ -90,6 +103,8 @@ const ResultWithQuestions = (props) => {
             </div>
           </div>
         </div>
+
+        <ReportStudent reportData={report}/>
 
         <div className="container ">
           <h3 className="text-capitalize d-block d-sm-none">

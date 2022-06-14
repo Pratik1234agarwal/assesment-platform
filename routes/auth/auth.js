@@ -128,11 +128,11 @@ router.post(
         });
       }
 
-      // Checking email for the ones in the array.
-      if (!users.includes(req.body.email.toLocaleLowerCase())) {
-        console.log("Email doesn't exists");
-        return res.status(400).json(failErrorResponse("User Not present"));
-      }
+      // Checking email for the ones in the array. ( "removed as not needed in this usage version" )
+      // if (!users.includes(req.body.email.toLocaleLowerCase())) {
+      //   console.log("Email doesn't exists");
+      //   return res.status(400).json(failErrorResponse("User Not present"));
+      // }
 
       let user = await User.findOne({ email: req.body.email });
       if (!user) {

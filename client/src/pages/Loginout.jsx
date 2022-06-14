@@ -53,9 +53,9 @@ const Loginout = () => {
         },
         function (isConfirm) {
           if (isConfirm) {
-            window.location.replace("https://www.iitrpr.ac.in/aiupskilling");
+            history.push("/");
           } else {
-            window.location.replace("https://www.iitrpr.ac.in/aiupskilling");
+            history.push("/");
           }
         }
       );
