@@ -53,7 +53,8 @@ const AllTest = () => {
                 <div className="row">
                   <div className="col d-flex align-items-center">
                     <h3>
-                      L-3 Program (Data Science & Artificial Intelligence)
+                      {/* L-3 Program (Data Science & Artificial Intelligence) */}
+                      Check Your Proficiency Level
                     </h3>
                   </div>
                   <div className="col d-flex justify-content-end">
@@ -72,7 +73,7 @@ const AllTest = () => {
           <div className="pt-3 container pb-3">
             <div className="row">
               <div className="col">
-                All Modules {'('}
+                All SubTopics {'('}
                 {subtopicnamel3 && subtopicnamel3.length}
                 {')'}
               </div>
@@ -326,7 +327,8 @@ const AllTest = () => {
             <div class="card-body">
               <div className="row">
                 <div className="col d-flex align-items-center">
-                  <h3>L-2 Program (Data Science & Artificial Intelligence)</h3>
+                  {/* <h3>L-2 Program (Data Science & Artificial Intelligence)</h3> */}
+                      <h3>Check Your Proficiency Level</h3>
                 </div>
                 <div className="col d-flex justify-content-end">
                   <img
@@ -344,7 +346,7 @@ const AllTest = () => {
         <div className="pt-3 container">
           <div className="row">
             <div className="col">
-              All Modules {'('}
+              All SubTopics {'('}
               {subtopicname && subtopicname.length}
               {')'}
             </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import logo1 from '../../../images/logo.png';
+import logo1 from '../../../images/logo1.png';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import 'sweetalert/dist/sweetalert.css';
@@ -139,7 +139,7 @@ const StudentDashboard = () => {
               <img src={logo1} />
             </div>
             <div className="col-4 text-center">
-              <h4 className="pt-3 pl-5">Student Dashboard</h4>
+              <h4 className="pt-3 pl-5">Ikigai Dashboard</h4>
             </div>
             <div className="col float-right">
               <div className="row pt-2">
@@ -159,12 +159,13 @@ const StudentDashboard = () => {
         </div>
 
         <div className="container text-center mt-5 ">
-          <h3>Welcome to Student Panel of L2/L3-Program</h3>
+          {/* <h3>Welcome to Student Panel of L2/L3-Program</h3> */}
+          <h3>Welcome to Ikigai's Assement Platform</h3>
         </div>
 
         <div className="container text-center mt-5 mb-5">
           <div className="row pt-3 align-items-center">
-            <div className="col-12 col-lg-6">
+            {/* <div className="col-12 col-lg-6">
               <div class="card text-center" style={{ borderRadius: '10px' }}>
                 <div class="card-header">Attend Class</div>
                 <div class="card-body ">
@@ -182,7 +183,7 @@ const StudentDashboard = () => {
                 </div>
                 <div class="card-footer text-muted">Student</div>
               </div>
-            </div>
+            </div> */}
             <div className="col-12 col-lg-6 mt-5 mt-lg-0 mb-5 mb-lg-0">
               <div class="card text-center" style={{ borderRadius: '10px' }}>
                 <div class="card-header">Knowledge Check</div>
