@@ -112,9 +112,9 @@ const AdminRoutes = () => {
             <div class="card text-center">
               <div class="card-header">Students Outcome</div>
               <div class="card-body">
-                <h5 class="card-title">A-DSAT Result</h5>
+                <h5 class="card-title">Proficiency Assessment Result</h5>
                 <p class="card-text" style={{ fontSize: '17px' }}>
-                  Check the results of all the A-DSAT student and ......
+                  Check the results of all the Proficiency tests  and ......
                 </p>
                 <button className="btn btn-danger " onClick={result}>
                   See Result
@@ -129,7 +129,7 @@ const AdminRoutes = () => {
             <div class="card text-center">
               <div class="card-header">Training Program</div>
               <div class="card-body">
-                <h5 class="card-title">L2 / L3 Program</h5>
+                <h5 class="card-title">Proficiency Assessment </h5>
                 <p class="card-text" style={{ fontSize: '17px' }}>
                   Add tests and all details according to the module
                   availables...
@@ -168,7 +168,7 @@ const AdminRoutes = () => {
             <div class="card text-center">
               <div class="card-header">Registrations</div>
               <div class="card-body">
-                <h5 class="card-title">Total Registrations for A-DSAT</h5>
+                <h5 class="card-title">Registrations for Proficiency Test</h5>
                 <p class="card-text" style={{ fontSize: '17px' }}>
                   Check Registered students information....
                   <br />

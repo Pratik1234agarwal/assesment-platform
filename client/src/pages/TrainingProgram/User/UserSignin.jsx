@@ -381,13 +381,22 @@ const UserSignin = () => {
               <div class="overlay-panel overlay-left ">
                 <h2>Hello Students!</h2>
                 <p>Create an account to connected with us</p>
-                <button class="ghost but" id="signIn">
+                <button class="ghost but" id="signIn" 
+                >
                   Sign Up
                 </button>
               </div>
               <div class="overlay-panel overlay-right">
-                <h2>Hello Students!</h2>
-                <p>Sign In to your account</p>
+                <h2>Hello, Students!</h2>
+                {/* <p>Sign In to your account</p> */}
+                <p>Create an account to stay connected with us</p>
+                <button class="ghost but" id="signIn" 
+                onClick={() => {
+                  history.push("/signup"); //CHange /signin to / for proper navigaion
+                }}
+                >
+                  Sign Up
+                </button>
                 {/* <button
                   class="ghost but"
                   id="signIn"

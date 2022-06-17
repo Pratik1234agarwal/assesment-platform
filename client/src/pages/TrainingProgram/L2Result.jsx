@@ -283,7 +283,8 @@ const L2Result = () => {
             <div className="row">
               <div className="col d-flex align-items-center">
                 <h3>
-                  L2 - L3 Program (Data Science & Artificial Intelligence)
+                  {/* L2 - L3 Program (Data Science & Artificial Intelligence) */}
+                  Proficiency Assessment
                 </h3>
               </div>
               <div className="col d-flex justify-content-end">
@@ -340,7 +341,7 @@ const L2Result = () => {
           <div className="col">
             <h5>
               {' '}
-              L2 Modules Result {'('}
+              Sub Topics Result {'('}
               {l2subtopicname && l2subtopicname.length}
               {')'} :-
             </h5>
@@ -372,7 +373,7 @@ const L2Result = () => {
           ))}
       </div>
 
-      <div
+      {/* <div
         className="pt-3 container"
         // data-toggle="tooltip"
         // title="Hooray!"
@@ -387,9 +388,9 @@ const L2Result = () => {
             </h5>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="pt-3 pb-4 mb-5 rounded bg-white container ">
+      {/* <div className="pt-3 pb-4 mb-5 rounded bg-white container ">
         {l3subtopicname &&
           l3subtopicname.map((stp, index) => (
             <Faq
@@ -401,7 +402,7 @@ const L2Result = () => {
                     content: (
                       <>
                         {/* {stp._id} */}
-                        {SubEvent(stp._id)}
+                        {/* {SubEvent(stp._id)}
                       </>
                     ),
                   },
@@ -411,7 +412,7 @@ const L2Result = () => {
               config={config}
             />
           ))}
-      </div>
+      </div> */} 
 
       {loading ? <Loader /> : null}
     </>

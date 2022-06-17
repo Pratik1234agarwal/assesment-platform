@@ -53,9 +53,9 @@ const Loginout = () => {
         },
         function (isConfirm) {
           if (isConfirm) {
-            history.push("/");
+            history.push("/signup");
           } else {
-            history.push("/");
+            history.push("/signup");
           }
         }
       );
@@ -342,7 +342,7 @@ const Loginout = () => {
                 // data-toggle="modal"
                 // data-target="#exampleModalCenter"
               >
-                Register for A-DSAT
+                Register
               </button>
             </form>
           </div>
@@ -401,7 +401,7 @@ const Loginout = () => {
                   class="ghost but"
                   id="signUp"
                   onClick={() => {
-                    history.push("/signin"); //CHange /signin to / for proper navigaion
+                    history.push("/"); //CHange /signin to / for proper navigaion
                   }}
                 >
                   Sign In

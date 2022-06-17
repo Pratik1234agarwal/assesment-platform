@@ -57,7 +57,7 @@ function App() {
   return (
     <>
       <Switch>
-        <Route path="/adsatlogin" component={Loginout} />
+        <Route path="/signup" component={Loginout} />
         <Route path="/sidepanel" component={Sidepanel} />
         <Route path="/instdsat" component={Instdsat} />
         <Route path="/finish" component={EndTest} />
