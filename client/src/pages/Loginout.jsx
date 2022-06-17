@@ -41,24 +41,26 @@ const Loginout = () => {
     try {
       const res = await axios.post(`/api/v1/auth/signup`, item);
       // console.log(res);
-      swal(
-        {
-          title: "Successfully Registered",
-          text: "Best Of Luck!",
-          type: "success",
-          confirmButtonColor: "#0E3B7D",
-          confirmButtonText: "Ok",
-          closeOnConfirm: false,
-          customClass: "Custom_Cancel",
-        },
-        function (isConfirm) {
-          if (isConfirm) {
-            history.push("/");
-          } else {
-            history.push("/");
-          }
-        }
-      );
+      localStorage.setItem("token", res.data.data.token);
+      history.push("/Instdsat");
+      // swal(
+      //   {
+      //     title: "Successfully Registered",
+      //     text: "Best Of Luck!",
+      //     type: "success",
+      //     confirmButtonColor: "#0E3B7D",
+      //     confirmButtonText: "Ok",
+      //     closeOnConfirm: false,
+      //     customClass: "Custom_Cancel",
+      //   },
+      //   // function (isConfirm) {
+      //   //   if (isConfirm) {
+      //   //     history.push("/");
+      //   //   } else {
+      //   //     history.push("/");
+      //   //   }
+      //   // }
+      // );
     } catch (err) {
       console.log(err.response.data);
       if (err.response.data && err.response.data.message) {
