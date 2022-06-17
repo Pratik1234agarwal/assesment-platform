@@ -4,7 +4,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useAlert } from "react-alert";
 // import PSDM_log from "../images/PSDM_logo.jpg";
-import logos from "../images/logos.png";
+import logos from "../images/logo1.png";
 import SweetAlert from "sweetalert-react";
 import "sweetalert/dist/sweetalert.css";
 import swal from "sweetalert";
@@ -403,7 +403,7 @@ const Loginout = () => {
                   class="ghost but"
                   id="signUp"
                   onClick={() => {
-                    history.push("/signin");
+                    history.push("/signin"); //CHange /signin to / for proper navigaion
                   }}
                 >
                   Sign In
