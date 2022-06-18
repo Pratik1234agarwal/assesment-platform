@@ -17,6 +17,7 @@ const Instdsat = () => {
       try {
         const resp = await axios.get("/api/v1/dsat/checkslot", config);
         if (resp.data.data.isSlotTime == true) {
+          
         } else {
           history.push("/signin");
         }
@@ -27,7 +28,7 @@ const Instdsat = () => {
         }
       }
     } else {
-      history.push("/signin");
+      history.push("/");
     }
   });
   function check() {
