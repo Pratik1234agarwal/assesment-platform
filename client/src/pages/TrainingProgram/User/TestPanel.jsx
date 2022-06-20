@@ -15,6 +15,7 @@ import "sweetalert/dist/sweetalert.css";
 import swal from "sweetalert";
 import TestQuestions from "./TestQuestions";
 import SidePaneTestQuestion from "./SidePaneTestQuestion";
+// import Cameraweb from "../../../Components/Cameraweb";
 
 const TestPanel = (props) => {
   let history = useHistory();
@@ -36,6 +37,7 @@ const TestPanel = (props) => {
   };
 
   useEffect(async () => {
+    
     swal(
       {
         title: "Enter Fullscreen",
@@ -55,7 +57,7 @@ const TestPanel = (props) => {
         }
       }
     );
-
+    // Cameraweb
     if (screenfull.isEnabled) {
       screenfull.on("change", () => {
         console.log(
@@ -266,9 +268,11 @@ const TestPanel = (props) => {
             </div>
           </div>
           <div className="container text-center">
-            <h4 className="pt-3">Online Test</h4>
+            <h4 className="pt-3">Online Test
+            
+            </h4>
+            <Cameraweb />
           </div>
-
           <div className="mt-3">
             <SidePaneTestQuestion
               setCurrentQuestion={setCurrentQuestion}
@@ -347,7 +351,7 @@ const TestPanel = (props) => {
             </div>
             <div className="col-4 text-center">
               <h4 className="pt-3">Online Test</h4>
-              {/* <Cameraweb /> */}
+              <Cameraweb />
             </div>
             <div className="col float-right">
               <div className="row pt-2">

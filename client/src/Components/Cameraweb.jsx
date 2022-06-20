@@ -29,7 +29,7 @@ const Cameraweb = () => {
   return (
     <>
       <Webcam
-        audio={false}
+        audio={true}
         height={100}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
