@@ -159,7 +159,7 @@ const Loginout = () => {
         </div>
       </div>
 
-      <div className="text-center">
+      <div className="text-center p-3">
         <img src={logos} />
       </div>
       <h3 className="mt-4 d-block d-sm-none ">A-DSAT Registration</h3>
@@ -258,7 +258,7 @@ const Loginout = () => {
         </form>
       </div>
       <div className="body1">
-        <h3 className="mt-5 d-none d-sm-block">A-DSAT Registration</h3>
+        {/* <h3 className="mt-5 d-none d-sm-block">A-DSAT Registration</h3> */}
         <div class="containers mt-2 d-none d-sm-block" id="containers">
           <div class="form-container sign-up-container">
             <form className="form" onSubmit={signUp}>
@@ -398,7 +398,7 @@ const Loginout = () => {
               </div>
               <div class="overlay-panel overlay-right">
                 <h2>Hello, Students!</h2>
-                <p>Welcome to A-DSAT! Wish you best of luck</p>
+                <p>Welcome to Ikigia's Assessment Platform! Wish you best of luck</p>
                 <button
                   class="ghost but"
                   id="signUp"

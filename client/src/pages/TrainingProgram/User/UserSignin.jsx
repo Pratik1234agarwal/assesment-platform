@@ -187,7 +187,7 @@ const UserSignin = () => {
         </div>
       </div>
 
-      <div className="text-center">
+      <div className="text-center p-3">
         <img src={logos} />
       </div>
       <h3 className="mt-4 d-block d-sm-none ">Student SignIn</h3>
@@ -245,7 +245,7 @@ const UserSignin = () => {
         {/* //////// */}
       </div>
       <div className="body1">
-        <h3 className="mt-5 d-none d-sm-block">Student SignIn Portal</h3>
+        {/* <h3 className="mt-5 d-none d-sm-block">Student SignIn Portal</h3> */}
         <div class="containers mt-2 d-none d-sm-block" id="containers">
           <div class="form-container sign-in-container">
             <form className="form" onSubmit={signUp}>
