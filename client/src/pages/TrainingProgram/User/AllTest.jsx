@@ -153,6 +153,8 @@ const AllTest = () => {
   };
 
   const logout = () => {
+    
+    localStorage.removeItem('Subtopicid');
     localStorage.removeItem('studtoken');
     history.push('/');
   };
@@ -190,14 +192,24 @@ const AllTest = () => {
           },
         };
         try {
-          const res = await axios.get('/api/v1/test/subtopics', config);
+          
+          console.clear();
+          const subId = localStorage.getItem('Subtopicid');
+          console.log(subId);
+          const res = await axios.get(`/api/v1/test/subtopics`, config);
+          const respo = await fetch(`/api/v1/test/subtopics/${subId}`, config);
           const res1 = await axios.get('/api/v1/test/resultAll', config);
-          console.log(res);
+          
+          const ModuleData = await respo.json();
+          console.log("res",res);
+          console.log("res data",res.data.data.subtopic);
+          
+          console.log("mod data",ModuleData.data.subtopic);
           console.log(res1);
           res.data.data.subtopics.map((stp) => {
             if (stp.program) {
               if (stp.program === 'L3') {
-              } else if (stp.program === 'L2') {
+              } else if (stp.program === 'L2' && stp._id === subId ) {
                 l2programsubtopicname.push(stp);
               }
             } else {
@@ -205,6 +217,8 @@ const AllTest = () => {
             }
           });
           setsubtopicname(l2programsubtopicname);
+          console.log("sn");
+          l2programsubtopicname.forEach(e => console.log(e));
           setresult(res1.data.data.paper);
 
           const resl3 = await axios.get('/api/v1/test/subtopics/l3', config);
@@ -214,17 +228,17 @@ const AllTest = () => {
           // console.log(res1.data.data.paper);
         } catch (err) {
           console.log(err);
-          console.log(err.response.data);
-          if (err.response && err.response.data) {
-            if (
-              err.response.data.message ===
-              'Student Not Present in the L3 Program'
-            ) {
-              setl3error(err.response.data.message);
-              return;
-            }
-            alert(err.response.data.message);
-          }
+          // console.log(err.response.data);
+          // if (err.response && err.response.data) {
+          //   if (
+          //     err.response.data.message ===
+          //     'Student Not Present in the L3 Program'
+          //   ) {
+          //     setl3error(err.response.data.message);
+          //     return;
+          //   }
+          //   alert(err.response.data.message);
+          // }
         }
       }
     } else {
@@ -328,7 +342,8 @@ const AllTest = () => {
               <div className="row">
                 <div className="col d-flex align-items-center">
                   {/* <h3>L-2 Program (Data Science & Artificial Intelligence)</h3> */}
-                      <h3>Check Your Proficiency Level</h3>
+                      {/* <h3>Check Your Proficiency Level</h3> */}
+                      <h3>We assist you in determining your strengths and weaknesses.</h3>
                 </div>
                 <div className="col d-flex justify-content-end">
                   <img

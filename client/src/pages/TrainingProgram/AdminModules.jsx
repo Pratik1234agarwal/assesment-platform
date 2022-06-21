@@ -253,7 +253,8 @@ const AdminModules = (props) => {
             <div className="row">
               <div className="col d-flex align-items-center">
                 <h3>
-                  L2 - L3 Program (Data Science & Artificial Intelligence)
+                  {/* L2 - L3 Program (Data Science & Artificial Intelligence) */}
+                  Module Details
                 </h3>
               </div>
               <div className="col d-flex justify-content-end">
@@ -268,9 +269,10 @@ const AdminModules = (props) => {
           </div>
         </div>
       </div>
-
+<br />
       <div className="container-fluid d-none d-sm-block">
-        <h4 className="pt-3 container">L2 Program Modules :-</h4>
+        <h3>Existing Modules</h3>
+        {/* <h4 className="pt-3 container">L2 Program Modules :-</h4> */}
         <div className="row d-flex justify-content-center">
           {l2subtopicname &&
             l2subtopicname.map((stp, index) => (
@@ -305,7 +307,7 @@ const AdminModules = (props) => {
               </div>
             ))}
         </div>
-        <h4 className="pt-3 container">L3 Program Modules :-</h4>
+        {/* <h4 className="pt-3 container">L3 Program Modules :-</h4> */}
         <div className="row d-flex justify-content-center">
           {l3subtopicname &&
             l3subtopicname.map((stp, index) => (
@@ -418,6 +420,7 @@ const AdminModules = (props) => {
       </div>
 
       <div className="container mt-4 mb-5">
+        <h3>Create A New Module</h3>
         <div
           class="card  shadow "
           style={{ border: '2px solid white', borderRadius: '20px' }}

@@ -7,8 +7,11 @@ import swal from 'sweetalert';
 
 const StudentDashboard = () => {
   let history = useHistory();
+  const l2programsubtopicname = [];
+  
 
   const [username, setusername] = useState([]);
+  const [subtopicname, setsubtopicname] = useState([]);
 
   const getExpirationDate = (jwtToken) => {
     if (!jwtToken) {
@@ -37,6 +40,7 @@ const StudentDashboard = () => {
   };
 
   const logout = () => {
+    localStorage.removeItem('Subtopicid');
     localStorage.removeItem('studtoken');
     history.push('/');
   };
@@ -87,6 +91,28 @@ const StudentDashboard = () => {
         );
       } else {
         profile();
+        const config = {
+          headers: {
+            Authorization: `studtoken ${localStorage.getItem('studtoken')}`,
+          },
+        };
+
+        try {
+          const res = await axios.get('/api/v1/test/subtopics', config);
+          const respo = await fetch('/api/v1/test/subtopics', config);
+          const Moduledata = await respo.json();
+          console.log("res",res);
+          console.log("res data",Moduledata.data.subtopics);
+          setsubtopicname(Moduledata.data.subtopics);
+
+          // console.log(res1.data.data.paper);
+        } catch (err) {
+          console.log(err);
+          console.log(err.response.data);
+          
+        }
+
+
       }
     } else {
       history.push('/');
@@ -184,7 +210,39 @@ const StudentDashboard = () => {
                 <div class="card-footer text-muted">Student</div>
               </div>
             </div> */}
-            <div className="col-12 col-lg-6 mt-5 mt-lg-0 mb-5 mb-lg-0">
+          {
+            subtopicname.map((curr)=>{
+              return(
+                <div className="col-12 col-lg-6 mt-5 mt-lg-0 mb-5 mb-lg-0">
+              <div class="card text-center" style={{ borderRadius: '10px' }}>
+                <div class="card-header">Module</div>
+                <div class="card-body">
+                  <h5 class="card-title">{curr.name}</h5>
+                  <p class="card-text" style={{ fontSize: '17px' }}>
+                    All the quizes are provided 
+                  </p>
+                  <button
+                    className="btn btn-danger "
+                    onClick={() => {
+                      const id = curr._id;
+                      localStorage.setItem('Subtopicid',curr._id)
+                      history.push('/alltest');
+                    }}
+                    style={{ borderRadius: '10px' }}
+                  >
+                    Check Quizes
+                  </button>
+                </div>
+                <div class="card-footer text-muted">Student</div>
+              </div>
+            </div>
+              )
+            })
+          }
+
+
+
+            {/* <div className="col-12 col-lg-6 mt-5 mt-lg-0 mb-5 mb-lg-0">
               <div class="card text-center" style={{ borderRadius: '10px' }}>
                 <div class="card-header">Knowledge Check</div>
                 <div class="card-body">
@@ -204,7 +262,7 @@ const StudentDashboard = () => {
                 </div>
                 <div class="card-footer text-muted">Student</div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
