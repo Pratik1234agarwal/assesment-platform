@@ -29,7 +29,7 @@ const ResultWithQuestions = (props) => {
           );
 
           setReport(reportData.data.data);
-          console.log(res.data);
+          console.log("res = ",res.data);
           console.log(res);
   
           console.log(res.data.data.questionResponses);
@@ -61,6 +61,7 @@ const ResultWithQuestions = (props) => {
                 <div className=" text-right pt-2"> {}</div>
                 <div
                   onClick={() => {
+                    localStorage.removeItem('SubTopicName');
                     history.push("/alltest");
                   }}
                   style={{ cursor: "pointer", color: "blue" }}
@@ -78,6 +79,9 @@ const ResultWithQuestions = (props) => {
               <img src={logo1} />
             </div>
             <div className="col-4 text-center">
+            <h3 className="text-capitalize pt-3 pl-5 ">
+            Module : {localStorage.getItem('SubTopicName')}  <br />
+              </h3>
               <h3 className="text-capitalize pt-3 pl-5 ">
                 {test && test.testName} Result <br />
               </h3>
@@ -92,6 +96,7 @@ const ResultWithQuestions = (props) => {
                   {/* <i class="fas fa-home fa-2x"></i> */}
                   <div
                     onClick={() => {
+                      localStorage.removeItem('SubTopicName')
                       history.push("/alltest");
                     }}
                     style={{ cursor: "pointer", color: "blue" }}
@@ -107,6 +112,9 @@ const ResultWithQuestions = (props) => {
         <ReportStudent reportData={report}/>
 
         <div className="container ">
+        <h3 className="text-capitalize pt-3 pl-5 ">
+            Module : {localStorage.getItem('SubTopicName')}  <br />
+              </h3>
           <h3 className="text-capitalize d-block d-sm-none">
             {test && test.testName} Result <br />
           </h3>

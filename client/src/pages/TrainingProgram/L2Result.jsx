@@ -129,6 +129,7 @@ const L2Result = () => {
   };
 
   const logout = () => {
+    localStorage.removeItem('Subtopicid');
     localStorage.removeItem('Admin');
     history.push('/admin');
   };
@@ -162,6 +163,7 @@ const L2Result = () => {
         },
       };
       try {
+        const subId = localStorage.getItem('Subtopicid');
         const res = await axios.get('/api/v1/admin/course/subtopic', config);
         console.log(res);
         setsubtopicname(res.data.data.subtopics);
@@ -169,7 +171,7 @@ const L2Result = () => {
           if (stp.program) {
             if (stp.program === 'L3') {
               l3programsubtopicname.push(stp);
-            } else if (stp.program === 'L2') {
+            } else if (stp.program === 'L2'  && stp._id === subId) {
               l2programsubtopicname.push(stp);
             }
           } else {
@@ -247,7 +249,9 @@ const L2Result = () => {
                 <i class="fas fa-arrow-circle-left fa-3x"></i>
                 <div
                   onClick={() => {
-                    history.push('/trainingadmin');
+                    
+                    localStorage.removeItem('Subtopicid');
+                    history.push('/adminallmodules');
                   }}
                   className="mr-2"
                   style={{ cursor: 'pointer', color: 'blue' }}
@@ -341,7 +345,7 @@ const L2Result = () => {
           <div className="col">
             <h5>
               {' '}
-              Sub Topics Result {'('}
+              All Quizes {'('}
               {l2subtopicname && l2subtopicname.length}
               {')'} :-
             </h5>
@@ -357,7 +361,7 @@ const L2Result = () => {
                 title: '',
                 rows: [
                   {
-                    title: 'Module ' + (index + 1) + ' : ' + stp.name,
+                    title: 'Module Name ' /*+ (index + 1)  */+ ' : ' + stp.name,
                     content: (
                       <>
                         {/* {stp._id} */}

@@ -31,7 +31,8 @@ const AdminModules = (props) => {
 
     let data = {
       name: subtopic,
-      program: program,
+      // program: program,
+      program : "L2"
     };
     console.log(data);
 
@@ -156,7 +157,8 @@ const AdminModules = (props) => {
                     required
                   />
                   <br />
-                  <label for="testName">Select Program :</label>
+                  {/* {setprogram('L2')} */}
+                  {/* <label for="testName">Select Program :</label>
                   <select
                     class="form-control"
                     id="program-name"
@@ -167,7 +169,7 @@ const AdminModules = (props) => {
                     <option value="">Choose...</option>
                     <option value="L2">L2</option>
                     <option value="L3">L3</option>
-                  </select>
+                  </select> */}
                 </div>
                 <div className="text-center">
                   <button

@@ -107,8 +107,8 @@ const AdminRoutes = () => {
       </div>
 
       <div className="container text-center mt-5 mb-5">
-        <div className="row">
-          <div className="col-12 col-lg-4">
+        <div className="row align-items-center  d-flex justify-content-center">
+          {/* <div className="col-12 col-lg-4">
             <div class="card text-center">
               <div class="card-header">Students Outcome</div>
               <div class="card-body">
@@ -122,7 +122,7 @@ const AdminRoutes = () => {
               </div>
               <div class="card-footer text-muted">Admin</div>
             </div>
-          </div>
+          </div> */}
 
           {/* //// */}
           <div className="col-12 col-lg-4 mt-5 mt-lg-0">

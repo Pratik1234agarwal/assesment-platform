@@ -210,6 +210,7 @@ const AllTest = () => {
             if (stp.program) {
               if (stp.program === 'L3') {
               } else if (stp.program === 'L2' && stp._id === subId ) {
+                localStorage.setItem('SubTopicName',stp.name);
                 l2programsubtopicname.push(stp);
               }
             } else {
@@ -274,6 +275,8 @@ const AllTest = () => {
                   <i class="fas fa-arrow-circle-left fa-3x"></i>
                   <div
                     onClick={() => {
+                      localStorage.removeItem('SubTopicName');
+                      localStorage.removeItem('Subtopicid');
                       history.push('/studentdashboard');
                     }}
                     className="mr-2"
@@ -304,6 +307,8 @@ const AllTest = () => {
                   <i class="fas fa-arrow-circle-left fa-3x"></i>
                   <div
                     onClick={() => {
+                      localStorage.removeItem('SubTopicName');
+                      localStorage.removeItem('Subtopicid');
                       history.push('/studentdashboard');
                     }}
                     className="mr-2"
@@ -376,7 +381,7 @@ const AllTest = () => {
                   title: '',
                   rows: [
                     {
-                      title: 'Module ' + (index + 1) + ' : ' + stp.name,
+                      title: 'Module Name ' /*+ (index + 1)*/ + ' : ' + stp.name,
                       content: <>{SubEvent(stp.events)}</>,
                     },
                   ],

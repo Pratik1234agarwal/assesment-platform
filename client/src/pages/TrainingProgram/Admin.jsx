@@ -1,5 +1,6 @@
 import React from 'react';
 import logo1 from '../../images/logo.png';
+import AdminBoxes from '../AdminBoxes';
 import { useHistory } from 'react-router-dom';
 
 const Admin = () => {
@@ -39,7 +40,7 @@ const Admin = () => {
         {/* <h3>Welcome to Admin Panel of L2/L3 - Program</h3> */}
         <h3>Welcome to Ikigai's Assement Platform</h3>
       </div>
-
+      {/* <AdminBoxes /> */}
       <div className="container text-center mt-5 mb-5">
         <div className="row align-items-center  d-flex justify-content-center">
           <div className="col-12 col-lg-6">
@@ -50,7 +51,7 @@ const Admin = () => {
                 <p class="card-text" style={{ fontSize: '17px' }}>
                   Add Test And Test Details Modulewise
                 </p>
-                <button
+                <button 
                   className="btn btn-danger "
                   onClick={() => {
                     history.push('/createbatch');
@@ -73,7 +74,7 @@ const Admin = () => {
                 <button
                   className="btn btn-danger "
                   onClick={() => {
-                    history.push('/modulewiseresult');
+                    history.push('/adminallmodules');
                   }}
                 >
                   Check

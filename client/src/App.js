@@ -50,6 +50,7 @@ import L2ResultTable from "./pages/TrainingProgram/L2ResultTable";
 import ResultWithQuestions from "./pages/TrainingProgram/User/ResultWithQuestions";
 import ResultData from "./pages/TrainingProgram/ResultData";
 import StudentDashboard from "./pages/TrainingProgram/User/StudentDashboard";
+import AdminAllModules from "./pages/TrainingProgram/AdminAllModules";
 
 // axios.defaults.baseURL = "https://adsatiitropar.com";
 
@@ -72,6 +73,7 @@ function App() {
         <Route path="/tables" component={Tables} />
         <Route path="/camera" component={Cameraweb} />
         <Route path="/A-DSAT_Registration" component={ADSATreg} />
+        <Route path="/adminallmodules" component={AdminAllModules} />
 
         <Route path="/addingquestions" component={QuestionAddDemo} />
         <Route path="/questionaddlogin" component={QuestionAddLogin} />

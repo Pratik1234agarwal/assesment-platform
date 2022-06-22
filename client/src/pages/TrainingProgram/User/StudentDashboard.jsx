@@ -186,7 +186,7 @@ const StudentDashboard = () => {
 
         <div className="container text-center mt-5 ">
           {/* <h3>Welcome to Student Panel of L2/L3-Program</h3> */}
-          <h3>Welcome to Ikigai's Assement Platform</h3>
+          <h3>Welcome to Ikigai's Assessment Platform</h3>
         </div>
 
         <div className="container text-center mt-5 mb-5  ">

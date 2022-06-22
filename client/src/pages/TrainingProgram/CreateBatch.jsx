@@ -164,7 +164,7 @@ const CreateBatch = () => {
             <div className="row">
               <div className="col d-flex align-items-center">
                 <h3>
-                  L2 - L3 Program (Data Science & Artificial Intelligence)
+                  Ikigai's Assessment Platform
                 </h3>
               </div>
               <div className="col d-flex justify-content-end">
@@ -263,7 +263,7 @@ const CreateBatch = () => {
                           <p class="card-text " style={{ color: '#180D5B' }}>
                             <h6>
                               <i class="fa fa-tasks" aria-hidden="true"></i>
-                              L2/L3 - Program
+                              Program
                             </h6>
                           </p>
                         </div>
