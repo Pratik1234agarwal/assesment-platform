@@ -9,6 +9,11 @@ const Admin = () => {
     localStorage.removeItem('Admin');
     history.push('/admin');
   };
+  const styles= { borderRadius: '10px',
+   margin: '10px',
+   "box-shadow": "10px 10px 5px -5px rgba(174,174,174,0.75)",
+  " -webkit-box-shadow": "10px 10px 5px -5px rgba(174,174,174,0.75)",
+   "-moz-box-shadow": "10px 10px 5px -5px rgba(174,174,174,0.75)" }
   return (
     <>
       <div className="container-fluid admn">
@@ -44,7 +49,7 @@ const Admin = () => {
       <div className="container text-center mt-5 mb-5">
         <div className="row align-items-center  d-flex justify-content-center">
           <div className="col-12 col-lg-6">
-            <div class="card text-center">
+            <div class="card text-center" style={styles}>
               <div class="card-header">Test Creation</div>
               <div class="card-body ">
                 <h5 class="card-title">Create Tests/ Add Events</h5>
@@ -64,7 +69,7 @@ const Admin = () => {
             </div>
           </div>
           <div className="col-12 col-lg-6 mt-5 mt-lg-0 mb-5 mb-lg-0">
-            <div class="card text-center">
+            <div class="card text-center" style={styles}>
               <div class="card-header">Students Outcome</div>
               <div class="card-body">
                 <h5 class="card-title">Check Modulewise Results</h5>

@@ -35,6 +35,12 @@ const Admin = () => {
     return Date.now() > exp;
   };
 
+  const styles= { borderRadius: '10px',
+   margin: '10px',
+   "box-shadow": "10px 10px 5px -5px rgba(174,174,174,0.75)",
+  " -webkit-box-shadow": "10px 10px 5px -5px rgba(174,174,174,0.75)",
+   "-moz-box-shadow": "10px 10px 5px -5px rgba(174,174,174,0.75)" };
+
   const [subtopicname, setsubtopicname] = useState([]);
   const logout = () => {
     localStorage.removeItem('Subtopicid');
@@ -150,8 +156,8 @@ const Admin = () => {
             subtopicname.map((curr)=>{
               return(
                 <>
-                    <div className="col-12 col-lg-6 mt-5 mt-lg-0 mb-5 mb-lg-0">
-              <div class="card text-center" style={{ borderRadius: '10px' }}>
+                    <div className="col-12 col-lg-6 mt-5 mt-lg-0 mb-5 mb-lg-0" >
+              <div class="card text-center" style={styles}>
                 <div class="card-header">Students Outcome</div>
                 <div class="card-body">
                   <h5 class="card-title">{curr.name}</h5>
