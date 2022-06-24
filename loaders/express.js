@@ -17,6 +17,13 @@ module.exports = async ({ app }) => {
   // Enabling cors policy
   app.use(cors());
 
+  app.set('view engine','ejs');
+
+  app.get('/uploadquestions' , (req,res) => {
+    // res.sendFile(path.join(__dirname, "..", "routes", "uploadQuestion", "home.ejs"));
+    res.render(path.join(__dirname, "..", "routes", "uploadQuestion", "home"));
+  })
+
   // Serving static react files
   app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
@@ -27,6 +34,7 @@ module.exports = async ({ app }) => {
   app.use("/api/v1/report", require("../routes/user/report"));
   app.use("/api/v1/admin", require("../routes/admin/adminAuth"));
   app.use("/api/v1/test", require("../routes/user/test"));
+  app.use("/excel", require("../routes/uploadQuestion/uploadExcel"));
 
   app.use("/api/get/file/:filename", (req, res) => {
     const location = path.join(__dirname, "..", req.params.filename);
@@ -34,9 +42,13 @@ module.exports = async ({ app }) => {
   });
 
   // Any other routes serves the React App
-  app.get("/*", (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
-  });
+  
+
+  // app.get("/*", (req, res) => {
+  //   res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
+  // });
+
+  
 
   // Error Handlers
   app.use((err, req, res, next) => {
