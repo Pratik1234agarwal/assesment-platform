@@ -99,6 +99,15 @@ const TestDetails = (props) => {
         </button>
 
         <button
+          className="btn btn-danger ml-3"
+          onClick={() => {
+            history.push("/exceladdquestionstest/" + props.match.params.id);
+          }}
+        >
+          Add From Excel
+        </button>
+
+        <button
           className="btn btn-success ml-3"
           onClick={() => {
             history.push("/testquestiondatabase/" + props.match.params.id);

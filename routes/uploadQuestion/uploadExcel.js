@@ -26,12 +26,13 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({ storage: storage });
+var questions = [];
 
-router.post('/addExcelQuestions/', upload.single('excel'), async (req, res) => {
+router.post('/addExcelQuestions/', upload.single('file'), async (req, res) => {
     try {
         const testID = (req.body.testID).trim();
-        const id = mongoose.Types.ObjectId(testID)
-        console.log(mongoose.Types.ObjectId(testID));
+        // const id = mongoose.Types.ObjectId(testID)
+        // console.log(mongoose.Types.ObjectId(testID));
         const test = await Test.findById({ _id: ObjectId(testID) });
         if (!test) {
             return res
@@ -78,23 +79,47 @@ router.post('/addExcelQuestions/', upload.single('excel'), async (req, res) => {
         });
     } catch (err) {
         console.log(err);
+        console.log('This is the rejected field ->', err.field);
         res.status(500).json(serverErrorResponse());
     }
 });
 
 
-router.post('/uploadfile', upload.single("excel"), (req, res) => {
-    importExcelData2MongoDB(req.file.path);
+router.post('/uploadfile/:id', upload.single("excel"), async (req, res) => {
+    const testID = req.params.id;
+        const test = await Test.findById({ _id: ObjectId(testID) });
+        if (!test) {
+            return res
+                .status(400)
+                .json(
+                    failErrorResponse(
+                        'Either the test or the quesiton with the specified id does not exist'
+                    )
+                );
+        }
+        if (test.questionBank.length >= test.numberOfQuestions) {
+            return res
+                .status(400)
+                .json(
+                    failErrorResponse('The Number of question for the test has exceeded')
+                );
+        }
+        const excelFile = req.file; 
+        console.log(excelFile);
+    importExcelData2MongoDB(testID, excelFile);
+
+    // console.log("question id",questions);
     return res.json({
         status: "success",
       });
     // console.log(res);
 });
 // Import Excel File to MongoDB database
-function importExcelData2MongoDB(filePath) {
+async function importExcelData2MongoDB(testID, excelFile) {
+
     // -> Read Excel File to Json Data
     const excelData = excelToJson({
-        sourceFile: filePath,
+        sourceFile: excelFile,
         sheets: [{
             // Excel Sheet Name
             name: 'Book1',
@@ -125,6 +150,7 @@ function importExcelData2MongoDB(filePath) {
 
     console.log("excel Data", excelData);
     // console.log(typeof excelData.Book1);
+    
 
     excelData.Book1.forEach(async(curr) => {
         // console.log(`
@@ -139,7 +165,7 @@ function importExcelData2MongoDB(filePath) {
         //     topic: ${curr.topic},
         //     subtopic: ${curr.subtopic},
         //   `);
-        question = new Question({
+        const question = new Question({
             text: curr.text,
             A: {text: curr.Atext},
             B: {text: curr.Btext},
@@ -155,15 +181,27 @@ function importExcelData2MongoDB(filePath) {
           await question.save();
 
 
+        Test.findByIdAndUpdate(
+            {_id: testID},
+            {
+                 "$push": { "questionBank" :  question._id }
+            },{
+                new: true
+            },
+            (err,doc)=>{
+                if(err){
+                    throw err
+                }
+                else{
+                    console.log(doc);
+                }
+            }
+            )
+
+
     })
 
-    // Question.insertMany(excelData, (err, data) => {
-    //     if (err) {
-    //         console.log(err);
-    //     } else {
-    //         console.log(data);
-    //     }
-    // });
+    
 }
 
 module.exports = router;

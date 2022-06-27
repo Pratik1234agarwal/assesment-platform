@@ -51,6 +51,7 @@ import ResultWithQuestions from "./pages/TrainingProgram/User/ResultWithQuestion
 import ResultData from "./pages/TrainingProgram/ResultData";
 import StudentDashboard from "./pages/TrainingProgram/User/StudentDashboard";
 import AdminAllModules from "./pages/TrainingProgram/AdminAllModules";
+import QuestionAddExcel from "./pages/QuestionAddExcel"
 
 // axios.defaults.baseURL = "https://adsatiitropar.com";
 
@@ -97,6 +98,7 @@ function App() {
         <Route path="/ModulesTest/:id" component={ModulesTest} />
         <Route path="/testdetails/:id" component={TestDetails} />
         <Route path="/addquestionstest/:id" component={AddQuestion} />
+        <Route path="/exceladdquestionstest/:id" component={QuestionAddExcel} />
         <Route
           path="/testquestiondatabase/:id"
           component={TestQuestionsDatabase}
