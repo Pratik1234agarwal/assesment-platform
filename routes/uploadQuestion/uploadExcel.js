@@ -104,9 +104,9 @@ router.post('/uploadfile/:id', upload.single("excel"), async (req, res) => {
                     failErrorResponse('The Number of question for the test has exceeded')
                 );
         }
-        const excelFile = req.file; 
-        console.log(excelFile);
-    importExcelData2MongoDB(testID, excelFile);
+        // const excelFile = req.file; 
+        // console.log(excelFile);
+    importExcelData2MongoDB(testID, req.file.path);
 
     // console.log("question id",questions);
     return res.json({
@@ -115,11 +115,11 @@ router.post('/uploadfile/:id', upload.single("excel"), async (req, res) => {
     // console.log(res);
 });
 // Import Excel File to MongoDB database
-async function importExcelData2MongoDB(testID, excelFile) {
+async function importExcelData2MongoDB(testID, filePath) {
 
     // -> Read Excel File to Json Data
     const excelData = excelToJson({
-        sourceFile: excelFile,
+        sourceFile: filePath,
         sheets: [{
             // Excel Sheet Name
             name: 'Book1',

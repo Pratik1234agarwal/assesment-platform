@@ -62,6 +62,7 @@ router.post(
           .status(400)
           .json(failErrorResponse("The question already exists"));
       }
+      console.log(req.body);
       question = new Question({
         text: req.body.questionText,
         A: {
@@ -76,6 +77,7 @@ router.post(
         topic: req.body.topic,
         subtopic: req.body.subtopic,
       });
+
       if (req.body.questionImage) {
         question.questionImage = req.body.questionImage;
       }
