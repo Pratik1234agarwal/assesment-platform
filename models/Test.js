@@ -45,6 +45,9 @@ const TestSchema = new mongoose.Schema({
     required: true,
     default: true,
   },
+  password:{
+    type : String,
+  }
 });
 
 module.exports = mongoose.model("test", TestSchema);

@@ -22,6 +22,7 @@ const ModulesTest = (props) => {
   const [numberOfQuestions, setnumberOfQuestions] = useState("");
   const [negativeMarksPerQuestion, setnegativeMarksPerQuestion] = useState("");
   const [testduration, settestduration] = useState("");
+  const [password,setpassword] = useState("");
 
   const [subtopicname, setsubtopicname] = useState([]);
 
@@ -154,6 +155,7 @@ const ModulesTest = (props) => {
       marksPerQuestion,
       negativeMarksPerQuestion,
       durationOfTest: testduration,
+      password
     };
     console.log(data);
 
@@ -532,6 +534,17 @@ const ModulesTest = (props) => {
                     id="testduration"
                     value={testduration}
                     onChange={(e) => settestduration(e.target.value)}
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="pass">Password :</label>
+                  <input
+                    type = 'password'
+                    class="form-control"
+                    id="pass"
+                    value={password}
+                    onChange={(e) => setpassword(e.target.value)}
                     required
                   />
                 </div>

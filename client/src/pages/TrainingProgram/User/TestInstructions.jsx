@@ -6,6 +6,12 @@ import { useHistory } from "react-router-dom";
 const TestInstructions = (props) => {
   let history = useHistory();
   const [testdetail, settestdetail] = useState("");
+  const [password,setPassword] = useState("");
+
+  const styles = {
+    'display' : 'flex',
+    'justify-content' : 'center',
+  }
 
   useEffect(async () => {
     if (localStorage.getItem("studtoken")) {
@@ -20,7 +26,7 @@ const TestInstructions = (props) => {
           config
         );
 
-        console.log(res);
+        console.log("res: ",res);
         settestdetail(res.data.data.test);
       } catch (err) {
         if (err.response && err.response.data) {
@@ -33,11 +39,17 @@ const TestInstructions = (props) => {
   }, []);
 
   function check() {
-    if (localStorage.getItem("studtoken")) {
-      history.push("/test/" + props.match.params.id);
-    } else {
-      //   history.push("/signin");
+    console.log("Password : " ,password);
+    if(testdetail.password === password){
+      if (localStorage.getItem("studtoken")) {
+        history.push("/test/" + props.match.params.id);
+      } else {
+        //   history.push("/signin");
+      }
+    }else{
+      alert("Enter Valid password");
     }
+    
   }
 
   return (
@@ -46,6 +58,7 @@ const TestInstructions = (props) => {
         <h2 className="pt-5 text-capitalize">
           Online Test - {testdetail && testdetail.testName}
         </h2>
+        
         <button
           type="button"
           class="btn btn-dark mt-5 text-dark "
@@ -58,6 +71,12 @@ const TestInstructions = (props) => {
         >
           GET STARTED
         </button>
+        
+      </div>
+      <div className="password" style={styles}>
+      <input type="password" placeholder="Password" 
+      value={password}
+      onChange={(e)=>setPassword(e.target.value)}/>
       </div>
 
       <div className="container text-center">
